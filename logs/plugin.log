@@ -589,3 +589,326 @@
 2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列67的线程
 2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列68的线程
 2024-12-29 21:10:54,859 - xzltxs - INFO - 等待所有列处理完成
+2024-12-29 21:25:52,160 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 21:41:59,409 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 21:42:24,358 - xzltxs - INFO - 开始激活插件
+2024-12-29 21:42:24,388 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-29 21:42:24,388 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 21:42:25,710 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 21:42:26,428 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 21:42:27,007 - xzltxs - INFO - 插件激活成功
+2024-12-29 21:42:31,323 - xzltxs - INFO - 开始处理数据
+2024-12-29 21:42:31,323 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11d6449d0>
+2024-12-29 21:42:31,363 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 21:42:31,363 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 21:42:32,464 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 21:42:33,626 - xzltxs - INFO - 权限检查通过
+2024-12-29 21:42:33,626 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 21:42:45,382 - xzltxs - INFO - 更新配置
+2024-12-29 21:42:46,385 - xzltxs - INFO - 总列数: 50
+2024-12-29 21:42:46,385 - xzltxs - INFO - 创建进度条
+2024-12-29 21:42:46,386 - xzltxs - INFO - 创建数据处理器
+2024-12-29 21:42:46,386 - xzltxs - INFO - 启动数据处理器
+2024-12-29 21:42:46,386 - xzltxs - INFO - 开始数据处理
+2024-12-29 21:42:46,386 - xzltxs - INFO - 总列数: 50
+2024-12-29 21:42:46,386 - xzltxs - INFO - 创建列 19 的处理任务
+2024-12-29 21:42:46,387 - xzltxs - INFO - 列 19 的任务已提交到线程池
+2024-12-29 21:42:46,387 - xzltxs - INFO - 创建列 20 的处理任务
+2024-12-29 21:42:46,387 - xzltxs - INFO - 开始处理列 19
+2024-12-29 21:42:46,387 - xzltxs - INFO - 处理列: 19
+2024-12-29 21:42:46,387 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 21:42:46,387 - xzltxs - INFO - 列 20 的任务已提交到线程池
+2024-12-29 21:42:46,387 - xzltxs - INFO - 创建列 21 的处理任务
+2024-12-29 21:42:46,387 - xzltxs - INFO - 开始处理列 20
+2024-12-29 21:42:46,387 - xzltxs - INFO - 处理列: 20
+2024-12-29 21:42:46,388 - xzltxs - INFO - 开始处理列 21
+2024-12-29 21:42:46,388 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 21:42:46,389 - xzltxs - INFO - 列 21 的任务已提交到线程池
+2024-12-29 21:42:46,389 - xzltxs - INFO - 处理列: 21
+2024-12-29 21:42:46,390 - xzltxs - INFO - 创建列 22 的处理任务
+2024-12-29 21:42:46,392 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 21:42:46,392 - xzltxs - INFO - 列 22 的任务已提交到线程池
+2024-12-29 21:42:46,392 - xzltxs - INFO - 开始处理列 22
+2024-12-29 21:42:46,392 - xzltxs - INFO - 创建列 23 的处理任务
+2024-12-29 21:42:46,393 - xzltxs - INFO - 处理列: 22
+2024-12-29 21:42:46,396 - xzltxs - INFO - 开始处理列 23
+2024-12-29 21:42:46,396 - xzltxs - INFO - 列 23 的任务已提交到线程池
+2024-12-29 21:42:46,396 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 21:42:46,396 - xzltxs - INFO - 处理列: 23
+2024-12-29 21:42:46,396 - xzltxs - INFO - 创建列 24 的处理任务
+2024-12-29 21:42:46,399 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 21:42:46,401 - xzltxs - INFO - 列 24 的任务已提交到线程池
+2024-12-29 21:42:46,401 - xzltxs - INFO - 开始处理列 24
+2024-12-29 21:42:46,401 - xzltxs - INFO - 创建列 25 的处理任务
+2024-12-29 21:42:46,401 - xzltxs - INFO - 处理列: 24
+2024-12-29 21:42:46,403 - xzltxs - INFO - 列 25 的任务已提交到线程池
+2024-12-29 21:42:46,403 - xzltxs - INFO - 开始处理列 25
+2024-12-29 21:42:46,403 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 21:42:46,403 - xzltxs - INFO - 创建列 26 的处理任务
+2024-12-29 21:42:46,403 - xzltxs - INFO - 处理列: 25
+2024-12-29 21:42:46,405 - xzltxs - INFO - 列 26 的任务已提交到线程池
+2024-12-29 21:42:46,405 - xzltxs - INFO - 开始处理列 26
+2024-12-29 21:42:46,405 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 21:42:46,405 - xzltxs - INFO - 创建列 27 的处理任务
+2024-12-29 21:42:46,405 - xzltxs - INFO - 处理列: 26
+2024-12-29 21:42:46,407 - xzltxs - INFO - 列 27 的任务已提交到线程池
+2024-12-29 21:42:46,407 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 21:42:46,408 - xzltxs - INFO - 创建列 28 的处理任务
+2024-12-29 21:42:46,409 - xzltxs - INFO - 列 28 的任务已提交到线程池
+2024-12-29 21:42:46,409 - xzltxs - INFO - 创建列 29 的处理任务
+2024-12-29 21:42:46,409 - xzltxs - INFO - 列 29 的任务已提交到线程池
+2024-12-29 21:42:46,411 - xzltxs - INFO - 创建列 30 的处理任务
+2024-12-29 21:42:46,411 - xzltxs - INFO - 列 30 的任务已提交到线程池
+2024-12-29 21:42:46,411 - xzltxs - INFO - 创建列 31 的处理任务
+2024-12-29 21:42:46,412 - xzltxs - INFO - 列 31 的任务已提交到线程池
+2024-12-29 21:42:46,412 - xzltxs - INFO - 创建列 32 的处理任务
+2024-12-29 21:42:46,412 - xzltxs - INFO - 列 32 的任务已提交到线程池
+2024-12-29 21:42:46,413 - xzltxs - INFO - 创建列 33 的处理任务
+2024-12-29 21:42:46,413 - xzltxs - INFO - 列 33 的任务已提交到线程池
+2024-12-29 21:42:46,414 - xzltxs - INFO - 创建列 34 的处理任务
+2024-12-29 21:42:46,414 - xzltxs - INFO - 列 34 的任务已提交到线程池
+2024-12-29 21:42:46,414 - xzltxs - INFO - 创建列 35 的处理任务
+2024-12-29 21:42:46,414 - xzltxs - INFO - 列 35 的任务已提交到线程池
+2024-12-29 21:42:46,414 - xzltxs - INFO - 创建列 36 的处理任务
+2024-12-29 21:42:46,414 - xzltxs - INFO - 列 36 的任务已提交到线程池
+2024-12-29 21:42:46,416 - xzltxs - INFO - 创建列 37 的处理任务
+2024-12-29 21:42:46,416 - xzltxs - INFO - 列 37 的任务已提交到线程池
+2024-12-29 21:42:46,424 - xzltxs - INFO - 创建列 38 的处理任务
+2024-12-29 21:42:46,425 - xzltxs - INFO - 列 38 的任务已提交到线程池
+2024-12-29 21:42:46,425 - xzltxs - INFO - 创建列 39 的处理任务
+2024-12-29 21:42:46,425 - xzltxs - INFO - 列 39 的任务已提交到线程池
+2024-12-29 21:42:46,425 - xzltxs - INFO - 创建列 40 的处理任务
+2024-12-29 21:42:46,425 - xzltxs - INFO - 列 40 的任务已提交到线程池
+2024-12-29 21:42:46,426 - xzltxs - INFO - 创建列 41 的处理任务
+2024-12-29 21:42:46,426 - xzltxs - INFO - 列 41 的任务已提交到线程池
+2024-12-29 21:42:46,427 - xzltxs - INFO - 创建列 42 的处理任务
+2024-12-29 21:42:46,427 - xzltxs - INFO - 列 42 的任务已提交到线程池
+2024-12-29 21:42:46,429 - xzltxs - INFO - 创建列 43 的处理任务
+2024-12-29 21:42:46,429 - xzltxs - INFO - 列 43 的任务已提交到线程池
+2024-12-29 21:42:46,429 - xzltxs - INFO - 创建列 44 的处理任务
+2024-12-29 21:42:46,430 - xzltxs - INFO - 列 44 的任务已提交到线程池
+2024-12-29 21:42:46,430 - xzltxs - INFO - 创建列 45 的处理任务
+2024-12-29 21:42:46,430 - xzltxs - INFO - 列 45 的任务已提交到线程池
+2024-12-29 21:42:46,430 - xzltxs - INFO - 创建列 46 的处理任务
+2024-12-29 21:42:46,430 - xzltxs - INFO - 列 46 的任务已提交到线程池
+2024-12-29 21:42:46,430 - xzltxs - INFO - 创建列 47 的处理任务
+2024-12-29 21:42:46,431 - xzltxs - INFO - 列 47 的任务已提交到线程池
+2024-12-29 21:42:46,432 - xzltxs - INFO - 创建列 48 的处理任务
+2024-12-29 21:42:46,432 - xzltxs - INFO - 列 48 的任务已提交到线程池
+2024-12-29 21:42:46,434 - xzltxs - INFO - 创建列 49 的处理任务
+2024-12-29 21:42:46,435 - xzltxs - INFO - 列 49 的任务已提交到线程池
+2024-12-29 21:42:46,435 - xzltxs - INFO - 创建列 50 的处理任务
+2024-12-29 21:42:46,436 - xzltxs - INFO - 列 50 的任务已提交到线程池
+2024-12-29 21:42:46,437 - xzltxs - INFO - 创建列 51 的处理任务
+2024-12-29 21:42:46,438 - xzltxs - INFO - 列 51 的任务已提交到线程池
+2024-12-29 21:42:46,438 - xzltxs - INFO - 创建列 52 的处理任务
+2024-12-29 21:42:46,438 - xzltxs - INFO - 列 52 的任务已提交到线程池
+2024-12-29 21:42:46,438 - xzltxs - INFO - 创建列 53 的处理任务
+2024-12-29 21:42:46,438 - xzltxs - INFO - 列 53 的任务已提交到线程池
+2024-12-29 21:42:46,439 - xzltxs - INFO - 创建列 54 的处理任务
+2024-12-29 21:42:46,440 - xzltxs - INFO - 列 54 的任务已提交到线程池
+2024-12-29 21:42:46,440 - xzltxs - INFO - 创建列 55 的处理任务
+2024-12-29 21:42:46,440 - xzltxs - INFO - 列 55 的任务已提交到线程池
+2024-12-29 21:42:46,442 - xzltxs - INFO - 创建列 56 的处理任务
+2024-12-29 21:42:46,442 - xzltxs - INFO - 列 56 的任务已提交到线程池
+2024-12-29 21:42:46,443 - xzltxs - INFO - 创建列 57 的处理任务
+2024-12-29 21:42:46,443 - xzltxs - INFO - 列 57 的任务已提交到线程池
+2024-12-29 21:42:46,443 - xzltxs - INFO - 创建列 58 的处理任务
+2024-12-29 21:42:46,444 - xzltxs - INFO - 列 58 的任务已提交到线程池
+2024-12-29 21:42:46,444 - xzltxs - INFO - 创建列 59 的处理任务
+2024-12-29 21:42:46,444 - xzltxs - INFO - 列 59 的任务已提交到线程池
+2024-12-29 21:42:46,446 - xzltxs - INFO - 创建列 60 的处理任务
+2024-12-29 21:42:46,446 - xzltxs - INFO - 列 60 的任务已提交到线程池
+2024-12-29 21:42:46,447 - xzltxs - INFO - 创建列 61 的处理任务
+2024-12-29 21:42:46,447 - xzltxs - INFO - 列 61 的任务已提交到线程池
+2024-12-29 21:42:46,447 - xzltxs - INFO - 创建列 62 的处理任务
+2024-12-29 21:42:46,448 - xzltxs - INFO - 列 62 的任务已提交到线程池
+2024-12-29 21:42:46,448 - xzltxs - INFO - 创建列 63 的处理任务
+2024-12-29 21:42:46,448 - xzltxs - INFO - 列 63 的任务已提交到线程池
+2024-12-29 21:42:46,448 - xzltxs - INFO - 创建列 64 的处理任务
+2024-12-29 21:42:46,449 - xzltxs - INFO - 列 64 的任务已提交到线程池
+2024-12-29 21:42:46,451 - xzltxs - INFO - 创建列 65 的处理任务
+2024-12-29 21:42:46,451 - xzltxs - INFO - 列 65 的任务已提交到线程池
+2024-12-29 21:42:46,451 - xzltxs - INFO - 创建列 66 的处理任务
+2024-12-29 21:42:46,451 - xzltxs - INFO - 列 66 的任务已提交到线程池
+2024-12-29 21:42:46,451 - xzltxs - INFO - 创建列 67 的处理任务
+2024-12-29 21:42:46,452 - xzltxs - INFO - 列 67 的任务已提交到线程池
+2024-12-29 21:42:46,452 - xzltxs - INFO - 创建列 68 的处理任务
+2024-12-29 21:42:46,452 - xzltxs - INFO - 列 68 的任务已提交到线程池
+2024-12-29 21:42:46,452 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-29 21:48:49,342 - xzltxs - INFO - 处理行: 1003 - 2003
+2024-12-29 21:54:55,819 - xzltxs - INFO - 处理行: 1003 - 2003
+2024-12-29 22:07:58,561 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 22:07:58,589 - xzltxs - INFO - 停止数据处理
+2024-12-29 22:31:56,536 - plugin_manager.plugin_system - ERROR - 加载插件 template_plugin.py 时出错: 加载插件失败: cannot import name 'Signal' from 'PyQt6.QtCore' (/Volumes/TOSHIBAEXT/opt/anaconda3/envs/pyqt/lib/python3.11/site-packages/PyQt6/QtCore.abi3.so)
+2024-12-29 22:31:56,673 - plugin_manager.plugin_system - ERROR - 加载插件 xzltxs.py 时出错: 加载插件失败: cannot import name 'PluginPermission' from 'plugin_manager.plugin_interface' (/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugin_interface.py)
+2024-12-29 22:31:56,673 - plugin_manager.plugin_system - INFO - 成功加载 0 个插件
+2024-12-29 22:32:40,952 - root - ERROR - Plugin load failed: 加载插件失败: cannot import name 'PluginPermission' from 'plugin_manager.plugin_interface' (/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugin_interface.py)
+Stack trace: Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugin_system.py", line 71, in load_plugin
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugins/xzltxs.py", line 16, in <module>
+    from plugin_manager.plugin_base import PluginBase
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugin_base.py", line 4, in <module>
+    from plugin_manager.plugin_interface import PluginInterface, PluginPermission
+ImportError: cannot import name 'PluginPermission' from 'plugin_manager.plugin_interface' (/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugin_interface.py)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugins_manager_window.py", line 195, in load_plugin
+    success = self.plugin_system.load_plugin(target_path, show_info=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugin_system.py", line 105, in load_plugin
+    raise PluginError(f"加载插件失败: {str(e)}")
+plugin_manager.plugin_system.PluginError: 加载插件失败: cannot import name 'PluginPermission' from 'plugin_manager.plugin_interface' (/Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/plugin_interface.py)
+
+2024-12-29 22:35:40,010 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 22:36:05,328 - xzltxs - INFO - 开始激活插件
+2024-12-29 22:36:05,330 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-29 22:36:05,330 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 22:36:06,881 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 22:36:07,569 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 22:36:08,163 - xzltxs - INFO - 插件激活成功
+2024-12-29 22:36:12,548 - xzltxs - INFO - 开始处理数据
+2024-12-29 22:36:12,548 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11d1bca60>
+2024-12-29 22:36:12,928 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 22:36:12,928 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 22:36:14,323 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 22:36:15,479 - xzltxs - INFO - 权限检查通过
+2024-12-29 22:36:15,479 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 22:36:16,919 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-29 22:36:22,118 - xzltxs - INFO - 更新配置
+2024-12-29 22:36:23,126 - xzltxs - INFO - 总列数: 50
+2024-12-29 22:36:23,126 - xzltxs - INFO - 创建进度条
+2024-12-29 22:36:23,155 - xzltxs - INFO - 创建数据处理器
+2024-12-29 22:36:23,156 - xzltxs - INFO - 启动数据处理器
+2024-12-29 22:36:23,156 - xzltxs - INFO - 开始数据处理
+2024-12-29 22:36:23,156 - xzltxs - INFO - 总列数: 50
+2024-12-29 22:36:23,156 - xzltxs - INFO - 创建列 19 的处理任务
+2024-12-29 22:36:23,156 - xzltxs - INFO - 列 19 的任务已提交到线程池
+2024-12-29 22:36:23,156 - xzltxs - INFO - 开始处理列 19
+2024-12-29 22:36:23,156 - xzltxs - INFO - 创建列 20 的处理任务
+2024-12-29 22:36:23,156 - xzltxs - INFO - 处理列: 19
+2024-12-29 22:36:23,156 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 22:36:23,156 - xzltxs - INFO - 列 20 的任务已提交到线程池
+2024-12-29 22:36:23,156 - xzltxs - INFO - 开始处理列 20
+2024-12-29 22:36:23,156 - xzltxs - INFO - 创建列 21 的处理任务
+2024-12-29 22:36:23,156 - xzltxs - INFO - 处理列: 20
+2024-12-29 22:36:23,160 - xzltxs - INFO - 开始处理列 21
+2024-12-29 22:36:23,160 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 22:36:23,160 - xzltxs - INFO - 列 21 的任务已提交到线程池
+2024-12-29 22:36:23,161 - xzltxs - INFO - 处理列: 21
+2024-12-29 22:36:23,163 - xzltxs - INFO - 创建列 22 的处理任务
+2024-12-29 22:36:23,163 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 22:36:23,164 - xzltxs - INFO - 开始处理列 22
+2024-12-29 22:36:23,164 - xzltxs - INFO - 列 22 的任务已提交到线程池
+2024-12-29 22:36:23,166 - xzltxs - INFO - 处理列: 22
+2024-12-29 22:36:23,166 - xzltxs - INFO - 创建列 23 的处理任务
+2024-12-29 22:36:23,166 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 22:36:23,167 - xzltxs - INFO - 列 23 的任务已提交到线程池
+2024-12-29 22:36:23,168 - xzltxs - INFO - 开始处理列 23
+2024-12-29 22:36:23,170 - xzltxs - INFO - 创建列 24 的处理任务
+2024-12-29 22:36:23,170 - xzltxs - INFO - 处理列: 23
+2024-12-29 22:36:23,172 - xzltxs - INFO - 列 24 的任务已提交到线程池
+2024-12-29 22:36:23,172 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 22:36:23,172 - xzltxs - INFO - 开始处理列 24
+2024-12-29 22:36:23,173 - xzltxs - INFO - 创建列 25 的处理任务
+2024-12-29 22:36:23,176 - xzltxs - INFO - 处理列: 24
+2024-12-29 22:36:23,177 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 22:36:23,177 - xzltxs - INFO - 列 25 的任务已提交到线程池
+2024-12-29 22:36:23,177 - xzltxs - INFO - 创建列 26 的处理任务
+2024-12-29 22:36:23,178 - xzltxs - INFO - 列 26 的任务已提交到线程池
+2024-12-29 22:36:23,178 - xzltxs - INFO - 开始处理列 26
+2024-12-29 22:36:23,178 - xzltxs - INFO - 创建列 27 的处理任务
+2024-12-29 22:36:23,178 - xzltxs - INFO - 开始处理列 25
+2024-12-29 22:36:23,180 - xzltxs - INFO - 处理列: 26
+2024-12-29 22:36:23,180 - xzltxs - INFO - 列 27 的任务已提交到线程池
+2024-12-29 22:36:23,183 - xzltxs - INFO - 处理列: 25
+2024-12-29 22:36:23,183 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 22:36:23,183 - xzltxs - INFO - 创建列 28 的处理任务
+2024-12-29 22:36:23,183 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 22:36:23,183 - xzltxs - INFO - 列 28 的任务已提交到线程池
+2024-12-29 22:36:23,186 - xzltxs - INFO - 创建列 29 的处理任务
+2024-12-29 22:36:23,193 - xzltxs - INFO - 列 29 的任务已提交到线程池
+2024-12-29 22:36:23,195 - xzltxs - INFO - 创建列 30 的处理任务
+2024-12-29 22:36:23,195 - xzltxs - INFO - 列 30 的任务已提交到线程池
+2024-12-29 22:36:23,196 - xzltxs - INFO - 创建列 31 的处理任务
+2024-12-29 22:36:23,197 - xzltxs - INFO - 列 31 的任务已提交到线程池
+2024-12-29 22:36:23,198 - xzltxs - INFO - 创建列 32 的处理任务
+2024-12-29 22:36:23,199 - xzltxs - INFO - 列 32 的任务已提交到线程池
+2024-12-29 22:36:23,200 - xzltxs - INFO - 创建列 33 的处理任务
+2024-12-29 22:36:23,200 - xzltxs - INFO - 列 33 的任务已提交到线程池
+2024-12-29 22:36:23,202 - xzltxs - INFO - 创建列 34 的处理任务
+2024-12-29 22:36:23,203 - xzltxs - INFO - 列 34 的任务已提交到线程池
+2024-12-29 22:36:23,203 - xzltxs - INFO - 创建列 35 的处理任务
+2024-12-29 22:36:23,204 - xzltxs - INFO - 列 35 的任务已提交到线程池
+2024-12-29 22:36:23,205 - xzltxs - INFO - 创建列 36 的处理任务
+2024-12-29 22:36:23,205 - xzltxs - INFO - 列 36 的任务已提交到线程池
+2024-12-29 22:36:23,207 - xzltxs - INFO - 创建列 37 的处理任务
+2024-12-29 22:36:23,208 - xzltxs - INFO - 列 37 的任务已提交到线程池
+2024-12-29 22:36:23,208 - xzltxs - INFO - 创建列 38 的处理任务
+2024-12-29 22:36:23,208 - xzltxs - INFO - 列 38 的任务已提交到线程池
+2024-12-29 22:36:23,209 - xzltxs - INFO - 创建列 39 的处理任务
+2024-12-29 22:36:23,210 - xzltxs - INFO - 列 39 的任务已提交到线程池
+2024-12-29 22:36:23,210 - xzltxs - INFO - 创建列 40 的处理任务
+2024-12-29 22:36:23,212 - xzltxs - INFO - 列 40 的任务已提交到线程池
+2024-12-29 22:36:23,213 - xzltxs - INFO - 创建列 41 的处理任务
+2024-12-29 22:36:23,213 - xzltxs - INFO - 列 41 的任务已提交到线程池
+2024-12-29 22:36:23,215 - xzltxs - INFO - 创建列 42 的处理任务
+2024-12-29 22:36:23,216 - xzltxs - INFO - 列 42 的任务已提交到线程池
+2024-12-29 22:36:23,216 - xzltxs - INFO - 创建列 43 的处理任务
+2024-12-29 22:36:23,217 - xzltxs - INFO - 列 43 的任务已提交到线程池
+2024-12-29 22:36:23,218 - xzltxs - INFO - 创建列 44 的处理任务
+2024-12-29 22:36:23,220 - xzltxs - INFO - 列 44 的任务已提交到线程池
+2024-12-29 22:36:23,221 - xzltxs - INFO - 创建列 45 的处理任务
+2024-12-29 22:36:23,221 - xzltxs - INFO - 列 45 的任务已提交到线程池
+2024-12-29 22:36:23,222 - xzltxs - INFO - 创建列 46 的处理任务
+2024-12-29 22:36:23,224 - xzltxs - INFO - 列 46 的任务已提交到线程池
+2024-12-29 22:36:23,224 - xzltxs - INFO - 创建列 47 的处理任务
+2024-12-29 22:36:23,225 - xzltxs - INFO - 列 47 的任务已提交到线程池
+2024-12-29 22:36:23,225 - xzltxs - INFO - 创建列 48 的处理任务
+2024-12-29 22:36:23,226 - xzltxs - INFO - 列 48 的任务已提交到线程池
+2024-12-29 22:36:23,226 - xzltxs - INFO - 创建列 49 的处理任务
+2024-12-29 22:36:23,229 - xzltxs - INFO - 列 49 的任务已提交到线程池
+2024-12-29 22:36:23,229 - xzltxs - INFO - 创建列 50 的处理任务
+2024-12-29 22:36:23,230 - xzltxs - INFO - 列 50 的任务已提交到线程池
+2024-12-29 22:36:23,231 - xzltxs - INFO - 创建列 51 的处理任务
+2024-12-29 22:36:23,232 - xzltxs - INFO - 列 51 的任务已提交到线程池
+2024-12-29 22:36:23,233 - xzltxs - INFO - 创建列 52 的处理任务
+2024-12-29 22:36:23,234 - xzltxs - INFO - 列 52 的任务已提交到线程池
+2024-12-29 22:36:23,235 - xzltxs - INFO - 创建列 53 的处理任务
+2024-12-29 22:36:23,235 - xzltxs - INFO - 列 53 的任务已提交到线程池
+2024-12-29 22:36:23,235 - xzltxs - INFO - 创建列 54 的处理任务
+2024-12-29 22:36:23,236 - xzltxs - INFO - 列 54 的任务已提交到线程池
+2024-12-29 22:36:23,238 - xzltxs - INFO - 创建列 55 的处理任务
+2024-12-29 22:36:23,238 - xzltxs - INFO - 列 55 的任务已提交到线程池
+2024-12-29 22:36:23,240 - xzltxs - INFO - 创建列 56 的处理任务
+2024-12-29 22:36:23,240 - xzltxs - INFO - 列 56 的任务已提交到线程池
+2024-12-29 22:36:23,241 - xzltxs - INFO - 创建列 57 的处理任务
+2024-12-29 22:36:23,241 - xzltxs - INFO - 列 57 的任务已提交到线程池
+2024-12-29 22:36:23,241 - xzltxs - INFO - 创建列 58 的处理任务
+2024-12-29 22:36:23,242 - xzltxs - INFO - 列 58 的任务已提交到线程池
+2024-12-29 22:36:23,242 - xzltxs - INFO - 创建列 59 的处理任务
+2024-12-29 22:36:23,242 - xzltxs - INFO - 列 59 的任务已提交到线程池
+2024-12-29 22:36:23,244 - xzltxs - INFO - 创建列 60 的处理任务
+2024-12-29 22:36:23,245 - xzltxs - INFO - 列 60 的任务已提交到线程池
+2024-12-29 22:36:23,246 - xzltxs - INFO - 创建列 61 的处理任务
+2024-12-29 22:36:23,247 - xzltxs - INFO - 列 61 的任务已提交到线程池
+2024-12-29 22:36:23,249 - xzltxs - INFO - 创建列 62 的处理任务
+2024-12-29 22:36:23,249 - xzltxs - INFO - 列 62 的任务已提交到线程池
+2024-12-29 22:36:23,249 - xzltxs - INFO - 创建列 63 的处理任务
+2024-12-29 22:36:23,249 - xzltxs - INFO - 列 63 的任务已提交到线程池
+2024-12-29 22:36:23,251 - xzltxs - INFO - 创建列 64 的处理任务
+2024-12-29 22:36:23,252 - xzltxs - INFO - 列 64 的任务已提交到线程池
+2024-12-29 22:36:23,253 - xzltxs - INFO - 创建列 65 的处理任务
+2024-12-29 22:36:23,254 - xzltxs - INFO - 列 65 的任务已提交到线程池
+2024-12-29 22:36:23,255 - xzltxs - INFO - 创建列 66 的处理任务
+2024-12-29 22:36:23,256 - xzltxs - INFO - 列 66 的任务已提交到线程池
+2024-12-29 22:36:23,256 - xzltxs - INFO - 创建列 67 的处理任务
+2024-12-29 22:36:23,258 - xzltxs - INFO - 列 67 的任务已提交到线程池
+2024-12-29 22:36:23,260 - xzltxs - INFO - 创建列 68 的处理任务
+2024-12-29 22:36:23,260 - xzltxs - INFO - 列 68 的任务已提交到线程池
+2024-12-29 22:36:23,264 - xzltxs - INFO - 已提交 50 个任务到线程池

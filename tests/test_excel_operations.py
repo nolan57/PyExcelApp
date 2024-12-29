@@ -37,6 +37,15 @@ class TestExcelOperations(unittest.TestCase):
             self.excel_ops.save_excel()
             mock_writer.assert_called_once()
 
+    def test_data_processing(self):
+        plugin = XzltxsPlugin()
+        # 设置测试数据
+        plugin.set_table_view(mock_table_view)
+        result = plugin._process_data()
+        assert result is True
+        # 检查处理结果
+        assert plugin.get_test_data()['completed_tasks'] == expected_tasks
+
 class TestPandasModel(unittest.TestCase):
     def setUp(self):
         self.test_data = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
