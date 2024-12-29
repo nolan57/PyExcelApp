@@ -1,0 +1,6 @@
+PyQt6
+pandas
+openpyxl
+pytest
+pytest-qt
+cryptography

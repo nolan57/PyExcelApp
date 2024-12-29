@@ -1,0 +1,9 @@
+{
+    "xzltxs": [
+        "data_read",
+        "file_write",
+        "ui_modify",
+        "data_write",
+        "file_read"
+    ]
+}
