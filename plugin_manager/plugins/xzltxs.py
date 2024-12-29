@@ -568,6 +568,26 @@ class XzltxsPlugin(PluginBase):
         return progress
 
     class DataProcessor(QObject):
+        class ColumnTask(QObject, QRunnable):
+            finished = Signal()
+            error = Signal(str)
+            
+            def __init__(self, col, model, plugin, progress_callback):
+                super().__init__()
+                self.col = col
+                self.model = model
+                self.plugin = plugin
+                self.progress_callback = progress_callback
+                
+            def run(self):
+                try:
+                    results = self.plugin.process_column(self.col, self.model)
+                    self.plugin.apply_results(results, self.col, self.model)
+                    self.finished.emit()
+                    self.progress_callback()  # 通知进度更新
+                except Exception as e:
+                    self.error.emit(str(e))
+                    
         finished = Signal()
         progress = Signal(int)
         error = Signal(str)
@@ -576,6 +596,16 @@ class XzltxsPlugin(PluginBase):
             super().__init__()
             self.plugin = plugin
             self._stop_requested = False
+            self.thread_pool = QThreadPool.globalInstance()
+            self.tasks = []
+            self._completed_tasks = 0
+            self._lock = threading.Lock()
+            
+        def _update_progress(self):
+            """线程安全的进度更新方法"""
+            with self._lock:
+                self._completed_tasks += 1
+                self.progress.emit(self._completed_tasks)
             
         def process(self):
             try:
@@ -585,16 +615,38 @@ class XzltxsPlugin(PluginBase):
                     
                 max_col = model.columnCount()
                 total_cols = max_col - self.plugin.xs_column
-                
+                logger = logging.getLogger(__name__)
+                # 创建并启动每个列的任务
                 for col in range(self.plugin.xs_column, max_col):
                     if self._stop_requested:
                         break
-                        
-                    results = self.plugin.process_column(col, model)
-                    self.plugin.apply_results(results, col, model)
-                    self.progress.emit(col - self.plugin.xs_column + 1)
+                    logger.info(f"开始处理列{col}的线程")
+                    task = self.ColumnTask(col, model, self.plugin, self._update_progress)
+                    task.error.connect(self.error.emit)
+                    self.thread_pool.start(task)
+                    self.tasks.append(task)
                     
+                # 创建事件循环来等待所有任务完成
+                event_loop = QEventLoop()
+                remaining_tasks = len(self.tasks)
+                
+                def on_task_finished():
+                    nonlocal remaining_tasks
+                    remaining_tasks -= 1
+                    if remaining_tasks == 0:
+                        event_loop.quit()
+                
+                # 连接每个任务的完成信号
+                for task in self.tasks:
+                    task.finished.connect(on_task_finished)
+                
+                # 启动事件循环等待
+                logger.info("等待所有列处理完成")
+                event_loop.exec()
+                
+                logger.info("所有列处理完成")
                 if not self._stop_requested and isinstance(model, TableModel):
+                    logger.info("保存更改")
                     model.save_changes()
                     
             except Exception as e:
@@ -604,6 +656,8 @@ class XzltxsPlugin(PluginBase):
                 
         def stop(self):
             self._stop_requested = True
+            for task in self.tasks:
+                task.setAutoDelete(True)
             
     def _process_data(self, table_view: Optional[QTableView] = None, **parameters) -> Any:
         """处理数据的入口方法"""
@@ -623,8 +677,7 @@ class XzltxsPlugin(PluginBase):
                 self._logger.info("无表格模型")
                 raise ValueError("无表格模型")
             
-            # 2.检查必要权限
-            # 检查插件状态
+            # 检查必要权限
             if not self._active:
                 self._logger.info("插件未激活")
                 raise RuntimeError("插件未激活")
@@ -640,13 +693,11 @@ class XzltxsPlugin(PluginBase):
             # 检查是否有所有必要权限
             missing_permissions = required_permissions - self._granted_permissions
             self._logger.info(f"缺失权限: {missing_permissions}")
-            self._logger.info(f"缺失权限: {missing_permissions}")
             
             if missing_permissions:
                 # 尝试请求缺失的权限
                 for permission in missing_permissions:
                     self._logger.info(f"请求权限: {permission}")
-                    self._logger.info(f"请求权限：{permission}")
                     if not self.request_permission(permission):
                         self._logger.info(f"缺少必要权限：{PluginPermission.get_permission_description(permission)}")
                         raise PermissionError(
@@ -654,53 +705,37 @@ class XzltxsPlugin(PluginBase):
                         )
             self._logger.info("权限检查通过")
 
-            # 3. 处理零件配置（显示配置对话框）
+            # 处理零件配置（显示配置对话框）
             if not self.process_parts():
                 return None  # 用户取消配置
             QApplication.processEvents()
-            
-            # 创建后台线程
-            self._logger.info("创建后台线程")
-            self.worker_thread = QThread()
-            self.data_processor = self.DataProcessor(self)
-            self.data_processor.moveToThread(self.worker_thread)
-                
-            # 创建进度条
-            self._logger.info("创建进度条")
+
             max_col = self.table_view.model().columnCount()
             total_cols = max_col - self.xs_column
+            self._logger.info(f"总列数: {total_cols}")
+
+            # 创建进度条
+            self._logger.info("创建进度条")
             self.progress = self._create_progress_dialog(total_cols)
             
-            # 连接信号槽
-            self._logger.info("连接信号槽")
-            self.data_processor.progress.connect(self.progress.setValue)
+            # 创建并启动数据处理器
+            self._logger.info("创建数据处理器")
+            self.data_processor = self.DataProcessor(self)
             self.data_processor.finished.connect(self._on_processing_finished)
             self.data_processor.error.connect(self._on_processing_error)
+            self.data_processor.progress.connect(self.progress.setValue)
             self.progress.canceled.connect(self._cancel_processing)
-            # self.progress.show()
+            # 启动数据处理器
+            self._logger.info("启动数据处理器")
+            self.data_processor.process()
+            self.progress.show()
             
-            # 启动线程
-            self.worker_thread.started.connect(self.data_processor.process)
-            self.worker_thread.start()
-            
-            # 创建事件循环用于非阻塞等待
-            loop = QEventLoop()
-            self.data_processor.finished.connect(loop.quit)
-            self.data_processor.error.connect(loop.quit)
-            
-            # 非阻塞等待线程完成
-            loop.exec()
-            
-            # 返回True表示处理成功
             return not self._error_occurred
             
         except Exception as e:
             ErrorHandler.handle_error(e, self.table_view, "处理数据时发生错误")
             self._logger.error(f"处理数据时发生错误: {str(e)}")
             return False
-        finally:
-            if hasattr(self, 'progress') and self.progress:
-                self.progress.close()
         
     def _on_processing_finished(self):
         """处理完成时的回调"""

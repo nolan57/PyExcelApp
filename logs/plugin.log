@@ -189,3 +189,403 @@
 2024-12-29 19:11:21,544 - xzltxs - INFO - 连接信号槽
 2024-12-29 19:11:21,547 - xzltxs - INFO - 处理列: 19
 2024-12-29 19:11:21,547 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-29 19:18:08,356 - xzltxs - INFO - 处理行: 1003 - 2003
+2024-12-29 19:32:22,424 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:33:54,519 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 19:34:31,902 - xzltxs - INFO - 开始激活插件
+2024-12-29 19:34:31,903 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-29 19:34:31,903 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 19:34:32,935 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 19:34:33,578 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 19:34:34,150 - xzltxs - INFO - 插件激活成功
+2024-12-29 19:34:38,201 - xzltxs - INFO - 开始处理数据
+2024-12-29 19:34:38,201 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x10f7388b0>
+2024-12-29 19:34:38,253 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 19:34:38,253 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 19:34:38,253 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 19:34:38,253 - xzltxs - INFO - 请求权限：PluginPermission.DATA_WRITE
+2024-12-29 19:34:39,579 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 19:34:39,579 - xzltxs - INFO - 请求权限：PluginPermission.DATA_READ
+2024-12-29 19:34:40,835 - xzltxs - INFO - 权限检查通过
+2024-12-29 19:34:40,835 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 19:34:46,826 - xzltxs - INFO - 更新配置
+2024-12-29 19:34:47,863 - xzltxs - INFO - 创建后台线程
+2024-12-29 19:34:47,864 - xzltxs - INFO - 创建进度条
+2024-12-29 19:34:47,895 - xzltxs - INFO - 连接信号槽
+2024-12-29 19:34:47,914 - xzltxs - ERROR - 数据处理发生错误: 'DataProcessor' object has no attribute 'ColumnTask'
+2024-12-29 19:34:47,996 - xzltxs - INFO - 数据处理完成
+2024-12-29 19:34:47,997 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:34:56,063 - xzltxs - INFO - 数据处理完成
+2024-12-29 19:34:56,064 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:40:13,839 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:40:27,516 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 19:40:49,243 - xzltxs - INFO - 开始激活插件
+2024-12-29 19:40:49,244 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-29 19:40:49,244 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 19:40:50,481 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 19:40:51,126 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 19:40:51,898 - xzltxs - INFO - 插件激活成功
+2024-12-29 19:40:55,840 - xzltxs - INFO - 开始处理数据
+2024-12-29 19:40:55,841 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11e82c940>
+2024-12-29 19:40:55,906 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.DATA_WRITE: 'data_write'>}
+2024-12-29 19:40:55,906 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.DATA_WRITE: 'data_write'>}
+2024-12-29 19:40:55,906 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 19:40:55,906 - xzltxs - INFO - 请求权限：PluginPermission.DATA_READ
+2024-12-29 19:40:57,433 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 19:40:57,433 - xzltxs - INFO - 请求权限：PluginPermission.DATA_WRITE
+2024-12-29 19:40:58,579 - xzltxs - INFO - 权限检查通过
+2024-12-29 19:40:58,579 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 19:41:17,341 - xzltxs - INFO - 更新配置
+2024-12-29 19:41:18,357 - xzltxs - INFO - 创建后台线程
+2024-12-29 19:41:18,357 - xzltxs - INFO - 创建进度条
+2024-12-29 19:41:18,390 - xzltxs - INFO - 连接信号槽
+2024-12-29 19:41:18,421 - xzltxs - ERROR - 数据处理发生错误: 'PyQt6.QtCore.pyqtSignal' object has no attribute 'connect'
+2024-12-29 19:41:18,571 - xzltxs - INFO - 数据处理完成
+2024-12-29 19:41:18,571 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:41:34,832 - xzltxs - INFO - 数据处理完成
+2024-12-29 19:41:34,833 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:47:37,137 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:47:54,605 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 19:48:19,362 - xzltxs - INFO - 开始激活插件
+2024-12-29 19:48:19,364 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-29 19:48:19,364 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 19:48:20,483 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 19:48:21,162 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 19:48:21,865 - xzltxs - INFO - 插件激活成功
+2024-12-29 19:48:26,009 - xzltxs - INFO - 开始处理数据
+2024-12-29 19:48:26,009 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11772c940>
+2024-12-29 19:48:26,047 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 19:48:26,047 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 19:48:26,047 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 19:48:26,047 - xzltxs - INFO - 请求权限：PluginPermission.DATA_WRITE
+2024-12-29 19:48:27,274 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 19:48:27,274 - xzltxs - INFO - 请求权限：PluginPermission.DATA_READ
+2024-12-29 19:48:28,409 - xzltxs - INFO - 权限检查通过
+2024-12-29 19:48:28,409 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 19:48:34,723 - xzltxs - INFO - 更新配置
+2024-12-29 19:48:35,738 - xzltxs - INFO - 创建后台线程
+2024-12-29 19:48:35,738 - xzltxs - INFO - 创建进度条
+2024-12-29 19:48:35,739 - xzltxs - INFO - 连接信号槽
+2024-12-29 19:48:35,747 - xzltxs - ERROR - 数据处理发生错误: BaseException.with_traceback() takes exactly one argument (0 given)
+2024-12-29 19:48:35,847 - xzltxs - INFO - 数据处理完成
+2024-12-29 19:48:35,848 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:48:39,591 - xzltxs - INFO - 数据处理完成
+2024-12-29 19:48:39,591 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:48:39,592 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:50:44,266 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 19:51:06,771 - xzltxs - INFO - 开始激活插件
+2024-12-29 19:51:06,869 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_READ: 'file_read'>}
+2024-12-29 19:51:06,870 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 19:51:07,932 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 19:51:08,586 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 19:51:09,463 - xzltxs - INFO - 插件激活成功
+2024-12-29 19:51:13,387 - xzltxs - INFO - 开始处理数据
+2024-12-29 19:51:13,388 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11d644790>
+2024-12-29 19:51:13,462 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 19:51:13,462 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 19:51:13,462 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 19:51:13,462 - xzltxs - INFO - 请求权限：PluginPermission.DATA_WRITE
+2024-12-29 19:51:14,587 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 19:51:14,587 - xzltxs - INFO - 请求权限：PluginPermission.DATA_READ
+2024-12-29 19:51:16,753 - xzltxs - INFO - 权限检查通过
+2024-12-29 19:51:16,753 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 19:51:23,068 - xzltxs - INFO - 更新配置
+2024-12-29 19:51:24,089 - xzltxs - INFO - 创建后台线程
+2024-12-29 19:51:24,089 - xzltxs - INFO - 创建进度条
+2024-12-29 19:51:24,123 - xzltxs - INFO - 连接信号槽
+2024-12-29 19:57:28,283 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 19:57:54,769 - xzltxs - INFO - 开始激活插件
+2024-12-29 19:57:54,769 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-29 19:57:54,770 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 19:57:55,876 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 19:57:56,547 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 19:57:57,403 - xzltxs - INFO - 插件激活成功
+2024-12-29 19:58:01,411 - xzltxs - INFO - 开始处理数据
+2024-12-29 19:58:01,411 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x122c70790>
+2024-12-29 19:58:01,454 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 19:58:01,454 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 19:58:01,454 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 19:58:01,454 - xzltxs - INFO - 请求权限：PluginPermission.DATA_WRITE
+2024-12-29 19:58:02,733 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 19:58:02,733 - xzltxs - INFO - 请求权限：PluginPermission.DATA_READ
+2024-12-29 19:58:03,900 - xzltxs - INFO - 权限检查通过
+2024-12-29 19:58:03,900 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 19:58:09,835 - xzltxs - INFO - 更新配置
+2024-12-29 19:58:10,886 - xzltxs - INFO - 创建后台线程
+2024-12-29 19:58:10,886 - xzltxs - INFO - 创建进度条
+2024-12-29 19:58:10,918 - xzltxs - INFO - 连接信号槽
+2024-12-29 19:58:11,066 - xzltxs - ERROR - 数据处理发生错误: QMetaObject.invokeMethod() call failed
+2024-12-29 19:58:11,121 - xzltxs - INFO - 数据处理完成
+2024-12-29 19:58:11,126 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 19:58:25,946 - xzltxs - INFO - 数据处理完成
+2024-12-29 20:04:05,447 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 20:04:50,953 - xzltxs - INFO - 开始激活插件
+2024-12-29 20:04:50,993 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-29 20:04:50,993 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 20:04:52,190 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 20:04:52,847 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 20:04:53,729 - xzltxs - INFO - 插件激活成功
+2024-12-29 20:04:57,539 - xzltxs - INFO - 开始处理数据
+2024-12-29 20:04:57,540 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11ed68820>
+2024-12-29 20:04:57,596 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.DATA_WRITE: 'data_write'>}
+2024-12-29 20:04:57,596 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.DATA_WRITE: 'data_write'>}
+2024-12-29 20:04:57,596 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 20:04:57,596 - xzltxs - INFO - 请求权限：PluginPermission.DATA_READ
+2024-12-29 20:04:59,912 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 20:04:59,912 - xzltxs - INFO - 请求权限：PluginPermission.DATA_WRITE
+2024-12-29 20:05:01,079 - xzltxs - INFO - 权限检查通过
+2024-12-29 20:05:01,079 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 20:05:11,377 - xzltxs - INFO - 更新配置
+2024-12-29 20:05:12,377 - xzltxs - INFO - 创建后台线程
+2024-12-29 20:05:12,377 - xzltxs - INFO - 创建进度条
+2024-12-29 20:05:12,402 - xzltxs - INFO - 连接信号槽
+2024-12-29 20:05:12,468 - xzltxs - ERROR - 数据处理发生错误: QMetaObject.invokeMethod() call failed
+2024-12-29 20:05:12,498 - xzltxs - INFO - 数据处理完成
+2024-12-29 20:05:12,513 - xzltxs - WARNING - 用户取消数据处理
+2024-12-29 20:05:30,038 - xzltxs - INFO - 数据处理完成
+2024-12-29 20:11:04,575 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 20:11:25,627 - xzltxs - INFO - 开始激活插件
+2024-12-29 20:11:25,628 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-29 20:11:25,629 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 20:11:26,697 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 20:11:27,300 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 20:11:28,228 - xzltxs - INFO - 插件激活成功
+2024-12-29 20:11:32,456 - xzltxs - INFO - 开始处理数据
+2024-12-29 20:11:32,456 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11c7d8790>
+2024-12-29 20:11:32,513 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 20:11:32,513 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 20:11:32,513 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 20:11:32,513 - xzltxs - INFO - 请求权限：PluginPermission.DATA_WRITE
+2024-12-29 20:11:33,866 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 20:11:33,867 - xzltxs - INFO - 请求权限：PluginPermission.DATA_READ
+2024-12-29 20:11:35,016 - xzltxs - INFO - 权限检查通过
+2024-12-29 20:11:35,016 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 20:11:42,585 - xzltxs - INFO - 更新配置
+2024-12-29 20:11:43,594 - xzltxs - INFO - 创建后台线程
+2024-12-29 20:11:43,594 - xzltxs - INFO - 创建进度条
+2024-12-29 20:11:43,630 - xzltxs - INFO - 连接信号槽
+2024-12-29 20:26:08,340 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 20:27:21,305 - xzltxs - INFO - 开始激活插件
+2024-12-29 20:27:21,344 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-29 20:27:21,344 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 20:27:22,804 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 20:27:23,403 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 20:27:23,974 - xzltxs - INFO - 插件激活成功
+2024-12-29 20:27:27,756 - xzltxs - INFO - 开始处理数据
+2024-12-29 20:27:27,756 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x1109f09d0>
+2024-12-29 20:27:27,813 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.DATA_WRITE: 'data_write'>}
+2024-12-29 20:27:27,813 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 20:27:28,933 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 20:27:30,043 - xzltxs - INFO - 权限检查通过
+2024-12-29 20:27:30,043 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 20:27:35,864 - xzltxs - INFO - 更新配置
+2024-12-29 20:33:25,539 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 20:33:59,733 - xzltxs - INFO - 开始激活插件
+2024-12-29 20:33:59,734 - xzltxs - INFO - 缺失权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>}
+2024-12-29 20:33:59,734 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 20:34:00,768 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 20:34:01,383 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 20:34:01,908 - xzltxs - INFO - 插件激活成功
+2024-12-29 20:34:06,320 - xzltxs - INFO - 开始处理数据
+2024-12-29 20:34:06,320 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x1189009d0>
+2024-12-29 20:34:06,364 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 20:34:06,364 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 20:34:07,581 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 20:34:08,746 - xzltxs - INFO - 权限检查通过
+2024-12-29 20:34:08,746 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 20:34:14,866 - xzltxs - INFO - 更新配置
+2024-12-29 20:34:15,894 - xzltxs - INFO - 创建进度条
+2024-12-29 20:34:15,922 - xzltxs - INFO - 创建数据处理器
+2024-12-29 20:34:15,922 - xzltxs - INFO - 启动数据处理器
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列19的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列20的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列21的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列22的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列23的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列24的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列25的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列26的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列27的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列28的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列29的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列30的线程
+2024-12-29 20:34:15,922 - xzltxs - INFO - 开始处理列31的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列32的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列33的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列34的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列35的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列36的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列37的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列38的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列39的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列40的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列41的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列42的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列43的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列44的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列45的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列46的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列47的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列48的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列49的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列50的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列51的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列52的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列53的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列54的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列55的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列56的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列57的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列58的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列59的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列60的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列61的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列62的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列63的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列64的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列65的线程
+2024-12-29 20:34:15,923 - xzltxs - INFO - 开始处理列66的线程
+2024-12-29 20:34:15,924 - xzltxs - INFO - 开始处理列67的线程
+2024-12-29 20:34:15,924 - xzltxs - INFO - 开始处理列68的线程
+2024-12-29 21:04:11,084 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 21:04:33,444 - xzltxs - INFO - 开始激活插件
+2024-12-29 21:04:33,445 - xzltxs - INFO - 缺失权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-29 21:04:33,445 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 21:04:35,288 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 21:04:36,126 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 21:04:36,712 - xzltxs - INFO - 插件激活成功
+2024-12-29 21:04:41,876 - xzltxs - INFO - 开始处理数据
+2024-12-29 21:04:41,877 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x1197389d0>
+2024-12-29 21:04:41,914 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-29 21:04:41,914 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 21:04:43,152 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 21:04:44,349 - xzltxs - INFO - 权限检查通过
+2024-12-29 21:04:44,349 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 21:04:49,815 - xzltxs - INFO - 更新配置
+2024-12-29 21:04:50,824 - xzltxs - INFO - 总列数: 50
+2024-12-29 21:04:50,824 - xzltxs - INFO - 创建进度条
+2024-12-29 21:04:50,825 - xzltxs - INFO - 创建数据处理器
+2024-12-29 21:04:50,825 - xzltxs - INFO - 启动数据处理器
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列19的线程
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列20的线程
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列21的线程
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列22的线程
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列23的线程
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列24的线程
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列25的线程
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列26的线程
+2024-12-29 21:04:50,825 - xzltxs - INFO - 开始处理列27的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列28的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列29的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列30的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列31的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列32的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列33的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列34的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列35的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列36的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列37的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列38的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列39的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列40的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列41的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列42的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列43的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列44的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列45的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列46的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列47的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列48的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列49的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列50的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列51的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列52的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列53的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列54的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列55的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列56的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列57的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列58的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列59的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列60的线程
+2024-12-29 21:04:50,826 - xzltxs - INFO - 开始处理列61的线程
+2024-12-29 21:04:50,827 - xzltxs - INFO - 开始处理列62的线程
+2024-12-29 21:04:50,827 - xzltxs - INFO - 开始处理列63的线程
+2024-12-29 21:04:50,827 - xzltxs - INFO - 开始处理列64的线程
+2024-12-29 21:04:50,827 - xzltxs - INFO - 开始处理列65的线程
+2024-12-29 21:04:50,827 - xzltxs - INFO - 开始处理列66的线程
+2024-12-29 21:04:50,827 - xzltxs - INFO - 开始处理列67的线程
+2024-12-29 21:04:50,827 - xzltxs - INFO - 开始处理列68的线程
+2024-12-29 21:04:50,827 - xzltxs - INFO - 等待所有列处理完成
+2024-12-29 21:04:50,827 - xzltxs - INFO - 所有列处理完成
+2024-12-29 21:04:50,827 - xzltxs - INFO - 保存更改
+2024-12-29 21:10:16,305 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-29 21:10:38,057 - xzltxs - INFO - 开始激活插件
+2024-12-29 21:10:38,058 - xzltxs - INFO - 缺失权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-29 21:10:38,058 - xzltxs - INFO - 请求权限: PluginPermission.FILE_READ
+2024-12-29 21:10:39,956 - xzltxs - INFO - 请求权限: PluginPermission.FILE_WRITE
+2024-12-29 21:10:40,881 - xzltxs - INFO - 请求权限: PluginPermission.UI_MODIFY
+2024-12-29 21:10:41,608 - xzltxs - INFO - 插件激活成功
+2024-12-29 21:10:45,588 - xzltxs - INFO - 开始处理数据
+2024-12-29 21:10:45,588 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11dd389d0>
+2024-12-29 21:10:45,620 - xzltxs - INFO - 缺失权限: {<PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.DATA_WRITE: 'data_write'>}
+2024-12-29 21:10:45,620 - xzltxs - INFO - 请求权限: PluginPermission.DATA_READ
+2024-12-29 21:10:46,846 - xzltxs - INFO - 请求权限: PluginPermission.DATA_WRITE
+2024-12-29 21:10:48,022 - xzltxs - INFO - 权限检查通过
+2024-12-29 21:10:48,022 - xzltxs - INFO - 开始处理零件配置
+2024-12-29 21:10:53,708 - xzltxs - INFO - 更新配置
+2024-12-29 21:10:54,795 - xzltxs - INFO - 总列数: 50
+2024-12-29 21:10:54,795 - xzltxs - INFO - 创建进度条
+2024-12-29 21:10:54,839 - xzltxs - INFO - 创建数据处理器
+2024-12-29 21:10:54,839 - xzltxs - INFO - 启动数据处理器
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列19的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列20的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列21的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列22的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列23的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列24的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列25的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列26的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列27的线程
+2024-12-29 21:10:54,839 - xzltxs - INFO - 开始处理列28的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列29的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列30的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列31的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列32的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列33的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列34的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列35的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列36的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列37的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列38的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列39的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列40的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列41的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列42的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列43的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列44的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列45的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列46的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列47的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列48的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列49的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列50的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列51的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列52的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列53的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列54的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列55的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列56的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列57的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列58的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列59的线程
+2024-12-29 21:10:54,840 - xzltxs - INFO - 开始处理列60的线程
+2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列61的线程
+2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列62的线程
+2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列63的线程
+2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列64的线程
+2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列65的线程
+2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列66的线程
+2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列67的线程
+2024-12-29 21:10:54,841 - xzltxs - INFO - 开始处理列68的线程
+2024-12-29 21:10:54,859 - xzltxs - INFO - 等待所有列处理完成

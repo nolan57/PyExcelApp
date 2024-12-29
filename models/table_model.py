@@ -1,6 +1,6 @@
 import threading
 from typing import Any, Optional
-from PyQt6.QtCore import Qt, QAbstractTableModel, QModelIndex
+from PyQt6.QtCore import Qt, QAbstractTableModel, QModelIndex, pyqtSlot, QMetaObject
 from PyQt6.QtGui import QColor, QBrush
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.cell import Cell
@@ -106,18 +106,29 @@ class TableModel(QAbstractTableModel):
             return str(cell.value) if cell.value is not None else ""
         except:
             return ""
-        
+
+    @pyqtSlot()
     def save_changes(self):
         """保存更改到worksheet"""
+        # 确保在主线程执行保存操作
+        if threading.current_thread() is threading.main_thread():
+            self._save()
+        else:
+            QMetaObject.invokeMethod(self, "save_changes", Qt.ConnectionType.QueuedConnection)
+
+    def _save(self):
+        """实际执行保存操作的私有方法"""
         with self._save_lock:  # 使用线程锁保护保存操作
             try:
                 print("保存更改到worksheet")
                 for (row, col), value in self._data.items():
-                    self.worksheet.cell(row=row+1, column=col+1, value=value)
-                    
+                    cell = self.worksheet.cell(row=row+1, column=col+1)
+                    if not cell.protection.locked:  # 检查单元格是否只读
+                        cell.value = value
+                        
             except Exception as e:
-                print(f"保存表格数据时发生错误: {e.with_traceback()}")
-                ErrorHandler.handle_error(e, None, f"保存表格数据时发生错误：{e.with_traceback()}")
+                print(f"保存表格数据时发生错误: {e.with_traceback(None)}")
+                ErrorHandler.handle_error(e, None, f"保存表格数据时发生错误：{e.with_traceback(None)}")
 
     def set_cell_color(self, row: int, col: int, color: QColor):
         """设置单元格颜色"""
