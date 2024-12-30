@@ -9,6 +9,7 @@ from PyQt6.QtWidgets import QToolBar, QFileDialog, QMessageBox, QTableView, QTab
 from globals import GlobalState
 from plugin_manager.plugins_manager_window import PluginManagerWindow
 from utils.error_handler import ErrorHandler
+import logging
 
 
 def get_current_table_view(tab_widget: QTabWidget) -> Optional[QTableView]:
@@ -27,6 +28,7 @@ class ToolBar(QToolBar):
         self._open_file_connected = None
         self.plugin_system = None
         self.setMovable(False)
+        self._logger = logging.getLogger(__name__)
 
         # 获取主窗口的插件系统实例
         if parent is not None:
@@ -301,7 +303,8 @@ class ToolBar(QToolBar):
                 result = plugin.process_data(current_table_view, **parameters)
                 
                 if result is not None:
-                    QMessageBox.information(self, "成功", f"插件 {plugin_name} 处理完成")
+                    # QMessageBox.information(self, "成功", f"插件 {plugin_name} 处理完成")
+                    self._logger.info(f"插件 {plugin_name} 处理开始")
                 
             except Exception as e:
                 ErrorHandler.handle_error(e, self, f"插件 {plugin_name} 处理失败")

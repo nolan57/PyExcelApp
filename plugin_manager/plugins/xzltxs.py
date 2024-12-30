@@ -208,7 +208,7 @@ class XzltxsPlugin(PluginBase):
             
             # 检查是否有所有必要权限
             missing_permissions = self._required_permissions - self._granted_permissions
-            if missing_permissions:
+            if missing_permissions and len(missing_permissions) > 0:
                 self._logger.info(f"缺失权限: {missing_permissions}")
             
             if missing_permissions:
@@ -242,13 +242,30 @@ class XzltxsPlugin(PluginBase):
     def cleanup(self) -> None:
         """清理插件资源"""
         try:
+            # 停止数据处理
             if hasattr(self, 'data_processor'):
                 self.data_processor.stop()
+                self.data_processor.wait()  # 等待线程结束
+                self.data_processor.deleteLater()
+                delattr(self, 'data_processor')
+            
+            # 关闭进度条
             if hasattr(self, 'progress'):
                 self.progress.close()
+                delattr(self, 'progress')
+            
+            # 关闭设置对话框
             if hasattr(self, 'settings_dialog'):
                 self.settings_dialog.close()
+                delattr(self, 'settings_dialog')
+            
+            # 清理其他资源
+            if hasattr(self, 'mouse_ops'):
+                delattr(self, 'mouse_ops')
+            
+            # 调用基类清理方法
             super().cleanup()
+            
         except Exception as e:
             self._logger.error(f"清理资源时发生错误: {e}")
         
@@ -526,6 +543,7 @@ class XzltxsPlugin(PluginBase):
                             part_targets[4].append(row)
                             break
             # 更新已处理行数
+            self._logger.info(f"处理行: {self.start_row + processed_rows} - {self.start_row + processed_rows + batch_size} 完成")
             processed_rows += batch_size
 
         # 处理每种类型的目标单元格
@@ -579,10 +597,11 @@ class XzltxsPlugin(PluginBase):
         progress.setValue(0)
         return progress
 
-    class DataProcessor(QObject):
+    class DataProcessor(QThread):
         finished = Signal()
         progress = Signal(int)
         error = Signal(str)
+        stopped = Signal()
         
         class ColumnTask(QRunnable):
             def __init__(self, col, model, plugin, callback):
@@ -623,12 +642,12 @@ class XzltxsPlugin(PluginBase):
         def _update_progress(self):
             with self._lock:
                 self._completed_tasks += 1
-                progress = int((self._completed_tasks / self._total_tasks) * 100)
+                progress = self._completed_tasks # int((self._completed_tasks / self._total_tasks) * 100)
                 self.progress.emit(progress)
                 if self._completed_tasks == self._total_tasks:
                     self.finished.emit()
                     
-        def process(self):
+        def run(self):
             try:
                 self._logger.info("开始数据处理")
                 model = self.plugin.table_view.model()
@@ -657,19 +676,39 @@ class XzltxsPlugin(PluginBase):
                     
                 self._logger.info(f"已提交 {self._total_tasks} 个任务到线程池")
                 self.thread_pool.waitForDone()
-                if isinstance(self.plugin.table_view.model(), TableModel):
-                    self.plugin.table_view.model().save_changes()
-                self.finished.emit()
-                self._logger.info("数据处理完成")
+                # if isinstance(self.plugin.table_view.model(), TableModel):
+                #     self.plugin.table_view.model().save_changes()
+                # self.finished.emit()
+                # self._logger.info("数据处理完成")
             except Exception as e:
                 self._logger.error(f"处理数据时发生错误: {str(e)}")
                 self.error.emit(str(e))
                 
         def stop(self):
-            self._logger.info("停止数据处理")
+            self._logger.info("强制终止数据处理")
             self._stop_requested = True
+            
+            # 清空线程池中的所有任务
             self.thread_pool.clear()
-            self.thread_pool.waitForDone()
+            
+            # 尝试等待任务完成，最多等待3次
+            for i in range(3):
+                if self.thread_pool.waitForDone(msecs=500):  # 每次等待500毫秒
+                    break
+                self._logger.warning(f"等待任务完成超时，尝试次数：{i+1}")
+            
+            # 如果仍有任务在运行，重置线程池
+            if self.thread_pool.activeThreadCount() > 0:
+                self._logger.warning("强制重置线程池")
+                self.thread_pool = QThreadPool.globalInstance()
+                self.thread_pool.setMaxThreadCount(min(self._total_tasks, 8))
+            
+            # 发出停止信号
+            self.stopped.emit()
+            
+            # 退出当前线程
+            self.quit()
+            self.wait()  # 等待线程结束
 
     def _process_data(self, table_view: Optional[QTableView] = None, **parameters) -> Any:
         """处理数据的入口方法"""
@@ -736,11 +775,12 @@ class XzltxsPlugin(PluginBase):
             self.data_processor.finished.connect(self._on_processing_finished)
             self.data_processor.error.connect(self._on_processing_error)
             self.data_processor.progress.connect(self.progress.setValue)
-            self.progress.canceled.connect(self._cancel_processing)
-            self.progress.show()
+            self.data_processor.stopped.connect(self._on_processing_stopped)
+            self.progress.canceled.connect(self.data_processor.stop)
             # 启动数据处理器
             self._logger.info("启动数据处理器")
-            self.data_processor.process()
+            self.progress.show()
+            self.data_processor.start()
             
             return not self._error_occurred
             
@@ -752,6 +792,8 @@ class XzltxsPlugin(PluginBase):
     def _on_processing_finished(self):
         """处理完成时的回调"""
         self._logger.info("数据处理完成")
+        if isinstance(self.plugin.table_view.model(), TableModel):
+                    self.plugin.table_view.model().save_changes()
         if hasattr(self, 'progress') and self.progress:
             self.progress.close()
         
@@ -765,9 +807,25 @@ class XzltxsPlugin(PluginBase):
     def _cancel_processing(self):
         """取消处理"""
         self._logger.warning("用户取消数据处理")
-        self.data_processor.stop()
+        if hasattr(self, 'data_processor') and self.data_processor:
+            self.data_processor.stop()
+            
+    def _on_processing_stopped(self):
+        """处理停止时的回调"""
+        self._logger.info("数据处理已停止")
         if hasattr(self, 'progress') and self.progress:
             self.progress.close()
+        
+        # 清理数据处理器
+        if hasattr(self, 'data_processor'):
+            self.data_processor.deleteLater()
+            delattr(self, 'data_processor')
+        
+        # 重置错误状态
+        self._error_occurred = False
+        
+        # 通知用户处理已停止
+        ErrorHandler.handle_info("数据处理已停止", self.table_view)
 
     def process_parts(self):
         """处理零件数据"""
@@ -811,7 +869,7 @@ class XzltxsPlugin(PluginBase):
         """处理单元格点击请求"""
         self._logger.debug(f"收到单元格位置请求: {message}")
         if not self.table_view:
-            ErrorHandler.handle_warning("Table view is not initialized")
+            ErrorHandler.handle_warning("表格未初始化")
             return
             
         # 获取单元格位置
@@ -930,34 +988,3 @@ class XzltxsPlugin(PluginBase):
     def get_state(self) -> PluginState:
         """获取插件状态"""
         return self._state
-
-class ColumnWorker(QObject):
-    progress_updated = Signal(int)
-    finished = Signal()
-    
-    def __init__(self, col: int, model: QAbstractTableModel, plugin):
-        super().__init__()
-        self._logger = logging.getLogger(__name__)
-        self.col = col
-        self.model = model
-        self.plugin = plugin
-        
-    def run(self) -> List[PartTarget]:
-        """处理列数据"""
-        try:
-
-            # 1. 调用 process_column 处理数据
-            results = self.plugin.process_column(self.col, self.model)
-            
-            # 2. 更新进度
-            self.progress_updated.emit(100)
-            
-            # 3. 发送完成信号
-            self.finished.emit()
-            
-            return results
-            
-        except Exception as e:
-            ErrorHandler.handle_error(e, None, "处理列数据时发生错误")
-            self._logger.error(f"处理列数据时发生错误: {e.with_traceback(None)}")
-            return []
