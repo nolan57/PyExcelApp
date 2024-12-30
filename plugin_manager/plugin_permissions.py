@@ -78,3 +78,25 @@ class PluginPermissionManager:
         """检查是否有权限"""
         return (plugin_name in self.plugin_permissions and
                 permission in self.plugin_permissions[plugin_name])
+
+    def get_granted_permissions(self, plugin_name: str) -> Set[PluginPermission]:
+        """从保存的权限文件中获取插件已授予的权限集合
+        
+        Args:
+            plugin_name: 插件名称
+            
+        Returns:
+            Set[PluginPermission]: 已授予的权限集合，如果插件不存在则返回空集合
+        """
+        if not os.path.exists(self.permission_file):
+            return set()
+            
+        try:
+            with open(self.permission_file, 'r') as f:
+                data = json.load(f)
+                if plugin_name in data:
+                    return {PluginPermission(p) for p in data[plugin_name]}
+                return set()
+        except Exception as e:
+            logging.error(f"读取权限文件失败: {e}")
+            return set()

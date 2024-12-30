@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Optional, Set
 from PyQt6.QtWidgets import QTableView, QApplication, QMessageBox, QDialog, QProgressDialog
 from PyQt6.QtCore import QModelIndex, Qt, QThreadPool, QRunnable, QObject, pyqtSignal as Signal, QAbstractTableModel, \
-    QMetaObject, QThread, QEventLoop
+    QMetaObject, QThread, QEventLoop, Q_ARG
 from PyQt6.QtGui import QColor
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
@@ -199,22 +199,29 @@ class XzltxsPlugin(PluginBase):
         self._logger.info(f"零件配置数量: {len(self.parts_config)}")
         self._logger.info(f"table_view 状态: {self.table_view is not None}")
         
-    def activate(self) -> None:
+    def activate(self, granted_permissions: Set[PluginPermission]) -> None:
         """激活插件"""
         try:
             self._logger.info("开始激活插件")
+            # 更新已授权权限
+            self._granted_permissions = granted_permissions
+            
             # 检查是否有所有必要权限
             missing_permissions = self._required_permissions - self._granted_permissions
-            self._logger.info(f"缺失权限: {missing_permissions}")
+            if missing_permissions:
+                self._logger.info(f"缺失权限: {missing_permissions}")
             
             if missing_permissions:
-                # 尝试请求所有缺失的必要权限
+                # 只请求未授权的必要权限
                 for permission in missing_permissions:
-                    self._logger.info(f"请求权限: {permission}")
-                    if not self.request_permission(permission):
-                        raise PermissionError(
-                            f"无法激活插件：缺少必要权限 {PluginPermission.get_permission_description(permission)}"
-                        )
+                    if not self.check_permission(permission):
+                        self._logger.info(f"请求权限: {permission}")
+                        if not self.request_permission(permission):
+                            raise PermissionError(
+                                f"无法激活插件：缺少必要权限 {PluginPermission.get_permission_description(permission)}"
+                            )
+                        # 如果请求成功，添加到已授权权限集合
+                        self._granted_permissions.add(permission)
             
             self._active = True  # 设置激活状态
             self._state = PluginState.ACTIVE
@@ -730,10 +737,10 @@ class XzltxsPlugin(PluginBase):
             self.data_processor.error.connect(self._on_processing_error)
             self.data_processor.progress.connect(self.progress.setValue)
             self.progress.canceled.connect(self._cancel_processing)
+            self.progress.show()
             # 启动数据处理器
             self._logger.info("启动数据处理器")
             self.data_processor.process()
-            self.progress.show()
             
             return not self._error_occurred
             

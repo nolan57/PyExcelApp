@@ -84,9 +84,12 @@ class PluginInterface(ABC):
         pass
         
     @abstractmethod
-    def activate(self) -> None:
+    def activate(self, granted_permissions: Set[PluginPermission]) -> None:
         """
         激活插件
+        
+        Args:
+            granted_permissions: 已授予的权限集合
         """
         pass
         

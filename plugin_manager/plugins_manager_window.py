@@ -15,10 +15,12 @@ import json
 from plugin_manager.plugin_permissions import PluginPermission, PluginPermissionManager
 from PyQt6.QtGui import QColor
 from globals import GlobalState
+import logging
 
 class PluginManagerWindow(QDialog):
     def __init__(self, plugin_system: PluginSystem, parent=None):
         super().__init__(parent)
+        self._logger = logging.getLogger(__name__)
         self.plugin_system = plugin_system
         self.setWindowTitle("插件管理")
         self.resize(600, 400)
@@ -97,10 +99,8 @@ class PluginManagerWindow(QDialog):
         # 添加配置管理器
         self.plugin_config = PluginConfig(os.path.join(self.plugin_system.plugin_dir, "configs"))
         
-        # 初始化权限管理器
-        self.permission_manager = PluginPermissionManager(
-            os.path.join(self.plugin_system.plugin_dir, "permissions.json")
-        )
+        # 使用插件系统的权限管理器
+        self.permission_manager = self.plugin_system.permission_manager
         self.globalState = GlobalState()
         self.update_plugin_list()
     
@@ -246,6 +246,9 @@ class PluginManagerWindow(QDialog):
             
             # 更新配置信息
             self.update_config_tab(plugin_instance)
+            
+            # 更新权限信息
+            self.update_permissions_tab(plugin_name)
     
     def unload_plugin(self):
         try:
@@ -288,18 +291,33 @@ class PluginManagerWindow(QDialog):
             progress.show()
             
             try:
-                    # 激活插件
-                    if self.plugin_system.activate_plugin(plugin_name):
-                        ErrorHandler.handle_info(f"插件 {plugin_name} 已激活", self)
-                        # 更新插件状态显示
-                        self.update_plugin_list()
-                        # 更新插件详情
-                        self.update_plugin_details()
-                        # 触发插件激活事件
-                        print("触发插件激活事件")
-                        self.globalState.event_bus.emit('plugin.activated', {'plugin_name': plugin_name})
-                    else:
-                        ErrorHandler.handle_warning(f"插件 {plugin_name} 激活失败", self)
+                # 检查插件所需权限，只提示尚未通过复选框授予的权限
+                required_permissions = plugin.get_required_permissions()
+                self._logger.info(f"激活插件时检查 插件 {plugin_name} 所需权限: {required_permissions}")
+                self._logger.info(f"激活插件时检查 插件 {plugin_name} 已授予权限: {self.permission_manager.get_granted_permissions(plugin_name)}")
+                missing_permissions = [
+                    perm for perm in required_permissions
+                    if not perm in self.permission_manager.get_granted_permissions(plugin_name)
+                ]
+                
+                if missing_permissions:
+                    ErrorHandler.handle_info(
+                        f"插件 {plugin_name} 需要以下权限: {', '.join(p.value for p in missing_permissions)}", 
+                        self
+                    )
+                
+                # 激活插件
+                if self.plugin_system.activate_plugin(plugin_name):
+                    ErrorHandler.handle_info(f"插件 {plugin_name} 已激活", self)
+                    # 更新插件状态显示
+                    self.update_plugin_list()
+                    # 更新插件详情
+                    self.update_plugin_details()
+                    # 触发插件激活事件
+                    print("触发插件激活事件")
+                    self.globalState.event_bus.emit('plugin.activated', {'plugin_name': plugin_name})
+                else:
+                    ErrorHandler.handle_warning(f"插件 {plugin_name} 激活失败", self)
             finally:
                 # 确保关闭进度对话框
                 progress.close()
@@ -412,21 +430,67 @@ class PluginManagerWindow(QDialog):
             item = self.permissions_layout.takeAt(0)
             if item.widget():
                 item.widget().deleteLater()
+        
+        # 添加权限说明标签
+        permissions_label = QLabel("请为该插件选择适当的权限：")
+        self.permissions_layout.addWidget(permissions_label)
+        
+        # 按权限类别分组
+        permission_groups = {
+            "文件访问": [
+                PluginPermission.FILE_READ,
+                PluginPermission.FILE_WRITE,
+            ],
+            "系统访问": [
+                PluginPermission.NETWORK,
+                PluginPermission.SYSTEM_EXEC
+            ],
+            "其他": [
+                PluginPermission.DATA_READ,
+                PluginPermission.DATA_WRITE,
+                PluginPermission.UI_MODIFY,
+            ]
+        }
+        
+        # 添加分组和权限复选框
+        for group_name, permissions in permission_groups.items():
+            # 添加分组标签
+            group_label = QLabel(f"<b>{group_name}</b>")
+            self.permissions_layout.addWidget(group_label)
             
-        # 添加权限复选框
-        for permission in PluginPermission:
-            checkbox = QCheckBox(permission.value)
-            checkbox.setChecked(
-                self.permission_manager.has_permission(plugin_name, permission)
-            )
-            checkbox.stateChanged.connect(
-                lambda state, p=permission: self.on_permission_changed(plugin_name, p, state)
-            )
-            self.permissions_layout.addWidget(checkbox)
+            # 添加该组的权限复选框
+            for permission in permissions:
+                checkbox = QCheckBox(permission.value)
+                checkbox.setChecked(
+                    self.permission_manager.has_permission(plugin_name, permission)
+                )
+                checkbox.stateChanged.connect(
+                    lambda state, p=permission: self.on_permission_changed(plugin_name, p, state)
+                )
+                # 添加权限描述
+                description = QLabel(f"<small>{self.get_permission_description(permission)}</small>")
+                description.setWordWrap(True)
+                self.permissions_layout.addWidget(checkbox)
+                self.permissions_layout.addWidget(description)
+        
+        # 添加间隔
+        self.permissions_layout.addStretch()
             
     def on_permission_changed(self, plugin_name: str, permission: PluginPermission, state: int):
         """处理权限变更"""
-        if state == Qt.CheckState.Checked.value:
-            self.permission_manager.grant_permission(plugin_name, permission)
-        else:
-            self.permission_manager.revoke_permission(plugin_name, permission)
+        try:
+            if state == Qt.CheckState.Checked.value:
+                self.permission_manager.grant_permission(plugin_name, permission)
+                ErrorHandler.handle_info(f"已为插件 {plugin_name} 授予 {permission.value} 权限", self)
+            else:
+                self.permission_manager.revoke_permission(plugin_name, permission)
+                ErrorHandler.handle_info(f"已为插件 {plugin_name} 撤销 {permission.value} 权限", self)
+            
+            # 立即保存权限更改
+            self.permission_manager.save_permissions()
+        except Exception as e:
+            ErrorHandler.handle_error(e, self, "保存权限更改时发生错误")
+            
+    def get_permission_description(self, permission: PluginPermission) -> str:
+        """获取权限描述"""
+        return PluginPermission.get_permission_description(permission)

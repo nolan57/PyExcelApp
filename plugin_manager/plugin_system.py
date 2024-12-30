@@ -1,4 +1,5 @@
 # plugin_system.py
+import json
 import os
 import importlib.util
 import logging
@@ -34,6 +35,10 @@ class PluginSystem:
         # 初始化权限管理器
         permission_file = os.path.join(os.path.dirname(__file__), 'plugin_permissions.json')
         self.permission_manager = PluginPermissionManager(permission_file)
+        # 确保权限文件存在
+        if not os.path.exists(permission_file):
+            with open(permission_file, 'w') as f:
+                json.dump({}, f)
         
         self._setup_plugin_directory()
         
@@ -248,15 +253,20 @@ class PluginSystem:
         try:
             plugin = self._plugins[plugin_name].instance
             
-            # 检查并请求所有必需权限
+            # 获取插件所需权限
             required_permissions = plugin.get_required_permissions()
-            if required_permissions:
-                if not self.request_plugin_permissions(plugin_name, required_permissions):
-                    self._logger.warning(f"插件 {plugin_name} 激活失败: 权限被拒绝")
-                    return False
+            # 获取已授予的权限
+            granted_permissions = self.permission_manager.get_granted_permissions(plugin_name)
+            
+            # 检查缺失的权限
+            missing_permissions = required_permissions - granted_permissions
+            
+            if missing_permissions:
+                self._logger.warning(f"插件 {plugin_name} 缺少以下权限: {', '.join(p.value for p in missing_permissions)}")
+                return False
             
             # 激活插件
-            plugin.activate()
+            plugin.activate(granted_permissions)
             self._plugin_states[plugin_name] = 'active'
             
             # 触发插件激活事件
