@@ -12,6 +12,8 @@ class PluginState(Enum):
     LOADED = "loaded"
     ACTIVE = "active"
     ERROR = "error"
+    STOPPING = "stopping"
+    SUSPENDED = "suspended"
 
 class PluginInterface(ABC):
     """插件接口基类"""

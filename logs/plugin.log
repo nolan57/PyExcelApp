@@ -2147,3 +2147,7 @@ plugin_manager.plugin_system.PluginError: 加载插件失败: cannot import name
 2024-12-30 23:21:07,073 - xzltxs - WARNING - 等待任务完成超时，尝试次数：3
 2024-12-30 23:21:07,075 - xzltxs - WARNING - 强制重置线程池
 2024-12-30 23:21:07,079 - xzltxs - INFO - 数据处理已停止
+2024-12-30 23:27:13,969 - xzltxs - INFO - 处理行: 3 - 1003 完成
+2024-12-30 23:27:13,970 - xzltxs - INFO - 处理行: 1003 - 2003
+2024-12-30 23:33:24,833 - xzltxs - INFO - 处理行: 3 - 1003 完成
+2024-12-30 23:33:24,860 - xzltxs - INFO - 处理行: 1003 - 2003

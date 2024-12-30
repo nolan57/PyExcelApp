@@ -76,3 +76,16 @@ class PluginConfig:
             return True
         except:
             return False 
+
+class PluginConfigManager:
+    def validate_config(self, plugin_name: str, config: Dict) -> bool:
+        """验证配置有效性"""
+        pass
+        
+    def apply_config(self, plugin_name: str, config: Dict) -> None:
+        """应用配置并通知相关插件"""
+        pass
+        
+    def watch_config_changes(self, plugin_name: str) -> None:
+        """监听配置文件变化"""
+        pass 

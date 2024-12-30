@@ -3,7 +3,7 @@ import json
 import os
 import importlib.util
 import logging
-from typing import Dict, Any, Optional, Set
+from typing import Dict, Any, Optional, Set, List
 from dataclasses import dataclass
 
 from PyQt6.QtWidgets import QMessageBox, QApplication
@@ -44,6 +44,8 @@ class PluginSystem:
         
         # 插件生命周期状态
         self._plugin_states: Dict[str, str] = {}  # 存储插件状态：loaded, initialized, active, stopped
+        
+        self._dependency_graph = {}  # 存储插件依赖关系
         
     def _setup_plugin_directory(self) -> None:
         """初始化插件目录"""
@@ -376,3 +378,11 @@ class PluginSystem:
         """
         plugin_info = self._plugins.get(plugin_name)
         return plugin_info.instance if plugin_info else None
+
+    def resolve_dependencies(self, plugin_name: str) -> List[str]:
+        """解析插件依赖，返回正确的加载顺序"""
+        pass
+        
+    def check_circular_dependencies(self) -> bool:
+        """检查是否存在循环依赖"""
+        pass
