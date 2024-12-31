@@ -59,10 +59,10 @@ class ToolBar(QToolBar):
         self.update_plugin_buttons()
 
         self.global_state = GlobalState()
-        self.global_state.event_bus.on("plugin.activated", self.on_plugin_activated)
-        self.global_state.event_bus.on("plugin.deactivated", self.on_plugin_deactivated)
-        self.global_state.event_bus.on("plugin.loaded", self.on_plugin_loaded)
-        self.global_state.event_bus.on("plugin.unloaded", self.on_plugin_unloaded)
+        self.global_state.event_bus.subscribe("plugin.activated", self.on_plugin_activated)
+        self.global_state.event_bus.subscribe("plugin.deactivated", self.on_plugin_deactivated)
+        self.global_state.event_bus.subscribe("plugin.loaded", self.on_plugin_loaded)
+        self.global_state.event_bus.subscribe("plugin.unloaded", self.on_plugin_unloaded)
     
     def show_plugin_manager(self):
         """显示插件管理窗口"""

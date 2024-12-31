@@ -18,6 +18,31 @@ class PluginState(Enum):
 class PluginInterface(ABC):
     """插件接口基类"""
     
+    def __init__(self):
+        self._is_running = False
+        
+    @property
+    def is_running(self) -> bool:
+        """获取插件运行状态"""
+        return self._is_running
+        
+    def start(self, *args, **kwargs):
+        """启动插件"""
+        if not self._is_running:
+            self._is_running = True
+            # 通知插件系统
+            if hasattr(self, 'plugin_system'):
+                self.plugin_system.start_plugin(self.get_name())
+                
+    def stop(self):
+        """停止插件"""
+        if self._is_running:
+            self._is_running = False
+            self.cleanup()
+            # 通知插件系统
+            if hasattr(self, 'plugin_system'):
+                self.plugin_system.stop_plugin(self.get_name())
+        
     @abstractmethod
     def get_name(self) -> str:
         """

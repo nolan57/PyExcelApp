@@ -1,5 +1,6 @@
 import sys
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtGui import QIcon, QAction
 from ui.main_window import MainWindow
 from logging_config import setup_logging
 from globals import GlobalState
@@ -27,7 +28,7 @@ def main():
         # 初始化主窗口
         window = MainWindow(plugin_system)
         window.show()
-        
+
         # 应用程序退出时清理
         def cleanup():
             state.event_bus.clear()

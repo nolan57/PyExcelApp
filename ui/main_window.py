@@ -1,5 +1,6 @@
-from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QMenuBar, QMenu
-from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QMenuBar, QMenu, QStyle
+from PyQt6.QtGui import QAction, QIcon
+from PyQt6.QtCore import Qt
 from ui.toolbar import ToolBar
 from ui.workbook import WorkbookWidget
 from plugin_manager.plugin_system import PluginSystem
@@ -59,6 +60,44 @@ class MainWindow(QMainWindow):
         # 更新全局状态
         self.global_state = GlobalState()
         self.global_state.workbook.tab_widget = self.workbook_widget.tab_widget
+        
+        # 创建停止按钮
+        self.stop_plugin_action = QAction(
+            self.style().standardIcon(QStyle.StandardPixmap.SP_BrowserStop),
+            "停止插件",
+            self
+        )
+        self.stop_plugin_action.setStatusTip("停止正在运行的插件")
+        self.stop_plugin_action.triggered.connect(self.stop_running_plugin)
+        self.stop_plugin_action.setVisible(False)  # 默认隐藏
+        self.toolbar.addAction(self.stop_plugin_action)
+        
+        # 保存当前运行的插件引用
+        self.running_plugin = None
+        
+        # 订阅插件事件
+        self.plugin_system._event_bus.subscribe('plugin.started', self._on_plugin_started)
+        self.plugin_system._event_bus.subscribe('plugin.stopped', self._on_plugin_stopped)
+        
+    def stop_running_plugin(self):
+        """停止正在运行的插件"""
+        if self.running_plugin:
+            try:
+                # 调用插件的停止方法
+                self.running_plugin.stop()
+                # 按钮的隐藏会通过事件处理自动完成
+            except Exception as e:
+                ErrorHandler.handle_error(e, self, "停止插件时发生错误")
+                
+    def _on_plugin_started(self, event_data):
+        """插件启动时显示停止按钮"""
+        self.running_plugin = event_data['plugin']
+        self.stop_plugin_action.setVisible(True)
+        
+    def _on_plugin_stopped(self, event_data):
+        """插件停止时隐藏停止按钮"""
+        self.running_plugin = None
+        self.stop_plugin_action.setVisible(False)
         
     def closeEvent(self, event):
         """处理窗口关闭事件"""

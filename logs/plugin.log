@@ -2151,3 +2151,377 @@ plugin_manager.plugin_system.PluginError: 加载插件失败: cannot import name
 2024-12-30 23:27:13,970 - xzltxs - INFO - 处理行: 1003 - 2003
 2024-12-30 23:33:24,833 - xzltxs - INFO - 处理行: 3 - 1003 完成
 2024-12-30 23:33:24,860 - xzltxs - INFO - 处理行: 1003 - 2003
+2024-12-30 23:52:53,346 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-30 23:57:25,105 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-30 23:59:39,563 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 00:00:07,026 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-31 00:00:07,061 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-31 00:00:07,061 - xzltxs - INFO - 开始激活插件
+2024-12-31 00:00:07,062 - xzltxs - INFO - 插件激活成功
+2024-12-31 00:00:10,865 - xzltxs - INFO - 开始处理数据
+2024-12-31 00:00:10,865 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11d2e08b0>
+2024-12-31 00:00:10,913 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 00:00:10,913 - xzltxs - INFO - 权限检查通过
+2024-12-31 00:00:10,913 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 00:00:13,715 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 00:00:19,038 - xzltxs - INFO - 更新配置
+2024-12-31 00:00:20,043 - xzltxs - INFO - 总列数: 50
+2024-12-31 00:00:20,043 - xzltxs - INFO - 创建进度条
+2024-12-31 00:00:20,045 - xzltxs - INFO - 创建数据处理器
+2024-12-31 00:00:20,045 - xzltxs - INFO - 启动数据处理器
+2024-12-31 00:00:20,133 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 00:00:20,133 - xzltxs - INFO - 开始数据处理
+2024-12-31 00:00:20,133 - xzltxs - INFO - 总列数: 50
+2024-12-31 00:00:20,133 - xzltxs - INFO - 数据处理已停止
+2024-12-31 00:00:20,133 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 00:00:20,149 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 00:00:20,150 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:16:35,418 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 21:17:15,061 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-31 21:17:15,117 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.FILE_READ: 'file_read'>}
+2024-12-31 21:17:15,118 - xzltxs - INFO - 开始激活插件
+2024-12-31 21:17:15,118 - xzltxs - INFO - 插件激活成功
+2024-12-31 21:17:18,855 - xzltxs - INFO - 开始处理数据
+2024-12-31 21:17:18,855 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x119c148b0>
+2024-12-31 21:17:18,934 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 21:17:18,934 - xzltxs - INFO - 权限检查通过
+2024-12-31 21:17:18,934 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 21:17:20,293 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 21:17:29,968 - xzltxs - INFO - 更新配置
+2024-12-31 21:17:30,981 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:17:30,981 - xzltxs - INFO - 创建进度条
+2024-12-31 21:17:31,006 - xzltxs - INFO - 创建数据处理器
+2024-12-31 21:17:31,006 - xzltxs - INFO - 启动数据处理器
+2024-12-31 21:17:31,070 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:17:31,071 - xzltxs - INFO - 开始数据处理
+2024-12-31 21:17:31,071 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:17:31,071 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 21:17:31,071 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:17:31,089 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:17:31,089 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:41:57,439 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 21:42:50,821 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 21:42:50,847 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 21:42:50,847 - xzltxs - INFO - 开始激活插件
+2024-12-31 21:42:50,847 - xzltxs - INFO - 插件激活成功
+2024-12-31 21:42:54,570 - xzltxs - INFO - 开始处理数据
+2024-12-31 21:42:54,570 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x116c94940>
+2024-12-31 21:42:54,663 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 21:42:54,663 - xzltxs - INFO - 权限检查通过
+2024-12-31 21:42:54,663 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 21:42:56,638 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 21:43:01,992 - xzltxs - INFO - 更新配置
+2024-12-31 21:43:03,007 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:43:03,007 - xzltxs - INFO - 创建进度条
+2024-12-31 21:43:03,031 - xzltxs - INFO - 创建数据处理器
+2024-12-31 21:43:03,031 - xzltxs - INFO - 启动数据处理器
+2024-12-31 21:43:03,076 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:43:03,076 - xzltxs - INFO - 开始数据处理
+2024-12-31 21:43:03,076 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:43:03,076 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:43:03,076 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 21:43:03,090 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:43:03,090 - xzltxs - INFO - 数据处理被用户终止
+2024-12-31 21:43:03,091 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:43:03,199 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:47:29,002 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 21:47:58,908 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 21:47:59,090 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-31 21:47:59,090 - xzltxs - INFO - 开始激活插件
+2024-12-31 21:47:59,090 - xzltxs - INFO - 插件激活成功
+2024-12-31 21:48:10,925 - xzltxs - INFO - 开始处理数据
+2024-12-31 21:48:10,944 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x116f149d0>
+2024-12-31 21:48:11,815 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 21:48:11,815 - xzltxs - INFO - 权限检查通过
+2024-12-31 21:48:11,815 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 21:48:17,255 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 21:48:22,754 - xzltxs - INFO - 更新配置
+2024-12-31 21:48:23,820 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:48:23,820 - xzltxs - INFO - 创建进度条
+2024-12-31 21:48:24,108 - xzltxs - INFO - 创建数据处理器
+2024-12-31 21:48:24,307 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:48:24,319 - xzltxs - ERROR - 处理数据时发生错误: 'DataProcessor' object has no attribute '_on_task_completed'
+2024-12-31 21:48:24,319 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:48:24,339 - xzltxs - WARNING - 用户取消数据处理
+2024-12-31 21:48:24,340 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:48:24,340 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:48:24,811 - xzltxs - ERROR - 数据处理发生错误: 'DataProcessor' object has no attribute '_on_task_completed'
+2024-12-31 21:48:44,662 - xzltxs - INFO - 数据处理完成
+2024-12-31 21:51:20,311 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 21:51:45,897 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>}
+2024-12-31 21:51:45,898 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-31 21:51:45,899 - xzltxs - INFO - 开始激活插件
+2024-12-31 21:51:45,899 - xzltxs - INFO - 插件激活成功
+2024-12-31 21:51:49,633 - xzltxs - INFO - 开始处理数据
+2024-12-31 21:51:49,633 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x120cac9d0>
+2024-12-31 21:51:49,681 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 21:51:49,681 - xzltxs - INFO - 权限检查通过
+2024-12-31 21:51:49,681 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 21:51:51,224 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 21:51:56,349 - xzltxs - INFO - 更新配置
+2024-12-31 21:51:57,373 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:51:57,373 - xzltxs - INFO - 创建进度条
+2024-12-31 21:51:57,386 - xzltxs - INFO - 创建数据处理器
+2024-12-31 21:51:57,458 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:51:57,459 - xzltxs - INFO - 开始数据处理
+2024-12-31 21:51:57,459 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:51:57,459 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:51:57,459 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 21:51:57,467 - xzltxs - WARNING - 用户取消数据处理
+2024-12-31 21:51:57,467 - xzltxs - INFO - 数据处理被用户终止
+2024-12-31 21:51:57,467 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:51:57,467 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:51:57,583 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:52:07,513 - xzltxs - ERROR - 停止处理时发生错误: wrapped C/C++ object of type DataProcessor has been deleted
+2024-12-31 21:52:07,513 - xzltxs - ERROR - 清理资源时发生错误: 'XzltxsPlugin' object has no attribute 'data_processor'
+2024-12-31 21:52:07,514 - ui.toolbar - INFO - 插件 xzltxs 处理开始
+2024-12-31 21:55:18,191 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 21:55:48,615 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>}
+2024-12-31 21:55:48,647 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 21:55:48,648 - xzltxs - INFO - 开始激活插件
+2024-12-31 21:55:48,648 - xzltxs - INFO - 插件激活成功
+2024-12-31 21:55:51,882 - xzltxs - INFO - 开始处理数据
+2024-12-31 21:55:51,882 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11b494940>
+2024-12-31 21:55:51,949 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 21:55:51,949 - xzltxs - INFO - 权限检查通过
+2024-12-31 21:55:51,949 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 21:55:56,778 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 21:56:04,395 - xzltxs - INFO - 更新配置
+2024-12-31 21:56:05,424 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:56:05,426 - xzltxs - INFO - 创建进度条
+2024-12-31 21:56:05,454 - xzltxs - INFO - 创建数据处理器
+2024-12-31 21:56:05,518 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 21:56:05,519 - xzltxs - INFO - 开始数据处理
+2024-12-31 21:56:05,519 - xzltxs - INFO - 数据处理已停止
+2024-12-31 21:56:05,519 - xzltxs - INFO - 总列数: 50
+2024-12-31 21:56:05,531 - xzltxs - WARNING - 用户取消数据处理
+2024-12-31 21:56:05,531 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 21:56:05,531 - xzltxs - INFO - 数据处理被用户终止
+2024-12-31 21:56:11,411 - xzltxs - ERROR - 清理资源时发生错误: 'XzltxsPlugin' object has no attribute 'data_processor'
+2024-12-31 21:56:11,411 - ui.toolbar - INFO - 插件 xzltxs 处理开始
+2024-12-31 22:02:36,586 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 22:03:00,461 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 22:03:00,463 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.FILE_READ: 'file_read'>}
+2024-12-31 22:03:00,463 - xzltxs - INFO - 开始激活插件
+2024-12-31 22:03:00,464 - xzltxs - INFO - 插件激活成功
+2024-12-31 22:03:04,484 - xzltxs - INFO - 开始处理数据
+2024-12-31 22:03:04,484 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x107cb4820>
+2024-12-31 22:03:04,517 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 22:03:04,517 - xzltxs - INFO - 权限检查通过
+2024-12-31 22:03:04,517 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 22:03:06,262 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 22:03:10,371 - xzltxs - INFO - 更新配置
+2024-12-31 22:03:11,381 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:03:11,381 - xzltxs - INFO - 创建进度条
+2024-12-31 22:03:11,402 - xzltxs - INFO - 创建数据处理器
+2024-12-31 22:03:11,451 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 22:03:11,457 - xzltxs - INFO - 开始数据处理
+2024-12-31 22:03:11,457 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:03:11,458 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 22:03:11,459 - xzltxs - INFO - 数据处理被用户终止
+2024-12-31 22:03:11,459 - xzltxs - INFO - 数据处理已停止
+2024-12-31 22:03:11,469 - xzltxs - WARNING - 用户取消数据处理
+2024-12-31 22:03:13,520 - xzltxs - ERROR - 清理资源时发生错误: 'XzltxsPlugin' object has no attribute 'data_processor'
+2024-12-31 22:03:13,520 - ui.toolbar - INFO - 插件 xzltxs 处理开始
+2024-12-31 22:03:59,029 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 22:04:25,199 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 22:04:25,201 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.DATA_READ: 'data_read'>}
+2024-12-31 22:04:25,201 - xzltxs - INFO - 开始激活插件
+2024-12-31 22:04:25,202 - xzltxs - INFO - 插件激活成功
+2024-12-31 22:04:31,619 - xzltxs - INFO - 开始处理数据
+2024-12-31 22:04:31,621 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11f6b48b0>
+2024-12-31 22:04:31,686 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 22:04:31,686 - xzltxs - INFO - 权限检查通过
+2024-12-31 22:04:31,686 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 22:04:33,821 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 22:04:38,759 - xzltxs - INFO - 更新配置
+2024-12-31 22:04:39,790 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:04:39,790 - xzltxs - INFO - 创建进度条
+2024-12-31 22:04:39,814 - xzltxs - INFO - 创建数据处理器
+2024-12-31 22:04:40,906 - xzltxs - INFO - 启动数据处理器
+2024-12-31 22:04:40,907 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 22:04:40,907 - xzltxs - INFO - 开始数据处理
+2024-12-31 22:04:40,907 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:04:40,907 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 22:04:40,907 - xzltxs - INFO - 数据处理被用户终止
+2024-12-31 22:04:40,924 - ui.toolbar - INFO - 插件 xzltxs 处理开始
+2024-12-31 22:08:18,198 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 22:09:22,748 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-31 22:09:22,750 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.DATA_WRITE: 'data_write'>}
+2024-12-31 22:09:22,751 - xzltxs - INFO - 开始激活插件
+2024-12-31 22:09:22,751 - xzltxs - INFO - 插件激活成功
+2024-12-31 22:09:26,157 - xzltxs - INFO - 开始处理数据
+2024-12-31 22:09:26,157 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x118acc8b0>
+2024-12-31 22:09:26,224 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 22:09:26,224 - xzltxs - INFO - 权限检查通过
+2024-12-31 22:09:26,224 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 22:09:27,750 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 22:09:32,437 - xzltxs - INFO - 更新配置
+2024-12-31 22:09:33,449 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:09:33,449 - xzltxs - INFO - 创建进度条
+2024-12-31 22:09:33,485 - xzltxs - INFO - 创建数据处理器
+2024-12-31 22:09:34,546 - xzltxs - INFO - 启动数据处理器
+2024-12-31 22:09:34,561 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 22:09:34,562 - xzltxs - INFO - 开始数据处理
+2024-12-31 22:09:34,562 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:09:34,562 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 22:09:34,562 - xzltxs - INFO - 数据处理被用户终止
+2024-12-31 22:09:34,580 - ui.toolbar - INFO - 插件 xzltxs 处理开始
+2024-12-31 22:12:43,649 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 22:13:47,355 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 22:13:47,383 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 22:13:47,383 - xzltxs - INFO - 开始激活插件
+2024-12-31 22:13:47,383 - xzltxs - INFO - 插件激活成功
+2024-12-31 22:13:51,528 - xzltxs - INFO - 开始处理数据
+2024-12-31 22:13:51,528 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x1166b08b0>
+2024-12-31 22:13:51,652 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 22:13:51,652 - xzltxs - INFO - 权限检查通过
+2024-12-31 22:13:51,652 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 22:13:52,813 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 22:13:57,317 - xzltxs - INFO - 更新配置
+2024-12-31 22:13:58,321 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:13:58,322 - xzltxs - INFO - 创建进度条
+2024-12-31 22:13:58,346 - xzltxs - INFO - 创建数据处理器
+2024-12-31 22:13:59,416 - xzltxs - INFO - 启动数据处理器
+2024-12-31 22:13:59,429 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 22:13:59,430 - xzltxs - INFO - 开始数据处理
+2024-12-31 22:13:59,430 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:13:59,430 - xzltxs - ERROR - 处理数据时发生错误: 'DataProcessor' object has no attribute '_on_task_completed'
+2024-12-31 22:13:59,457 - ui.toolbar - INFO - 插件 xzltxs 处理开始
+2024-12-31 22:15:12,960 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 22:15:51,043 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>}
+2024-12-31 22:15:51,074 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-31 22:15:51,074 - xzltxs - INFO - 开始激活插件
+2024-12-31 22:15:51,074 - xzltxs - INFO - 插件激活成功
+2024-12-31 22:15:54,386 - xzltxs - INFO - 开始处理数据
+2024-12-31 22:15:54,386 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11ae448b0>
+2024-12-31 22:15:54,443 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 22:15:54,443 - xzltxs - INFO - 权限检查通过
+2024-12-31 22:15:54,443 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 22:15:55,922 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 22:15:59,976 - xzltxs - INFO - 更新配置
+2024-12-31 22:16:00,981 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:16:00,981 - xzltxs - INFO - 创建进度条
+2024-12-31 22:16:00,993 - xzltxs - INFO - 创建数据处理器
+2024-12-31 22:16:02,068 - xzltxs - INFO - 启动数据处理器
+2024-12-31 22:16:02,087 - xzltxs - INFO - 开始数据处理
+2024-12-31 22:16:02,088 - xzltxs - INFO - 强制终止数据处理
+2024-12-31 22:16:02,088 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:16:02,088 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 22:16:02,088 - xzltxs - INFO - 数据处理被用户终止
+2024-12-31 22:16:02,109 - ui.toolbar - INFO - 插件 xzltxs 处理开始
+2024-12-31 22:19:13,455 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 22:19:38,806 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.UI_MODIFY: 'ui_modify'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>}
+2024-12-31 22:19:38,808 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-31 22:19:38,808 - xzltxs - INFO - 开始激活插件
+2024-12-31 22:19:38,809 - xzltxs - INFO - 插件激活成功
+2024-12-31 22:19:43,024 - xzltxs - INFO - 开始处理数据
+2024-12-31 22:19:43,024 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x11b5cc8b0>
+2024-12-31 22:19:43,136 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 22:19:43,136 - xzltxs - INFO - 权限检查通过
+2024-12-31 22:19:43,136 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 22:19:44,704 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 22:19:48,922 - xzltxs - INFO - 更新配置
+2024-12-31 22:19:49,954 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:19:49,954 - xzltxs - INFO - 创建进度条
+2024-12-31 22:19:49,986 - xzltxs - INFO - 创建数据处理器
+2024-12-31 22:19:51,072 - xzltxs - INFO - 启动数据处理器
+2024-12-31 22:19:51,104 - xzltxs - INFO - 开始数据处理
+2024-12-31 22:19:51,105 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:19:51,105 - xzltxs - INFO - 创建列 19 的处理任务
+2024-12-31 22:19:51,105 - xzltxs - ERROR - 处理数据时发生错误: 'DataProcessor' object has no attribute 'ColumnTask'
+2024-12-31 22:19:51,106 - xzltxs - ERROR - 数据处理发生错误: 'DataProcessor' object has no attribute 'ColumnTask'
+2024-12-31 22:20:01,817 - xzltxs - INFO - 数据处理完成
+2024-12-31 22:21:40,789 - plugin_manager.plugin_system - INFO - 成功加载 1 个插件
+2024-12-31 22:22:07,979 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 所需权限: {<PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-31 22:22:08,002 - plugin_manager.plugins_manager_window - INFO - 激活插件时检查 插件 xzltxs 已授予权限: {<PluginPermission.DATA_WRITE: 'data_write'>, <PluginPermission.FILE_READ: 'file_read'>, <PluginPermission.DATA_READ: 'data_read'>, <PluginPermission.FILE_WRITE: 'file_write'>, <PluginPermission.UI_MODIFY: 'ui_modify'>}
+2024-12-31 22:22:08,003 - xzltxs - INFO - 开始激活插件
+2024-12-31 22:22:08,003 - xzltxs - INFO - 插件激活成功
+2024-12-31 22:22:11,703 - xzltxs - INFO - 开始处理数据
+2024-12-31 22:22:11,703 - xzltxs - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x1189a08b0>
+2024-12-31 22:22:11,770 - xzltxs - INFO - 缺失权限: set()
+2024-12-31 22:22:11,770 - xzltxs - INFO - 权限检查通过
+2024-12-31 22:22:11,771 - xzltxs - INFO - 开始处理零件配置
+2024-12-31 22:22:12,888 - xzltxs - DEBUG - 收到单元格位置请求: 起始行
+2024-12-31 22:22:17,564 - xzltxs - INFO - 更新配置
+2024-12-31 22:22:18,676 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:22:18,676 - xzltxs - INFO - 创建进度条
+2024-12-31 22:22:18,698 - xzltxs - INFO - 创建数据处理器
+2024-12-31 22:22:19,813 - xzltxs - INFO - 启动数据处理器
+2024-12-31 22:22:19,871 - xzltxs - INFO - 开始数据处理
+2024-12-31 22:22:19,872 - xzltxs - INFO - 总列数: 50
+2024-12-31 22:22:19,872 - xzltxs - INFO - 创建列 19 的处理任务
+2024-12-31 22:22:19,872 - xzltxs - INFO - 创建列 20 的处理任务
+2024-12-31 22:22:19,872 - xzltxs - INFO - 创建列 21 的处理任务
+2024-12-31 22:22:19,872 - xzltxs - INFO - 创建列 22 的处理任务
+2024-12-31 22:22:19,872 - xzltxs - INFO - 创建列 23 的处理任务
+2024-12-31 22:22:19,872 - xzltxs - INFO - 创建列 24 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 25 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 26 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 27 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 28 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 29 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 30 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 31 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 32 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 33 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 34 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 35 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 36 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 37 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 38 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 39 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 40 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 41 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 42 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 43 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 44 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 45 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 46 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 47 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 48 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 49 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 50 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 51 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 52 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 53 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 54 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 55 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 56 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 57 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 58 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 59 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 60 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 61 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 62 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 63 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 64 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 65 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 66 的处理任务
+2024-12-31 22:22:19,873 - xzltxs - INFO - 创建列 67 的处理任务
+2024-12-31 22:22:19,874 - xzltxs - INFO - 创建列 68 的处理任务
+2024-12-31 22:22:19,874 - xzltxs - INFO - 开始处理列 19
+2024-12-31 22:22:19,874 - xzltxs - INFO - 开始处理列 20
+2024-12-31 22:22:19,874 - xzltxs - INFO - 开始处理列 21
+2024-12-31 22:22:19,874 - xzltxs - INFO - 开始处理列 22
+2024-12-31 22:22:19,874 - xzltxs - INFO - 开始处理列 23
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理列: 19
+2024-12-31 22:22:19,874 - xzltxs - INFO - 开始处理列 25
+2024-12-31 22:22:19,874 - xzltxs - INFO - 开始处理列 24
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理列: 20
+2024-12-31 22:22:19,874 - xzltxs - INFO - 开始处理列 26
+2024-12-31 22:22:19,874 - xzltxs - INFO - 已提交 50 个任务到线程池
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理列: 21
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理列: 22
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理列: 23
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理列: 25
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理列: 24
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理列: 26
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-31 22:22:19,874 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-31 22:22:19,875 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-31 22:22:19,875 - xzltxs - INFO - 处理行: 3 - 1003
+2024-12-31 22:22:19,877 - xzltxs - INFO - 处理行: 3 - 1003

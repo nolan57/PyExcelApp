@@ -244,30 +244,44 @@ class XzltxsPlugin(PluginBase):
         try:
             # 停止数据处理
             if hasattr(self, 'data_processor'):
-                self.data_processor.stop()
-                self.data_processor.wait()  # 等待线程结束
-                self.data_processor.deleteLater()
-                delattr(self, 'data_processor')
+                try:
+                    # 先断开所有信号连接
+                    try:
+                        self.data_processor.finished.disconnect()
+                        self.data_processor.error.disconnect()
+                        self.data_processor.progress.disconnect()
+                        self.data_processor.stopped.disconnect()
+                    except:
+                        pass
+                    
+                    # 然后停止处理器
+                    self.data_processor.stop()
+                    self.data_processor.wait(1000)
+                    self.data_processor.deleteLater()
+                except:
+                    pass
+                finally:
+                    delattr(self, 'data_processor')
             
             # 关闭进度条
             if hasattr(self, 'progress'):
-                self.progress.close()
-                delattr(self, 'progress')
-            
-            # 关闭设置对话框
-            if hasattr(self, 'settings_dialog'):
-                self.settings_dialog.close()
-                delattr(self, 'settings_dialog')
-            
-            # 清理其他资源
-            if hasattr(self, 'mouse_ops'):
-                delattr(self, 'mouse_ops')
+                try:
+                    if not self.progress.isHidden():
+                        try:
+                            self.progress.canceled.disconnect()
+                        except:
+                            pass
+                        self.progress.close()
+                except:
+                    pass
+                finally:
+                    delattr(self, 'progress')
             
             # 调用基类清理方法
             super().cleanup()
             
         except Exception as e:
-            self._logger.error(f"清理资源时发生错误: {e}")
+            self._logger.error(f"清理资源时发生错误: {str(e)}")
         
     def get_name(self) -> str:
         return "xzltxs"
@@ -602,7 +616,8 @@ class XzltxsPlugin(PluginBase):
         progress = Signal(int)
         error = Signal(str)
         stopped = Signal()
-        
+        task_completed = Signal(int)
+
         class ColumnTask(QRunnable):
             def __init__(self, col, model, plugin, callback):
                 super().__init__()
@@ -610,15 +625,19 @@ class XzltxsPlugin(PluginBase):
                 self.model = model
                 self.plugin = plugin
                 self.callback = callback
-                self._logger = logging.getLogger(__name__)
-                
+                self._logger = None
+
             def run(self):
                 try:
+                    self._logger = logging.getLogger(__name__)
                     self._logger.info(f"开始处理列 {self.col}")
                     results = self.plugin.process_column(self.col, self.model)
                     if results:
                         self.plugin.apply_results(results, self.col, self.model)
+                    
+                    # 调用回调通知任务完成
                     self.callback()
+                    
                     self._logger.info(f"列 {self.col} 处理完成")
                 except Exception as e:
                     self._logger.error(f"处理列 {self.col} 时发生错误: {str(e)}")
@@ -628,25 +647,28 @@ class XzltxsPlugin(PluginBase):
                         Qt.ConnectionType.QueuedConnection,
                         Q_ARG(str, str(e))
                     )
-                    
+
         def __init__(self, plugin):
             super().__init__()
             self.plugin = plugin
             self._stop_requested = False
-            self.thread_pool = QThreadPool.globalInstance()
+            self._is_stopping = False
             self._completed_tasks = 0
             self._total_tasks = 0
             self._lock = threading.Lock()
             self._logger = logging.getLogger(__name__)
             
-        def _update_progress(self):
+            # 创建线程池并设置父对象
+            self.thread_pool = QThreadPool()
+            self.thread_pool.setParent(self)  # 确保线程池随线程一起销毁
+
+        def _on_task_completed(self, col):
+            """处理单个任务完成的槽函数"""
             with self._lock:
                 self._completed_tasks += 1
-                progress = self._completed_tasks # int((self._completed_tasks / self._total_tasks) * 100)
-                self.progress.emit(progress)
-                if self._completed_tasks == self._total_tasks:
-                    self.finished.emit()
-                    
+                self.progress.emit(self._completed_tasks)
+                self._logger.debug(f"任务完成进度: {self._completed_tasks}/{self._total_tasks}")
+
         def run(self):
             try:
                 self._logger.info("开始数据处理")
@@ -660,6 +682,11 @@ class XzltxsPlugin(PluginBase):
                 self._logger.info(f"总列数: {self._total_tasks}")
                 self.thread_pool.setMaxThreadCount(min(self._total_tasks, 8))
                 
+                # 在主循环前连接信号
+                self.task_completed.connect(self._on_task_completed, Qt.ConnectionType.QueuedConnection)
+                
+                # 创建所有任务
+                tasks = []
                 for col in range(self.plugin.xs_column, max_col):
                     if self._stop_requested:
                         break
@@ -669,49 +696,99 @@ class XzltxsPlugin(PluginBase):
                         col=col,
                         model=model,
                         plugin=self.plugin,
-                        callback=self._update_progress
+                        callback=lambda c=col: self.task_completed.emit(c)  # 使用默认参数捕获col值
                     )
+                    tasks.append(task)
+                    
+                # 批量提交任务
+                for task in tasks:
+                    if self._stop_requested:
+                        break
                     self.thread_pool.start(task)
-                    self._logger.info(f"列 {col} 的任务已提交到线程池")
                     
                 self._logger.info(f"已提交 {self._total_tasks} 个任务到线程池")
+                
+                # 等待所有任务完成或被终止
+                while not self._stop_requested and self._completed_tasks < self._total_tasks:
+                    if self.thread_pool.waitForDone(100):  # 如果所有任务完成，跳出循环
+                        break
+                    QThread.msleep(10)  # 短暂休眠避免CPU过载
+                    
+                # 确保所有任务都完成或被清理
                 self.thread_pool.waitForDone()
-                # if isinstance(self.plugin.table_view.model(), TableModel):
-                #     self.plugin.table_view.model().save_changes()
-                # self.finished.emit()
-                # self._logger.info("数据处理完成")
+                
+                # 断开信号连接
+                try:
+                    self.task_completed.disconnect(self._on_task_completed)
+                except:
+                    pass
+                    
+                if self._stop_requested:
+                    self._logger.info("数据处理被用户终止")
+                    self.stopped.emit()
+                else:
+                    self._logger.info("数据处理完成")
+                    self.finished.emit()
+                    
             except Exception as e:
                 self._logger.error(f"处理数据时发生错误: {str(e)}")
                 self.error.emit(str(e))
-                
+
         def stop(self):
-            self._logger.info("强制终止数据处理")
-            self._stop_requested = True
+            """停止处理"""
+            try:
+                if self._is_stopping:  # 防止重复停止
+                    return
+                
+                self._is_stopping = True
+                self._logger.info("强制终止数据处理")
+                self._stop_requested = True
+                
+                # 清空线程池中的所有任务
+                self.thread_pool.clear()
+                
+                # 等待线程池清空
+                self.thread_pool.waitForDone(100)
+                
+                # 发出停止信号
+                self.stopped.emit()
+                
+                # 退出当前线程
+                self.quit()
+                self.wait(1000)  # 等待最多1秒
+                
+            except Exception as e:
+                self._logger.error(f"停止处理时发生错误: {str(e)}")
+            finally:
+                self._is_stopping = False
+
+    def process_data(self, table_view: Optional[QTableView] = None, **parameters) -> Any:
+        """处理数据的入口方法"""
+        try:
+            # 启动插件处理
+            self.start()  # 调用基类的 start 方法，触发 plugin.started 事件
             
-            # 清空线程池中的所有任务
-            self.thread_pool.clear()
+            # 等待数据处理完成
+            result = self._process_data(table_view, **parameters)
             
-            # 尝试等待任务完成，最多等待3次
-            for i in range(3):
-                if self.thread_pool.waitForDone(msecs=500):  # 每次等待500毫秒
-                    break
-                self._logger.warning(f"等待任务完成超时，尝试次数：{i+1}")
+            # 创建事件循环等待处理完成
+            loop = QEventLoop()
+            if hasattr(self, 'data_processor'):
+                self.data_processor.finished.connect(loop.quit)
+                self.data_processor.stopped.connect(loop.quit)
+                self.data_processor.error.connect(loop.quit)
+                loop.exec()  # 等待直到处理完成
             
-            # 如果仍有任务在运行，重置线程池
-            if self.thread_pool.activeThreadCount() > 0:
-                self._logger.warning("强制重置线程池")
-                self.thread_pool = QThreadPool.globalInstance()
-                self.thread_pool.setMaxThreadCount(min(self._total_tasks, 8))
-            
-            # 发出停止信号
-            self.stopped.emit()
-            
-            # 退出当前线程
-            self.quit()
-            self.wait()  # 等待线程结束
+            return result
+        except Exception as e:
+            self._logger.error(f"处理数据时发生错误: {str(e)}")
+            raise e
+        finally:
+            # 确保处理完成后停止插件
+            self.stop()  # 调用基类的 stop 方法，触发 plugin.stopped 事件
 
     def _process_data(self, table_view: Optional[QTableView] = None, **parameters) -> Any:
-        """处理数据的入口方法"""
+        """处理数据的具体实现"""
         self._logger.info("开始处理数据")
         try:
             self._error_occurred = False
@@ -769,20 +846,28 @@ class XzltxsPlugin(PluginBase):
             self._logger.info("创建进度条")
             self.progress = self._create_progress_dialog(total_cols)
             
-            # 创建并启动数据处理器
+            # 创建数据处理器
             self._logger.info("创建数据处理器")
             self.data_processor = self.DataProcessor(self)
+            
+            # 先连接取消按钮
+            self.progress.canceled.connect(self._cancel_processing)
+            
+            # 然后连接数据处理器的信号
             self.data_processor.finished.connect(self._on_processing_finished)
             self.data_processor.error.connect(self._on_processing_error)
             self.data_processor.progress.connect(self.progress.setValue)
             self.data_processor.stopped.connect(self._on_processing_stopped)
-            self.progress.canceled.connect(self.data_processor.stop)
-            # 启动数据处理器
-            self._logger.info("启动数据处理器")
+            
+            # 显示进度条
             self.progress.show()
+            QApplication.processEvents()  # 确保UI更新
+            
+            # 启动处理器
+            self._logger.info("启动数据处理器")
             self.data_processor.start()
             
-            return not self._error_occurred
+            return True  # 返回 True 表示处理已经开始
             
         except Exception as e:
             ErrorHandler.handle_error(e, self.table_view, "处理数据时发生错误")
@@ -792,8 +877,8 @@ class XzltxsPlugin(PluginBase):
     def _on_processing_finished(self):
         """处理完成时的回调"""
         self._logger.info("数据处理完成")
-        if isinstance(self.plugin.table_view.model(), TableModel):
-                    self.plugin.table_view.model().save_changes()
+        if isinstance(self.table_view.model(), TableModel):
+            self.table_view.model().save_changes()
         if hasattr(self, 'progress') and self.progress:
             self.progress.close()
         
@@ -806,26 +891,60 @@ class XzltxsPlugin(PluginBase):
         
     def _cancel_processing(self):
         """取消处理"""
-        self._logger.warning("用户取消数据处理")
-        if hasattr(self, 'data_processor') and self.data_processor:
-            self.data_processor.stop()
-            
+        try:
+            self._logger.warning("用户取消数据处理")
+            if hasattr(self, 'data_processor') and self.data_processor:
+                # 先停止处理器
+                self.data_processor.stop()
+                
+                # 等待一小段时间确保停止信号被处理
+                QThread.msleep(100)
+                
+                # 然后断开信号连接
+                try:
+                    self.data_processor.finished.disconnect()
+                    self.data_processor.error.disconnect()
+                    self.data_processor.progress.disconnect()
+                    self.data_processor.stopped.disconnect()
+                    self.progress.canceled.disconnect()
+                except:
+                    pass  # 忽略断开连接时的错误
+                
+        except Exception as e:
+            self._logger.error(f"取消处理时发生错误: {str(e)}")
+
     def _on_processing_stopped(self):
         """处理停止时的回调"""
-        self._logger.info("数据处理已停止")
-        if hasattr(self, 'progress') and self.progress:
-            self.progress.close()
-        
-        # 清理数据处理器
-        if hasattr(self, 'data_processor'):
-            self.data_processor.deleteLater()
-            delattr(self, 'data_processor')
-        
-        # 重置错误状态
-        self._error_occurred = False
-        
-        # 通知用户处理已停止
-        ErrorHandler.handle_info("数据处理已停止", self.table_view)
+        try:
+            self._logger.info("数据处理已停止")
+            
+            # 关闭进度条
+            if hasattr(self, 'progress'):
+                if not self.progress.isHidden():
+                    self.progress.close()
+                delattr(self, 'progress')
+            
+            # 清理数据处理器
+            if hasattr(self, 'data_processor'):
+                try:
+                    self.data_processor.wait(1000)  # 等待线程结束
+                    self.data_processor.deleteLater()
+                except:
+                    pass
+                finally:
+                    delattr(self, 'data_processor')
+            
+            # 重置错误状态
+            self._error_occurred = False
+            
+            # 通知用户处理已停止
+            ErrorHandler.handle_info("数据处理已停止", self.table_view)
+            
+            # 确保插件状态更新
+            self.stop()  # 调用基类的 stop 方法，触发 plugin.stopped 事件
+            
+        except Exception as e:
+            self._logger.error(f"处理停止回调时发生错误: {str(e)}")
 
     def process_parts(self):
         """处理零件数据"""

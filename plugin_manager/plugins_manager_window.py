@@ -103,6 +103,22 @@ class PluginManagerWindow(QDialog):
         self.permission_manager = self.plugin_system.permission_manager
         self.globalState = GlobalState()
         self.update_plugin_list()
+        
+        # 订阅插件事件
+        self.plugin_system._event_bus.subscribe('plugin.started', self._on_plugin_started)
+        self.plugin_system._event_bus.subscribe('plugin.stopped', self._on_plugin_stopped)
+    
+    def _on_plugin_started(self, event_data):
+        """插件启动时的处理"""
+        plugin_name = event_data['plugin_name']
+        # 更新UI状态
+        self._update_plugin_status(plugin_name, "running")
+        
+    def _on_plugin_stopped(self, event_data):
+        """插件停止时的处理"""
+        plugin_name = event_data['plugin_name']
+        # 更新UI状态
+        self._update_plugin_status(plugin_name, "stopped")
     
     def update_plugin_list(self):
         """更新插件列表显示"""

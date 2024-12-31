@@ -47,6 +47,8 @@ class PluginSystem:
         
         self._dependency_graph = {}  # 存储插件依赖关系
         
+        self._running_plugins = {}  # 存储正在运行的插件
+        
     def _setup_plugin_directory(self) -> None:
         """初始化插件目录"""
         if not os.path.exists(self._plugin_dir):
@@ -386,3 +388,45 @@ class PluginSystem:
     def check_circular_dependencies(self) -> bool:
         """检查是否存在循环依赖"""
         pass
+
+    def start_plugin(self, plugin_name: str, *args, **kwargs):
+        """启动插件"""
+        plugin = self.get_plugin(plugin_name)
+        if not plugin:
+            return False
+            
+        # 记录运行状态
+        self._running_plugins[plugin_name] = plugin
+        
+        # 发出插件启动事件
+        if self._event_bus:
+            self._event_bus.emit('plugin.started', {
+                'plugin_name': plugin_name,
+                'plugin': plugin
+            })
+            
+        return True
+        
+    def stop_plugin(self, plugin_name: str):
+        """停止插件"""
+        plugin = self._running_plugins.get(plugin_name)
+        if plugin:
+            try:
+                plugin.cleanup()
+                del self._running_plugins[plugin_name]
+                
+                # 发出插件停止事件
+                if self._event_bus:
+                    self._event_bus.emit('plugin.stopped', {
+                        'plugin_name': plugin_name
+                    })
+                    
+                return True
+            except Exception as e:
+                self._logger.error(f"停止插件 {plugin_name} 时出错: {str(e)}")
+                return False
+        return False
+        
+    def is_plugin_running(self, plugin_name: str) -> bool:
+        """检查插件是否正在运行"""
+        return plugin_name in self._running_plugins
