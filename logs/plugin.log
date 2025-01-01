@@ -1206,3 +1206,19 @@ TypeError: sequence item 0: expected str instance, int found
 2025-01-01 21:13:48,888 - plugin_manager.plugins.xzltxs - INFO - 强制终止数据处理
 2025-01-01 21:13:48,888 - plugin_manager.plugins.xzltxs - INFO - 数据处理已停止
 2025-01-01 21:13:53,629 - ui.toolbar - INFO - 插件 xzltxs 处理开始
+2025-01-01 21:43:22,033 - plugin_manager.utils.plugin_loader - INFO - 找到 1 个插件: ['xzltxs']
+2025-01-01 21:43:22,186 - plugin_manager.plugins.xzltxs - INFO - xzltxs插件初始化
+2025-01-01 21:43:22,187 - plugin_manager.plugins.xzltxs - INFO - 插件配置: {'part_code_column': 2, 'part_name_column': 3, 'xs_column': 19, 'price_column': 4, 'start_row': 2}
+2025-01-01 21:43:22,187 - plugin_manager.plugins.xzltxs - INFO - 零件配置数量: 5
+2025-01-01 21:43:22,187 - plugin_manager.plugins.xzltxs - INFO - table_view 状态: False
+2025-01-01 21:43:22,223 - ui.main_window - INFO - 获取插件系统
+2025-01-01 21:43:22,223 - ui.main_window - INFO - 插件系统已初始化
+2025-01-01 21:43:22,446 - ui.toolbar - INFO - 获取主窗口的插件系统实例
+2025-01-01 21:43:22,462 - ui.toolbar - INFO - 清除所有插件按钮，保留初始化按钮
+2025-01-01 21:43:22,474 - ui.toolbar - INFO - 激活/停用时更新插件按钮
+2025-01-01 21:43:22,474 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮
+2025-01-01 21:43:22,474 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮：xzltxs
+2025-01-01 21:43:31,424 - plugin_manager.plugins.xzltxs - INFO - 配置变更: start_row = 3
+2025-01-01 21:43:31,425 - plugin_manager.plugins.xzltxs - INFO - 配置变更: start_row = 3
+2025-01-01 21:43:31,425 - plugin_manager.plugins.xzltxs - INFO - 配置更新成功: start_row = 3
+2025-01-01 21:43:48,768 - root - INFO - 应用程序清理完成

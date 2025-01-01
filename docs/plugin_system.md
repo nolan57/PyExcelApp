@@ -263,3 +263,81 @@ class ExamplePlugin(PluginBase):
         return self._process(data)
 ```
 ```
+我来补充 plugin_system.md 中关于加密配置和权限的内容：
+
+```markdown:plugin_manager/docs/plugin_system.md
+# 插件系统设计文档
+
+...
+
+## 配置管理
+
+### 配置加密存储
+插件系统支持将配置文件进行加密存储，以保护敏感配置信息的安全。
+
+#### 加密机制
+- 使用 Fernet 对称加密算法
+- 密钥文件存储在 `plugins/configs/config.key`
+- 加密后的配置文件使用 `.bin` 扩展名
+- 未加密的配置文件使用 `.json` 扩展名
+
+#### 配置文件格式
+1. 加密模式
+```python
+# 二进制格式存储加密后的配置
+encrypted_data = encryption.encrypt_data(config_dict)
+with open('plugin.config.bin', 'wb') as f:
+    f.write(encrypted_data)
+```
+
+2. 非加密模式
+```python
+# JSON格式存储原始配置
+with open('plugin.config.json', 'w') as f:
+    json.dump(config_dict, f, indent=4)
+```
+
+### 权限管理
+
+#### 权限存储
+权限配置同样支持加密存储机制：
+
+1. 加密模式下存储为二进制文件
+```python
+permissions_data = {
+    "plugin_name": ["FILE_READ", "FILE_WRITE"]
+}
+encrypted_data = encryption.encrypt_data(permissions_data)
+```
+
+2. 非加密模式下存储为 JSON 文件
+```python
+{
+    "plugin_name": ["FILE_READ", "FILE_WRITE"]
+}
+```
+
+#### 安全性考虑
+- 配置文件加密可以防止未经授权的访问和修改
+- 权限数据加密可以防止权限被篡改
+- 密钥文件需要妥善保管，避免泄露
+
+### 使用示例
+
+```python
+# 初始化加密管理器
+key_file = os.path.join(plugin_dir, 'configs/config.key')
+encryption = ConfigEncryption(key_file)
+
+# 创建配置管理器
+config = PluginConfig(config_dir, encryption)
+
+# 创建权限管理器
+permission_manager = PluginPermissionManager(permission_file, encryption)
+```
+
+### 注意事项
+1. 加密和非加密模式可以共存，由是否提供加密管理器决定
+2. 更改加密模式后，需要重新保存所有配置
+3. 密钥文件丢失将导致无法解密已加密的配置
+4. 建议定期备份密钥文件

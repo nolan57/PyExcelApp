@@ -1,9 +1,0 @@
-{
-    "xzltxs": [
-        "UI_MODIFY",
-        "FILE_WRITE",
-        "DATA_WRITE",
-        "DATA_READ",
-        "FILE_READ"
-    ]
-}

@@ -10,6 +10,7 @@ from ..utils.plugin_error import PluginError, ErrorHandler
 from ..utils.plugin_config import PluginConfig
 from ..features.plugin_dependencies import DependencyManager
 from ..features.plugin_lifecycle import PluginState
+from ..utils.config_encryption import ConfigEncryption
 
 @dataclass
 class PluginInfo:
@@ -33,8 +34,12 @@ class PluginSystem:
         os.makedirs(self.plugin_dir, exist_ok=True)
         os.makedirs(self.config_dir, exist_ok=True)
         
+        # 初始化配置加密
+        key_file = os.path.join(self.plugin_dir, 'configs/config.key')
+        self.config_encryption = ConfigEncryption(key_file)
+        
         # 初始化组件
-        self.config = PluginConfig(self.config_dir)
+        self.config = PluginConfig(self.config_dir, self.config_encryption)
         self.loader = PluginLoader(plugin_dir=self.plugin_dir, plugin_system=self)
         self.permission_manager = PluginPermissionManager(self.permission_file)
         self.permission_manager.set_plugin_config(self.config)

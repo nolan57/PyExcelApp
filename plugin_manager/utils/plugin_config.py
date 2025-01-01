@@ -3,18 +3,22 @@ import json
 from typing import Dict, Any, Optional
 import logging
 from .plugin_error import PluginConfigError
+from .config_encryption import ConfigEncryption
 
 class PluginConfig:
     """插件配置管理"""
     
-    def __init__(self, config_dir: str):
+    def __init__(self, config_dir: str, encryption: ConfigEncryption = None):
         self.config_dir = config_dir
         self._logger = logging.getLogger(__name__)
         self._configs: Dict[str, Dict[str, Any]] = {}
+        self._encryption = encryption
         os.makedirs(self.config_dir, exist_ok=True)
         
     def _get_config_path(self, plugin_name: str) -> str:
         """获取插件配置文件路径"""
+        if self._encryption:
+            return os.path.join(self.config_dir, f"{plugin_name}.config.bin")
         return os.path.join(self.config_dir, f"{plugin_name}.config.json")
         
     def load_config(self, plugin_name: str) -> Dict[str, Any]:
@@ -27,13 +31,22 @@ class PluginConfig:
                     self._configs[plugin_name] = {}
                     return self._configs[plugin_name]
                     
-                with open(config_path, 'r', encoding='utf-8') as f:
-                    self._configs[plugin_name] = json.load(f)
+                if self._encryption:
+                    with open(config_path, 'rb') as f:
+                        encrypted_data = f.read()
+                        self._configs[plugin_name] = self._encryption.decrypt_data(encrypted_data)
+                else:
+                    with open(config_path, 'r', encoding='utf-8') as f:
+                        self._configs[plugin_name] = json.load(f)
             else:
                 self._configs[plugin_name] = {}
                 # 创建配置文件并写入空对象
-                with open(config_path, 'w', encoding='utf-8') as f:
-                    json.dump({}, f)
+                if self._encryption:
+                    with open(config_path, 'wb') as f:
+                        f.write(self._encryption.encrypt_data({}))
+                else:
+                    with open(config_path, 'w', encoding='utf-8') as f:
+                        json.dump({}, f)
             return self._configs[plugin_name]
             
         except Exception as e:
@@ -41,11 +54,16 @@ class PluginConfig:
             raise PluginConfigError(f"加载配置失败: {str(e)}")
             
     def save_config(self, plugin_name: str, config: Dict[str, Any]) -> None:
-        """保存插件配置到 {plugin_name}.config.json"""
+        """保存插件配置"""
         try:
             config_path = self._get_config_path(plugin_name)
-            with open(config_path, 'w', encoding='utf-8') as f:
-                json.dump(config, f, indent=4, ensure_ascii=False)
+            if self._encryption:
+                with open(config_path, 'wb') as f:
+                    encrypted_data = self._encryption.encrypt_data(config)
+                    f.write(encrypted_data)
+            else:
+                with open(config_path, 'w', encoding='utf-8') as f:
+                    json.dump(config, f, indent=4, ensure_ascii=False)
         except Exception as e:
             raise PluginConfigError(f"保存配置失败: {str(e)}")
             
