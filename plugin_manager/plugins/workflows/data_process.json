@@ -1,0 +1,37 @@
+{
+    "id": "workflow_1",
+    "name": "数据处理流程",
+    "description": "清洗并转换数据",
+    "type": "sequential",
+    "nodes": {
+        "node_1": {
+            "id": "node_1",
+            "name": "数据清洗",
+            "plugin_name": "数据清洗",
+            "parameters": {
+                "remove_duplicates": true
+            },
+            "next_nodes": ["node_2"]
+        },
+        "node_2": {
+            "id": "node_2",
+            "name": "数据转换",
+            "plugin_name": "数据转换",
+            "parameters": {
+                "output_format": "excel"
+            },
+            "next_nodes": ["node_3"]
+        },
+        "node_3": {
+            "id": "node_3",
+            "name": "条件处理",
+            "plugin_name": "数据分片",
+            "condition": "data.rows > 1000",
+            "parameters": {
+                "chunk_size": 500
+            },
+            "next_nodes": []
+        }
+    },
+    "entry_node": "node_1"
+} 

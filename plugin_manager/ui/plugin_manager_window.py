@@ -4,7 +4,7 @@ from typing import Optional
 from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QPushButton,
                             QListWidget, QListWidgetItem, QLabel, QFileDialog, QMessageBox,
                             QTabWidget, QTextEdit, QFormLayout, QWidget, QCheckBox, QProgressDialog,
-                            QSpinBox, QDoubleSpinBox, QLineEdit)
+                            QSpinBox, QDoubleSpinBox, QLineEdit, QMainWindow)
 from PyQt6.QtCore import Qt, QTimer
 from ..core.plugin_system import PluginSystem
 import os
@@ -17,6 +17,8 @@ from plugin_manager.features.plugin_permissions import PluginPermission, PluginP
 from PyQt6.QtGui import QColor
 from globals import GlobalState
 import logging
+from ..workflow.ui.workflow_editor import WorkflowEditorWindow
+from ..workflow.core.workflow_manager import WorkflowManager
 
 class PluginManagerWindow(QDialog):
     def __init__(self, plugin_system: PluginSystem, parent=None):
@@ -26,17 +28,25 @@ class PluginManagerWindow(QDialog):
         self.setWindowTitle("插件管理")
         self.resize(600, 400)
         
-        main_layout = QHBoxLayout()
+        # 创建主布局
+        self.main_layout = QVBoxLayout(self)
+        
+        # 创建选项卡
+        self.tab_widget = QTabWidget()
+        self.main_layout.addWidget(self.tab_widget)
+        
+        # === 插件管理选项卡 ===
+        plugin_tab = QWidget()
+        plugin_layout = QHBoxLayout(plugin_tab)  # 使用水平布局
         
         # 左侧插件列表区域
         left_layout = QVBoxLayout()
         
         self.plugin_list = QListWidget()
-        self._logger.debug("Connecting itemSelectionChanged signal")
         self.plugin_list.itemSelectionChanged.connect(self.on_plugin_selected)
         left_layout.addWidget(self.plugin_list)
-        self._logger.debug("Plugin list widget added to layout")
         
+        # 插件操作按钮
         button_layout = QHBoxLayout()
         self.load_button = QPushButton("加载插件")
         self.load_button.clicked.connect(self.load_plugin)
@@ -55,9 +65,13 @@ class PluginManagerWindow(QDialog):
         button_layout.addWidget(self.deactivate_button)
         
         left_layout.addLayout(button_layout)
+        plugin_layout.addLayout(left_layout, 1)
         
         # 右侧插件详情区域
-        self.tab_widget = QTabWidget()
+        right_layout = QVBoxLayout()
+        
+        # 插件详情选项卡
+        self.detail_tab_widget = QTabWidget()
         
         # 基本信息标签页
         self.info_tab = QWidget()
@@ -78,36 +92,72 @@ class PluginManagerWindow(QDialog):
         self.info_layout.addRow("描述:", self.description_text)
         
         self.info_tab.setLayout(self.info_layout)
-        self.tab_widget.addTab(self.info_tab, "基本信息")
+        self.detail_tab_widget.addTab(self.info_tab, "基本信息")
         
         # 配置标签页
         self.config_tab = QWidget()
         self.config_layout = QFormLayout()
         self.config_tab.setLayout(self.config_layout)
-        self.tab_widget.addTab(self.config_tab, "配置")
+        self.detail_tab_widget.addTab(self.config_tab, "配置")
         
-        # 添加权限管理标签页
+        # 权限管理标签页
         self.permissions_tab = QWidget()
         self.permissions_layout = QVBoxLayout()
         self.permissions_tab.setLayout(self.permissions_layout)
-        self.tab_widget.addTab(self.permissions_tab, "权限管理")
+        self.detail_tab_widget.addTab(self.permissions_tab, "权限管理")
         
-        main_layout.addLayout(left_layout, 1)
-        main_layout.addWidget(self.tab_widget, 2)
+        right_layout.addWidget(self.detail_tab_widget)
+        plugin_layout.addLayout(right_layout, 2)
         
-        self.setLayout(main_layout)
+        self.tab_widget.addTab(plugin_tab, "插件管理")
+        
+        # === 工作流选项卡 ===
+        workflow_tab = QWidget()
+        workflow_layout = QVBoxLayout(workflow_tab)
+        
+        # 工作流列表
+        self.workflow_list = QListWidget()
+        workflow_layout.addWidget(self.workflow_list)
+        
+        # 工作流操作按钮
+        workflow_buttons = QHBoxLayout()
+        
+        new_workflow_btn = QPushButton("新建工作流")
+        new_workflow_btn.clicked.connect(self.create_workflow)
+        workflow_buttons.addWidget(new_workflow_btn)
+        
+        edit_workflow_btn = QPushButton("编辑工作流")
+        edit_workflow_btn.clicked.connect(self.edit_workflow)
+        workflow_buttons.addWidget(edit_workflow_btn)
+        
+        execute_workflow_btn = QPushButton("执行工作流")
+        execute_workflow_btn.clicked.connect(self.execute_workflow)
+        workflow_buttons.addWidget(execute_workflow_btn)
+        
+        delete_workflow_btn = QPushButton("删除工作流")
+        delete_workflow_btn.clicked.connect(self.delete_workflow)
+        workflow_buttons.addWidget(delete_workflow_btn)
+        
+        workflow_layout.addLayout(workflow_buttons)
+        self.tab_widget.addTab(workflow_tab, "工作流")
+        
+        # 初始化工作流管理器
+        self.workflow_manager = WorkflowManager(
+            plugin_system=plugin_system,
+            workflow_dir=f"{plugin_system.plugin_dir}/workflows",
+            encryption=plugin_system.config_encryption
+        )
+        
         # 初始化时加载所有插件
         self.update_plugin_list()
+        self.update_workflow_list()
         
         # 添加配置管理器
         self.plugin_config = PluginConfig(os.path.join(self.plugin_system.plugin_dir, "configs"))
         
         # 使用插件系统的权限管理器
         self.permission_manager = self.plugin_system.permission_manager
-        # 设置插件配置管理器
         self.permission_manager.set_plugin_config(self.plugin_config)
-        self.globalState = GlobalState()
-        self.update_plugin_list()
         
         # 订阅插件事件
         self.plugin_system._event_bus.subscribe('plugin.started', self._on_plugin_started)
@@ -649,3 +699,82 @@ class PluginManagerWindow(QDialog):
             ErrorHandler.handle_info("配置已保存", self)
         except Exception as e:
             ErrorHandler.handle_error(e, self, "保存配置时发生错误")
+        
+    def update_workflow_list(self):
+        """更新工作流列表"""
+        self.workflow_list.clear()
+        for workflow in self.workflow_manager._workflows.values():
+            self.workflow_list.addItem(workflow.name)
+            
+    def create_workflow(self):
+        """创建新工作流"""
+        editor = WorkflowEditorWindow(self.workflow_manager)
+        if editor.exec():
+            self.update_workflow_list()
+            
+    def edit_workflow(self):
+        """编辑选中的工作流"""
+        current_item = self.workflow_list.currentItem()
+        if not current_item:
+            QMessageBox.warning(self, "警告", "请先选择工作流")
+            return
+            
+        workflow_name = current_item.text()
+        workflow = next(
+            (w for w in self.workflow_manager._workflows.values() 
+             if w.name == workflow_name),
+            None
+        )
+        
+        if workflow:
+            editor = WorkflowEditorWindow(self.workflow_manager)
+            editor.load_workflow(workflow)
+            if editor.exec():
+                self.update_workflow_list()
+                
+    def execute_workflow(self):
+        """执行选中的工作流"""
+        current_item = self.workflow_list.currentItem()
+        if not current_item:
+            QMessageBox.warning(self, "警告", "请先选择工作流")
+            return
+            
+        workflow_name = current_item.text()
+        workflow = next(
+            (w for w in self.workflow_manager._workflows.values() 
+             if w.name == workflow_name),
+            None
+        )
+        
+        if workflow:
+            from ..workflow.ui.workflow_execution import WorkflowExecutionWindow
+            execution_window = WorkflowExecutionWindow(
+                self.workflow_manager.executor,
+                workflow.id
+            )
+            execution_window.show()
+            
+    def delete_workflow(self):
+        """删除选中的工作流"""
+        current_item = self.workflow_list.currentItem()
+        if not current_item:
+            QMessageBox.warning(self, "警告", "请先选择工作流")
+            return
+            
+        workflow_name = current_item.text()
+        reply = QMessageBox.question(
+            self,
+            "确认删除",
+            f"确定要删除工作流 {workflow_name} 吗？",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        
+        if reply == QMessageBox.StandardButton.Yes:
+            workflow = next(
+                (w for w in self.workflow_manager._workflows.values() 
+                 if w.name == workflow_name),
+                None
+            )
+            if workflow:
+                self.workflow_manager.delete_workflow(workflow.id)
+                self.update_workflow_list()

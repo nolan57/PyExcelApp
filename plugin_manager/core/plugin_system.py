@@ -11,6 +11,7 @@ from ..utils.plugin_config import PluginConfig
 from ..features.plugin_dependencies import DependencyManager
 from ..features.plugin_lifecycle import PluginState
 from ..utils.config_encryption import ConfigEncryption
+from ..features.plugin_workflow import PluginWorkflow
 
 @dataclass
 class PluginInfo:
@@ -51,6 +52,9 @@ class PluginSystem:
         self._running_plugins = {}
         self._logger = logging.getLogger(__name__)
         self._event_bus = event_bus
+        
+        # 初始化工作流管理器
+        self.workflow = PluginWorkflow(self)
         
     def process_data(self, plugin_name: str, table_view, **parameters) -> Any:
         """使用插件处理数据"""

@@ -1222,3 +1222,55 @@ TypeError: sequence item 0: expected str instance, int found
 2025-01-01 21:43:31,425 - plugin_manager.plugins.xzltxs - INFO - 配置变更: start_row = 3
 2025-01-01 21:43:31,425 - plugin_manager.plugins.xzltxs - INFO - 配置更新成功: start_row = 3
 2025-01-01 21:43:48,768 - root - INFO - 应用程序清理完成
+2025-01-01 23:42:56,622 - plugin_manager.utils.plugin_loader - INFO - 找到 1 个插件: ['xzltxs']
+2025-01-01 23:42:56,624 - plugin_manager.plugins.xzltxs - INFO - xzltxs插件初始化
+2025-01-01 23:42:56,625 - plugin_manager.plugins.xzltxs - INFO - 插件配置: {'part_code_column': 2, 'part_name_column': 3, 'xs_column': 19, 'price_column': 4, 'start_row': 2}
+2025-01-01 23:42:56,625 - plugin_manager.plugins.xzltxs - INFO - 零件配置数量: 5
+2025-01-01 23:42:56,625 - plugin_manager.plugins.xzltxs - INFO - table_view 状态: False
+2025-01-01 23:42:56,804 - ui.main_window - INFO - 获取插件系统
+2025-01-01 23:42:56,804 - ui.main_window - INFO - 插件系统已初始化
+2025-01-01 23:42:57,391 - ui.toolbar - INFO - 获取主窗口的插件系统实例
+2025-01-01 23:42:57,418 - ui.toolbar - INFO - 清除所有插件按钮，保留初始化按钮
+2025-01-01 23:42:57,431 - ui.toolbar - INFO - 激活/停用时更新插件按钮
+2025-01-01 23:42:57,431 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮
+2025-01-01 23:42:57,431 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮：xzltxs
+2025-01-01 23:43:00,848 - plugin_manager.workflow.core.workflow_manager - ERROR - 加载工作流 data_process.json 失败: 加载工作流失败: 'list' object has no attribute 'items'
+2025-01-01 23:45:03,013 - plugin_manager.utils.plugin_loader - INFO - 找到 1 个插件: ['xzltxs']
+2025-01-01 23:45:03,015 - plugin_manager.plugins.xzltxs - INFO - xzltxs插件初始化
+2025-01-01 23:45:03,015 - plugin_manager.plugins.xzltxs - INFO - 插件配置: {'part_code_column': 2, 'part_name_column': 3, 'xs_column': 19, 'price_column': 4, 'start_row': 2}
+2025-01-01 23:45:03,015 - plugin_manager.plugins.xzltxs - INFO - 零件配置数量: 5
+2025-01-01 23:45:03,015 - plugin_manager.plugins.xzltxs - INFO - table_view 状态: False
+2025-01-01 23:45:03,054 - ui.main_window - INFO - 获取插件系统
+2025-01-01 23:45:03,054 - ui.main_window - INFO - 插件系统已初始化
+2025-01-01 23:45:03,527 - ui.toolbar - INFO - 获取主窗口的插件系统实例
+2025-01-01 23:45:03,551 - ui.toolbar - INFO - 清除所有插件按钮，保留初始化按钮
+2025-01-01 23:45:03,552 - ui.toolbar - INFO - 激活/停用时更新插件按钮
+2025-01-01 23:45:03,552 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮
+2025-01-01 23:45:03,552 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮：xzltxs
+2025-01-01 23:45:30,894 - root - INFO - 应用程序清理完成
+2025-01-01 23:45:56,669 - plugin_manager.utils.plugin_loader - INFO - 找到 1 个插件: ['xzltxs']
+2025-01-01 23:45:56,671 - plugin_manager.plugins.xzltxs - INFO - xzltxs插件初始化
+2025-01-01 23:45:56,671 - plugin_manager.plugins.xzltxs - INFO - 插件配置: {'part_code_column': 2, 'part_name_column': 3, 'xs_column': 19, 'price_column': 4, 'start_row': 2}
+2025-01-01 23:45:56,671 - plugin_manager.plugins.xzltxs - INFO - 零件配置数量: 5
+2025-01-01 23:45:56,671 - plugin_manager.plugins.xzltxs - INFO - table_view 状态: False
+2025-01-01 23:45:56,703 - ui.main_window - INFO - 获取插件系统
+2025-01-01 23:45:56,703 - ui.main_window - INFO - 插件系统已初始化
+2025-01-01 23:45:57,104 - ui.toolbar - INFO - 获取主窗口的插件系统实例
+2025-01-01 23:45:57,131 - ui.toolbar - INFO - 清除所有插件按钮，保留初始化按钮
+2025-01-01 23:45:57,144 - ui.toolbar - INFO - 激活/停用时更新插件按钮
+2025-01-01 23:45:57,144 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮
+2025-01-01 23:45:57,144 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮：xzltxs
+2025-01-01 23:48:21,917 - root - INFO - 应用程序清理完成
+2025-01-01 23:48:35,094 - plugin_manager.utils.plugin_loader - INFO - 找到 1 个插件: ['xzltxs']
+2025-01-01 23:48:35,097 - plugin_manager.plugins.xzltxs - INFO - xzltxs插件初始化
+2025-01-01 23:48:35,097 - plugin_manager.plugins.xzltxs - INFO - 插件配置: {'part_code_column': 2, 'part_name_column': 3, 'xs_column': 19, 'price_column': 4, 'start_row': 2}
+2025-01-01 23:48:35,097 - plugin_manager.plugins.xzltxs - INFO - 零件配置数量: 5
+2025-01-01 23:48:35,097 - plugin_manager.plugins.xzltxs - INFO - table_view 状态: False
+2025-01-01 23:48:35,139 - ui.main_window - INFO - 获取插件系统
+2025-01-01 23:48:35,139 - ui.main_window - INFO - 插件系统已初始化
+2025-01-01 23:48:35,448 - ui.toolbar - INFO - 获取主窗口的插件系统实例
+2025-01-01 23:48:35,472 - ui.toolbar - INFO - 清除所有插件按钮，保留初始化按钮
+2025-01-01 23:48:35,479 - ui.toolbar - INFO - 激活/停用时更新插件按钮
+2025-01-01 23:48:35,479 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮
+2025-01-01 23:48:35,479 - ui.toolbar - INFO - 初始化或加载/卸载时更新插件按钮：xzltxs
+2025-01-01 23:48:49,950 - root - INFO - 应用程序清理完成
