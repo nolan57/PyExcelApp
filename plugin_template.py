@@ -1,12 +1,13 @@
 from typing import Any, Dict, List, Optional, Set
 from PyQt6.QtWidgets import QTableView, QProgressDialog, QDialog
-from PyQt6.QtCore import Qt, QObject, Signal, QRunnable, QThreadPool
+from PyQt6.QtCore import Qt, QObject, QRunnable, QThreadPool
+from PyQt6.QtCore import pyqtSignal as Signal
 import logging
 from dataclasses import dataclass
 
-from plugin_manager.plugin_base import PluginBase
-from plugin_manager.plugin_interface import PluginState
-from plugin_manager.plugin_permissions import PluginPermission
+from plugin_manager.core.plugin_base import PluginBase
+from plugin_manager.features.plugin_lifecycle import PluginState
+from plugin_manager.features.plugin_permissions import PluginPermission
 from models.table_model import TableModel
 from utils.error_handler import ErrorHandler
 
@@ -219,4 +220,4 @@ class PluginTemplate(PluginBase):
             'error_occurred': self._error_occurred,
             'active': self._active,
             'state': self._state
-        } 
+        }

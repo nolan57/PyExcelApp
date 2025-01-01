@@ -1,9 +1,9 @@
 {
     "xzltxs": [
-        "ui_modify",
-        "data_write",
-        "file_write",
-        "file_read",
-        "data_read"
+        "DATA_READ",
+        "FILE_WRITE",
+        "FILE_READ",
+        "UI_MODIFY",
+        "DATA_WRITE"
     ]
 }

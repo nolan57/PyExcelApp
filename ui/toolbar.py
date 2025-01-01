@@ -7,9 +7,10 @@ from PyQt6.QtWidgets import QToolBar, QFileDialog, QMessageBox, QTableView, QTab
     QHBoxLayout, QProgressDialog
 
 from globals import GlobalState
-from plugin_manager.plugins_manager_window import PluginManagerWindow
+from plugin_manager.ui.plugin_manager_window import PluginManagerWindow
 from utils.error_handler import ErrorHandler
 import logging
+from plugin_manager.features.plugin_lifecycle import PluginState
 
 
 def get_current_table_view(tab_widget: QTabWidget) -> Optional[QTableView]:
@@ -32,7 +33,7 @@ class ToolBar(QToolBar):
 
         # 获取主窗口的插件系统实例
         if parent is not None:
-            print("获取主窗口的插件系统实例")
+            self._logger.info("获取主窗口的插件系统实例")
             self.plugin_system = parent.plugin_system
         
         # 打开文件按钮
@@ -71,49 +72,49 @@ class ToolBar(QToolBar):
 
     def update_plugin_buttons(self, data: Dict[str, Any] = None):
         # 清除所有插件按钮，保留初始化按钮
-        print("清除所有插件按钮，保留初始化按钮")
+        self._logger.info("清除所有插件按钮，保留初始化按钮")
         for action in self.actions()[4:]:  # 保留前4个初始化按钮
             self.removeAction(action)
 
         # 添加插件按钮
-        print("激活/停用时更新插件按钮")
+        self._logger.info("激活/停用时更新插件按钮")
         if data is not None:
             plugin_name = data.get('plugin_name')
             plugin_state = self.plugin_system.get_plugin_state(plugin_name)
-            print(f"插件{plugin_name}状态：{plugin_state}")
-            if plugin_name and plugin_state == 'activated':
-                print(f"激活/停用时添加插件按钮：{plugin_name}")
+            self._logger.info(f"插件{plugin_name}状态：{plugin_state}")
+            if plugin_name and plugin_state == PluginState.ACTIVE:
+                self._logger.info(f"激活/停用时添加插件按钮：{plugin_name}")
                 plugin_action = QAction(QIcon("resources/icons/+.png"), plugin_name, self)
                 plugin_action.triggered.connect(lambda checked, name=plugin_name: self.use_plugin(name))
                 self.addAction(plugin_action)
                 return
 
-        print(f"初始化或加载/卸载时更新插件按钮")
+        self._logger.info(f"初始化或加载/卸载时更新插件按钮")
         if len(self.plugin_system.get_all_plugins()) == 0:
-            print("无插件")
+            self._logger.info("无插件")
             return
         for plugin_name, plugin_info in self.plugin_system.get_all_plugins().items():
-            if self.plugin_system.get_plugin_state(plugin_name) in ['activated', 'loaded']:
-                print(f"初始化或加载/卸载时更新插件按钮：{plugin_name}")
+            if self.plugin_system.get_plugin_state(plugin_name) in [PluginState.ACTIVE, PluginState.LOADED]:
+                self._logger.info(f"初始化或加载/卸载时更新插件按钮：{plugin_name}")
                 plugin_action = QAction(QIcon("resources/icons/+.png"), plugin_name, self)
                 plugin_action.triggered.connect(lambda checked, name=plugin_name: self.use_plugin(name))
                 self.addAction(plugin_action)
 
     def on_plugin_activated(self, data: Dict[str, Any] = None):
         """处理插件激活事件"""
-        print("处理插件激活事件")
+        self._logger.info("处理插件激活事件")
         self.update_plugin_buttons(data)
     def on_plugin_deactivated(self, data: Dict[str, Any] = None):
         """处理插件停用事件"""
-        print("处理插件停用事件")
+        self._logger.info("处理插件停用事件")
         self.update_plugin_buttons(data)
     def on_plugin_loaded(self, data: Dict[str, Any] = None):
         """处理插件加载事件"""
-        print("处理插件加载事件")
+        self._logger.info("处理插件加载事件")
         self.update_plugin_buttons(None)
     def on_plugin_unloaded(self, data: Dict[str, Any] = None):
         """处理插件卸载事件"""
-        print("处理插件卸载事件")
+        self._logger.info("处理插件卸载事件")
         self.update_plugin_buttons(None)
 
     def open_file(self):
@@ -138,13 +139,14 @@ class ToolBar(QToolBar):
             )
             
             if file_path:
-                # 显示加载进度
-                progress = QProgressDialog("正在打开文件...", None, 0, 100, self)
-                progress.setWindowModality(Qt.WindowModality.WindowModal)
-                progress.setMinimumDuration(0)
-                progress.setValue(0)
-                
+                progress = None
                 try:
+                    # 显示加载进度
+                    progress = QProgressDialog("正在打开文件...", None, 0, 100, self)
+                    progress.setWindowModality(Qt.WindowModality.WindowModal)
+                    progress.setMinimumDuration(0)
+                    progress.setValue(0)
+                    
                     # 使用 read_only=True 和 data_only=True 提高加载速度
                     workbook = openpyxl.load_workbook(
                         file_path,
@@ -162,8 +164,12 @@ class ToolBar(QToolBar):
                     workbook_widget.on_tab_changed(0)
                     progress.setValue(100)
                     
+                except Exception as e:
+                    # 抛出异常以终止加载过程
+                    raise
                 finally:
-                    progress.close()
+                    if progress:
+                        progress.close()
                 
         except Exception as e:
             ErrorHandler.handle_error(e, self, "打开文件时发生错误")
@@ -261,7 +267,7 @@ class ToolBar(QToolBar):
 
             # 获取插件所需的参数配置
             required_parameters = getattr(plugin, 'get_required_parameters', lambda: {})()
-            print(required_parameters)
+            self._logger.info(required_parameters)
             
             # 收集用户输入的参数
             parameters = {}

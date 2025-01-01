@@ -1,8 +1,10 @@
 import unittest
 from unittest.mock import MagicMock
 from PyQt6.QtCore import QModelIndex, Qt
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QTableView
 from utils.excel_operations import ExcelOperations, PandasModel
+from plugin_manager.plugins.xzltxs_test import XzltxsPlugin
+from plugin_manager.features.plugin_permissions import PluginPermission
 import pandas as pd
 import sys
 
@@ -39,12 +41,28 @@ class TestExcelOperations(unittest.TestCase):
 
     def test_data_processing(self):
         plugin = XzltxsPlugin()
-        # 设置测试数据
-        plugin.set_table_view(mock_table_view)
-        result = plugin._process_data()
-        assert result is True
-        # 检查处理结果
-        assert plugin.get_test_data()['completed_tasks'] == expected_tasks
+        # 创建真实的QTableView实例
+        table_view = QTableView()
+        # 创建并设置模型
+        test_data = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+        model = PandasModel(test_data)
+        table_view.setModel(model)
+        
+        # 激活插件
+        plugin.activate({
+            PluginPermission.FILE_READ,
+            PluginPermission.FILE_WRITE,
+            PluginPermission.UI_MODIFY,
+            PluginPermission.DATA_READ,
+            PluginPermission.DATA_WRITE
+        })
+        
+        # 测试数据处理
+        try:
+            result = plugin.process_data(table_view)
+            self.assertTrue(result)
+        except Exception as e:
+            self.fail(f"测试失败，异常信息: {str(e)}")
 
 class TestPandasModel(unittest.TestCase):
     def setUp(self):

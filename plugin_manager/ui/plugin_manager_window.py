@@ -3,16 +3,17 @@ from typing import Optional
 
 from PyQt6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QPushButton,
                             QListWidget, QListWidgetItem, QLabel, QFileDialog, QMessageBox,
-                            QTabWidget, QTextEdit, QFormLayout, QWidget, QCheckBox, QProgressDialog)
+                            QTabWidget, QTextEdit, QFormLayout, QWidget, QCheckBox, QProgressDialog,
+                            QSpinBox, QDoubleSpinBox, QLineEdit)
 from PyQt6.QtCore import Qt, QTimer
-from plugin_manager.plugin_system import PluginSystem
+from ..core.plugin_system import PluginSystem
 import os
 from utils.error_handler import ErrorHandler
 import logging
 import traceback
-from plugin_manager.plugin_config import PluginConfig
+from plugin_manager.utils.plugin_config import PluginConfig
 import json
-from plugin_manager.plugin_permissions import PluginPermission, PluginPermissionManager
+from plugin_manager.features.plugin_permissions import PluginPermission, PluginPermissionManager
 from PyQt6.QtGui import QColor
 from globals import GlobalState
 import logging
@@ -31,8 +32,10 @@ class PluginManagerWindow(QDialog):
         left_layout = QVBoxLayout()
         
         self.plugin_list = QListWidget()
+        self._logger.debug("Connecting itemSelectionChanged signal")
         self.plugin_list.itemSelectionChanged.connect(self.on_plugin_selected)
         left_layout.addWidget(self.plugin_list)
+        self._logger.debug("Plugin list widget added to layout")
         
         button_layout = QHBoxLayout()
         self.load_button = QPushButton("加载插件")
@@ -40,7 +43,7 @@ class PluginManagerWindow(QDialog):
         button_layout.addWidget(self.load_button)
         
         self.unload_button = QPushButton("卸载插件")
-        self.unload_button.clicked.connect(self.unload_plugin)
+        self.unload_button.clicked.connect(self.unload_selected_plugin)
         button_layout.addWidget(self.unload_button)
         
         self.activate_button = QPushButton("激活")
@@ -101,6 +104,8 @@ class PluginManagerWindow(QDialog):
         
         # 使用插件系统的权限管理器
         self.permission_manager = self.plugin_system.permission_manager
+        # 设置插件配置管理器
+        self.permission_manager.set_plugin_config(self.plugin_config)
         self.globalState = GlobalState()
         self.update_plugin_list()
         
@@ -161,6 +166,7 @@ class PluginManagerWindow(QDialog):
             ErrorHandler.handle_error(e, self, "更新插件列表时发生错误")
     
     def load_plugin(self):
+        """加载新插件"""
         try:
             file_path, _ = QFileDialog.getOpenFileName(
                 self,
@@ -187,8 +193,9 @@ class PluginManagerWindow(QDialog):
                     progress.setLabelText("正在验证插件安全性...")
                     progress.setValue(20)
                     
-                    plugin_name = os.path.basename(file_path)
-                    target_path = os.path.join(self.plugin_system.plugin_dir, plugin_name)
+                    # 获取不带.py后缀的插件名
+                    plugin_name = os.path.splitext(os.path.basename(file_path))[0]
+                    target_path = os.path.join(self.plugin_system.plugin_dir, f"{plugin_name}.py")
                     
                     with open(file_path, 'r', encoding='utf-8') as source:
                         plugin_content = source.read()
@@ -208,32 +215,30 @@ class PluginManagerWindow(QDialog):
                     progress.setLabelText("正在加载插件...")
                     progress.setValue(60)
                     
-                    success = self.plugin_system.load_plugin(target_path, show_info=True)
+                    success = self.plugin_system.load_plugin(plugin_name)
                     
                     if success:
                         progress.setLabelText(f"插件 {plugin_name} 加载成功")
                         self.update_plugin_list()
                         self.update_plugin_details()
                         # 触发插件加载事件
-                        print("触发插件加载事件")
+                        self._logger.info("触发插件加载事件")
                         self.globalState.event_bus.emit("plugin.loaded", {"plugin_name": plugin_name})
                         # 自动选择新加载的插件
                         items = self.plugin_list.findItems(plugin_name, Qt.MatchFlag.MatchExactly)
                         if items:
+                            self._logger.debug(f"Selecting newly loaded plugin: {plugin_name}")
                             self.plugin_list.setCurrentItem(items[0])
+                            self.plugin_list.scrollToItem(items[0])
+                            self._logger.debug("New plugin selected and scrolled into view")
                     else:
                         progress.setLabelText(f"插件 {plugin_name} 加载失败")
-                        
-                    progress.setValue(100)
-                    
                 finally:
+                    # 确保关闭进度对话框
                     progress.close()
-                    
         except Exception as e:
-            ErrorHandler.handle_error(e, self, "加载插件时发生错误")
-            # 添加详细日志记录
-            logging.error(f"Plugin load failed: {str(e)}\nStack trace: {traceback.format_exc()}")
-            
+            ErrorHandler.handle_error(e, self, "加载插件失败")
+    
     def verify_plugin_safety(self, plugin_content):
         # 检查是否包含危险代码
         dangerous_imports = ['os.system', 'subprocess', 'eval']
@@ -244,46 +249,58 @@ class PluginManagerWindow(QDialog):
         
     def on_plugin_selected(self):
         """当选择插件时更新详情信息"""
+        self._logger.debug("on_plugin_selected called")
         self.update_plugin_details()
         
     def update_plugin_details(self):
         """更新当前选中插件的详细信息"""
+        self._logger.debug("update_plugin_details called")
         selected_plugin = self.plugin_list.currentItem()
         if selected_plugin:
             plugin_name = selected_plugin.text()
+            self._logger.debug(f"Selected plugin: {plugin_name}")
+            
             plugin_info = self.plugin_system.get_plugin_info(plugin_name)
             plugin_instance = self.plugin_system.get_plugin(plugin_name)
             
             # 更新基本信息
+            self._logger.debug("Updating basic info...")
             self.name_label.setText(plugin_info.name)
             self.version_label.setText(plugin_info.version)
-            self.status_label.setText(self.plugin_system.get_plugin_state(plugin_name))
+            plugin_state = self.plugin_system.get_plugin_state(plugin_name)
+            self.status_label.setText(plugin_state.value if plugin_state else "未知")
             self.description_text.setText(plugin_info.description)
             
             # 更新配置信息
+            self._logger.debug("Updating config tab...")
             self.update_config_tab(plugin_instance)
             
             # 更新权限信息
+            self._logger.debug("Updating permissions tab...")
+            config = self.plugin_system.get_plugin_config(plugin_name)
+            self._logger.debug(f"Plugin config: {config}")
             self.update_permissions_tab(plugin_name)
+            self._logger.debug("Permissions tab updated")
+        else:
+            self._logger.debug("No plugin selected")
     
-    def unload_plugin(self):
-        try:
-            selected_plugin = self.plugin_list.currentItem()
-            if selected_plugin:
-                plugin_name = selected_plugin.text()
+    def unload_selected_plugin(self):
+        """卸载选中的插件"""
+        current_item = self.plugin_list.currentItem()
+        if current_item:
+            plugin_name = current_item.text()
+            try:
                 if self.plugin_system.unload_plugin(plugin_name):
-                    ErrorHandler.handle_info(f"插件 {plugin_name} 已成功卸载", self)
-                    self.update_plugin_list()
+                    ErrorHandler.handle_info(f"插件 {plugin_name} 已卸载", self)
+                    # 从列表中移除
+                    self.plugin_list.takeItem(self.plugin_list.row(current_item))
+                    # 清除详情
                     self.clear_plugin_details()
-                    print("触发插件卸载事件")
-                    self.globalState.event_bus.emit("plugin.unloaded", {"plugin_name": plugin_name})
                 else:
-                    ErrorHandler.handle_warning(f"插件 {plugin_name} 卸载失败", self)
-            else:
-                ErrorHandler.handle_warning("请选择一个插件", self)
-        except Exception as e:
-            ErrorHandler.handle_error(e, self, "卸载插件时发生错误")
-            
+                    ErrorHandler.handle_warning(f"卸载插件 {plugin_name} 失败", self)
+            except Exception as e:
+                ErrorHandler.handle_error(e, self, f"卸载插件 {plugin_name} 时发生错误")
+    
     def activate_plugin(self):
         """激活选中的插件"""
         selected_plugin = self.plugin_list.currentItem()
@@ -318,19 +335,23 @@ class PluginManagerWindow(QDialog):
                 
                 if missing_permissions:
                     ErrorHandler.handle_info(
-                        f"插件 {plugin_name} 需要以下权限: {', '.join(p.value for p in missing_permissions)}", 
+                        f"插件 {plugin_name} 需要以下权限: {', '.join(p.name for p in missing_permissions)}", 
                         self
                     )
                 
                 # 激活插件
                 if self.plugin_system.activate_plugin(plugin_name):
-                    ErrorHandler.handle_info(f"插件 {plugin_name} 已激活", self)
+                    # ErrorHandler.handle_info(f"插件 {plugin_name} 已激活", self)
+                    self._logger.info(f"插件 {plugin_name} 激活成功")
+                    progress.setLabelText(f"插件 {plugin_name} 激活成功")
+                    progress.setValue(100)
+                    progress.close()
                     # 更新插件状态显示
                     self.update_plugin_list()
                     # 更新插件详情
                     self.update_plugin_details()
                     # 触发插件激活事件
-                    print("触发插件激活事件")
+                    self._logger.info("触发插件激活事件")
                     self.globalState.event_bus.emit('plugin.activated', {'plugin_name': plugin_name})
                 else:
                     ErrorHandler.handle_warning(f"插件 {plugin_name} 激活失败", self)
@@ -366,7 +387,7 @@ class PluginManagerWindow(QDialog):
                         # 更新插件详情
                         self.update_plugin_details()
                         # 触发插件停用事件
-                        print("触发插件停用事件")
+                        self._logger.info("触发插件停用事件")
                         self.globalState.event_bus.emit('plugin.deactivated', {'plugin_name': plugin_name})
                     else:
                         ErrorHandler.handle_warning(f"插件 {plugin_name} 停用失败", self)
@@ -384,29 +405,68 @@ class PluginManagerWindow(QDialog):
             item = self.config_layout.takeAt(0)
             if item.widget():
                 item.widget().deleteLater()
-            
+        
         # 如果插件实例存在，添加新的配置项
         if plugin_instance is not None:
-            config = plugin_instance.get_configuration()
-            for key, value in config.items():
-                label = QLabel(str(key))
-                value_widget = QTextEdit(str(value))
+            config = plugin_instance.get_config_schema()
+            current_config = plugin_instance.get_configuration()
+            
+            # 确保所有必需的配置项都有默认值
+            for key, field_schema in config.items():
+                if field_schema.get('required', False) and key not in current_config:
+                    current_config[key] = field_schema.get('default')
+            
+            for key, field_schema in config.items():
+                label = QLabel(field_schema.get('description', key))
+                current_value = current_config.get(key, field_schema.get('default', ''))
+                
+                # 根据字段类型创建合适的输入控件
+                if field_schema.get('type') == int:
+                    value_widget = QSpinBox()
+                    value_widget.setValue(int(current_value))
+                elif field_schema.get('type') == float:
+                    value_widget = QDoubleSpinBox()
+                    value_widget.setValue(float(current_value))
+                else:
+                    value_widget = QLineEdit(str(current_value))
+                
+                # 连接信号
                 value_widget.textChanged.connect(
-                    lambda: self.save_plugin_config(plugin_instance, key, value_widget.toPlainText())
+                    lambda text, k=key: self.save_plugin_config(plugin_instance, k, text)
                 )
                 self.config_layout.addRow(label, value_widget)
-            
+        
     def save_plugin_config(self, plugin_instance, key, value):
         """保存插件配置"""
-        plugin_name = plugin_instance.__class__.__name__
-        config = self.plugin_config.get_config(plugin_name)
-        config[key] = value
-        self.plugin_config.save_config(plugin_name, config)
-        
-        # 通知插件配置已更新
-        if hasattr(plugin_instance, 'on_config_changed'):
-            plugin_instance.on_config_changed(key, value)
+        try:
+            config = self.plugin_system.config.get_config(plugin_instance.get_name())
+            # 获取配置模式
+            schema = plugin_instance.get_config_schema()
             
+            # 确保所有必需的配置项都存在
+            for field_key, field_schema in schema.items():
+                if field_schema.get('required', False) and field_key not in config:
+                    config[field_key] = field_schema.get('default')
+            
+            # 更新当前配置项
+            config[key] = value
+            
+            # 转换类型
+            if schema[key].get('type') == int:
+                config[key] = int(value)
+            elif schema[key].get('type') == float:
+                config[key] = float(value)
+            
+            self.plugin_system.set_plugin_config(plugin_instance.get_name(), config)
+            
+            # 通知插件配置已更新
+            if hasattr(plugin_instance, 'on_config_changed'):
+                plugin_instance.on_config_changed(key, value)
+            
+            ErrorHandler.handle_info("配置已保存", self)
+        except Exception as e:
+            ErrorHandler.handle_error(e, self, "保存配置时发生错误")
+
     def clear_plugin_details(self):
         """清除插件详情信息"""
         self.name_label.clear()
@@ -447,38 +507,35 @@ class PluginManagerWindow(QDialog):
             if item.widget():
                 item.widget().deleteLater()
         
-        # 添加权限说明标签
-        permissions_label = QLabel("请为该插件选择适当的权限：")
-        self.permissions_layout.addWidget(permissions_label)
+        # 获取插件当前的权限状态
+        saved_permissions = self.plugin_system.permission_manager.get_granted_permissions(plugin_name)
         
-        # 按权限类别分组
+        # 按组显示权限
         permission_groups = {
-            "文件访问": [
+            "文件操作": [
                 PluginPermission.FILE_READ,
                 PluginPermission.FILE_WRITE,
             ],
-            "系统访问": [
-                PluginPermission.NETWORK,
-                PluginPermission.SYSTEM_EXEC
-            ],
-            "其他": [
+            "数据操作": [
                 PluginPermission.DATA_READ,
                 PluginPermission.DATA_WRITE,
+            ],
+            "其他": [
                 PluginPermission.UI_MODIFY,
+                PluginPermission.NETWORK,
+                PluginPermission.SYSTEM_EXEC,
             ]
         }
         
         # 添加分组和权限复选框
         for group_name, permissions in permission_groups.items():
-            # 添加分组标签
             group_label = QLabel(f"<b>{group_name}</b>")
             self.permissions_layout.addWidget(group_label)
             
-            # 添加该组的权限复选框
             for permission in permissions:
-                checkbox = QCheckBox(permission.value)
+                checkbox = QCheckBox(permission.name)
                 checkbox.setChecked(
-                    self.permission_manager.has_permission(plugin_name, permission)
+                    permission in saved_permissions
                 )
                 checkbox.stateChanged.connect(
                     lambda state, p=permission: self.on_permission_changed(plugin_name, p, state)
@@ -496,17 +553,99 @@ class PluginManagerWindow(QDialog):
         """处理权限变更"""
         try:
             if state == Qt.CheckState.Checked.value:
-                self.permission_manager.grant_permission(plugin_name, permission)
-                ErrorHandler.handle_info(f"已为插件 {plugin_name} 授予 {permission.value} 权限", self)
+                self.plugin_system.permission_manager.grant_permission(plugin_name, permission)
+                ErrorHandler.handle_info(f"已为插件 {plugin_name} 授予 {permission.name} 权限", self)
             else:
-                self.permission_manager.revoke_permission(plugin_name, permission)
-                ErrorHandler.handle_info(f"已为插件 {plugin_name} 撤销 {permission.value} 权限", self)
+                self.plugin_system.permission_manager.revoke_permission(plugin_name, permission)
+                ErrorHandler.handle_info(f"已为插件 {plugin_name} 撤销 {permission.name} 权限", self)
             
-            # 立即保存权限更改
-            self.permission_manager.save_permissions()
         except Exception as e:
             ErrorHandler.handle_error(e, self, "保存权限更改时发生错误")
             
     def get_permission_description(self, permission: PluginPermission) -> str:
         """获取权限描述"""
         return PluginPermission.get_permission_description(permission)
+
+    def _setup_config_tab(self, plugin_name: str):
+        """设置配置标签页"""
+        self.config_tab = QWidget()
+        config_layout = QFormLayout()
+        self.config_tab.setLayout(config_layout)
+        
+        # 获取插件配置模式
+        plugin = self.plugin_system.get_plugin(plugin_name)
+        if not plugin:
+            return
+            
+        schema = plugin.get_config_schema()
+        # 获取当前配置
+        current_config = self.plugin_system.config.get_config(plugin_name)
+        
+        # 为每个配置项创建输入控件
+        for key, field_schema in schema.items():
+            label = QLabel(field_schema.get('description', key))
+            
+            # 根据字段类型创建不同的输入控件
+            if field_schema.get('type') == int:
+                input_widget = QSpinBox()
+                input_widget.setValue(current_config.get(key, field_schema.get('default', 0)))
+            elif field_schema.get('type') == float:
+                input_widget = QDoubleSpinBox()
+                input_widget.setValue(current_config.get(key, field_schema.get('default', 0.0)))
+            else:
+                input_widget = QLineEdit()
+                input_widget.setText(str(current_config.get(key, field_schema.get('default', ''))))
+            
+            # 保存对应的配置键名
+            input_widget.setProperty('config_key', key)
+            input_widget.setProperty('config_type', field_schema.get('type', str))
+            
+            # 连接信号
+            if isinstance(input_widget, (QSpinBox, QDoubleSpinBox)):
+                input_widget.valueChanged.connect(
+                    lambda value, w=input_widget: self._on_config_changed(plugin_name, w)
+                )
+            else:
+                input_widget.textChanged.connect(
+                    lambda text, w=input_widget: self._on_config_changed(plugin_name, w)
+                )
+            
+            config_layout.addRow(label, input_widget)
+            
+        # 添加保存按钮
+        save_button = QPushButton("保存配置")
+        save_button.clicked.connect(lambda: self._save_plugin_config(plugin_name))
+        config_layout.addRow("", save_button)
+        
+    def _on_config_changed(self, plugin_name: str, widget: QWidget):
+        """处理配置变更"""
+        try:
+            key = widget.property('config_key')
+            value_type = widget.property('config_type')
+            
+            # 获取值
+            if isinstance(widget, (QSpinBox, QDoubleSpinBox)):
+                value = widget.value()
+            else:
+                value = widget.text()
+                # 转换类型
+                if value_type == int:
+                    value = int(value)
+                elif value_type == float:
+                    value = float(value)
+            
+            # 更新配置
+            config = self.plugin_system.config.get_config(plugin_name)
+            config[key] = value
+            
+        except Exception as e:
+            ErrorHandler.handle_error(e, self, "更新配置时发生错误")
+            
+    def _save_plugin_config(self, plugin_name: str):
+        """保存插件配置"""
+        try:
+            config = self.plugin_system.config.get_config(plugin_name)
+            self.plugin_system.set_plugin_config(plugin_name, config)
+            ErrorHandler.handle_info("配置已保存", self)
+        except Exception as e:
+            ErrorHandler.handle_error(e, self, "保存配置时发生错误")

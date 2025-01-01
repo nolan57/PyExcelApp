@@ -6,7 +6,8 @@ from logging_config import setup_logging
 from globals import GlobalState
 from utils.error_handler import ErrorHandler
 from utils.event_bus import EventBus
-from plugin_manager.plugin_system import PluginSystem
+from plugin_manager.core.plugin_system import PluginSystem
+import logging
 
 def main():
     try:
@@ -32,7 +33,7 @@ def main():
         # 应用程序退出时清理
         def cleanup():
             state.event_bus.clear()
-            print("应用程序清理完成")
+            logging.info("应用程序清理完成")
             
         app.aboutToQuit.connect(cleanup)
         

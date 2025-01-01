@@ -3,7 +3,7 @@ from PyQt6.QtGui import QAction, QIcon
 from PyQt6.QtCore import Qt
 from ui.toolbar import ToolBar
 from ui.workbook import WorkbookWidget
-from plugin_manager.plugin_system import PluginSystem
+from plugin_manager.core.plugin_system import PluginSystem
 from utils.event_bus import EventBus
 from globals import GlobalState
 from utils.error_handler import ErrorHandler
@@ -18,18 +18,18 @@ class MainWindow(QMainWindow):
         self.plugin_system = None
         try:
             super().__init__()
+
+            # 初始化日志
+            self._logger = logging.getLogger(__name__)
             
             # 初始化事件总线
             self.event_bus = GlobalState().event_bus
 
             # 初始化插件系统
-            print("获取插件系统")  # 调试日志
+            self._logger.info("获取插件系统")  # 调试日志
             if plugin_system is not None:
-                print("插件系统已初始化")  # 调试日志
+                self._logger.info("插件系统已初始化")  # 调试日志
                 self.plugin_system = plugin_system
-            
-            # 初始化日志
-            self._logger = logging.getLogger(__name__)
             
             # 初始化UI
             self.init_ui()
@@ -104,4 +104,3 @@ class MainWindow(QMainWindow):
         # 清理插件系统
         self.plugin_system = None
         event.accept()
-

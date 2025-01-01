@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class PluginSandbox:
     def __init__(self):
         self._restricted_modules = set()

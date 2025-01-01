@@ -7,6 +7,7 @@ from utils.error_handler import ErrorHandler
 from models.table_model import TableModel
 from PyQt6.QtWidgets import QApplication
 from openpyxl import Workbook
+import logging
 
 class WorkbookWidget(QWidget):
     """工作簿窗口组件，管理Excel工作表的显示"""
@@ -16,6 +17,7 @@ class WorkbookWidget(QWidget):
         self.layout = QVBoxLayout(self)
         self.tab_widget = QTabWidget()
         self.layout.addWidget(self.tab_widget)
+        self._logger = logging.getLogger(__name__)
         
     def load_workbook(self, workbook: Workbook, file_path: str):
         """加载工作簿"""
@@ -170,7 +172,7 @@ class WorkbookWidget(QWidget):
                 # 更新当前活动的表格视图
                 current_widget = self.tab_widget.widget(index)
                 if isinstance(current_widget, QTableView):
-                    print("切换到表格视图")
+                    self._logger.info("切换到表格视图")
                     state.set_current_table_view(current_widget)
             else:
                 state.workbook.activate_sheet = None
@@ -178,6 +180,7 @@ class WorkbookWidget(QWidget):
                 
         except Exception as e:
             ErrorHandler.handle_error(e, self, "切换标签页时发生错误")
+            self._logger.info(f"切换标签页时发生错误：{e}")
             
     def get_current_table_view(self) -> Optional[QTableView]:
         """

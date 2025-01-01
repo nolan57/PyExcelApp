@@ -1,0 +1,10 @@
+{
+    "permissions": [
+        "FILE_READ"
+    ],
+    "xzltxs": {
+        "permissions": [
+            "FILE_READ"
+        ]
+    }
+}

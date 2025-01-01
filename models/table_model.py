@@ -1,12 +1,13 @@
 import threading
-from typing import Any, Optional
+from typing import Any, Optional, List
 from PyQt6.QtCore import Qt, QAbstractTableModel, QModelIndex, pyqtSlot, QMetaObject
 from PyQt6.QtGui import QColor, QBrush
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.cell import Cell
 from utils.error_handler import ErrorHandler
 from globals import GlobalState
-from plugin_manager.plugin_permissions import PluginPermission
+from plugin_manager.features.plugin_permissions import PluginPermission
+import logging
 
 class TableModel(QAbstractTableModel):
     """Excel工作表的数据模型"""
@@ -83,7 +84,7 @@ class TableModel(QAbstractTableModel):
         
         # 更新缓存的数据
         if value:
-            print(f"设置单元格数据: {row}, {col}, {value}")
+            self._logger.info(f"设置单元格数据: {row}, {col}, {value}")
             self._data[(row, col)] = str(value)
         else:
             self._data.pop((row, col), None)
@@ -120,14 +121,14 @@ class TableModel(QAbstractTableModel):
         """实际执行保存操作的私有方法"""
         with self._save_lock:  # 使用线程锁保护保存操作
             try:
-                print("保存更改到worksheet")
+                self._logger.info("保存更改到worksheet")
                 for (row, col), value in self._data.items():
                     cell = self.worksheet.cell(row=row+1, column=col+1)
                     if not cell.protection.locked:  # 检查单元格是否只读
                         cell.value = value
                         
             except Exception as e:
-                print(f"保存表格数据时发生错误: {e.with_traceback(None)}")
+                logging.error(f"保存表格数据时发生错误: {e.with_traceback(None)}")
                 ErrorHandler.handle_error(e, None, f"保存表格数据时发生错误：{e.with_traceback(None)}")
 
     def set_cell_color(self, row: int, col: int, color: QColor):
@@ -150,3 +151,39 @@ class TableModel(QAbstractTableModel):
     def has_changes(self) -> bool:
         """检查是否有未保存的更改"""
         return self._data != self._original_data
+
+    def batch_update_cells(self, column: int, updates: List[dict]):
+        """批量更新单元格数据和颜色
+        
+        Args:
+            column: 要更新的列
+            updates: 更新数据列表，每项包含 row, value, color
+        """
+        try:
+            # 开始批量更新
+            self.beginResetModel()
+            
+            # 一次性更新所有数据
+            for update in updates:
+                row = update['row']
+                # 更新数据 - 修复这里的错误
+                self._data[(row, column)] = str(update['value'])  # 使用元组作为键，并确保值是字符串
+                # 更新颜色
+                self._colors[(row, column)] = update['color']
+                
+            # 完成批量更新
+            self.endResetModel()
+            
+            # 发出数据改变信号
+            if updates:  # 确保有更新数据
+                min_row = min(u['row'] for u in updates)
+                max_row = max(u['row'] for u in updates)
+                self.dataChanged.emit(
+                    self.index(min_row, column),
+                    self.index(max_row, column),
+                    [Qt.ItemDataRole.DisplayRole, Qt.ItemDataRole.BackgroundRole]
+                )
+            
+        except Exception as e:
+            logging.error(f"批量更新单元格时发生错误: {str(e)}")
+            raise

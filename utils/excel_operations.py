@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import (QTableView, QHeaderView, QMenu, QLineEdit, QWidget,
 from PyQt6.QtGui import QColor
 from globals import GlobalState
 from utils.error_handler import ErrorHandler
+import logging
 
 class ColumnFilterWidget(QWidget):
     def __init__(self, proxy_model, column, parent=None):
@@ -160,6 +161,7 @@ class PandasModel(QAbstractTableModel):
         super().__init__()
         self._data = data
         self.modified = False
+        self._logger = logging.getLogger(__name__)
         self.dataChanged.connect(self.on_data_changed)
 
     def rowCount(self, parent=None):
@@ -184,7 +186,7 @@ class PandasModel(QAbstractTableModel):
                 self.dataChanged.emit(index, index, [role])
                 return True
             except Exception as e:
-                print(f"设置数据时出错: {str(e)}")
+                self._logger.error(f"设置数据时出错: {str(e)}")
                 return False
         return False
 
@@ -194,7 +196,7 @@ class PandasModel(QAbstractTableModel):
         self.modified = True  # Mark as modified when data changes
     def save_data(self):
         # Placeholder for saving the data
-        print("数据已保存。")
+        self._logger.info("数据已保存。")
         self.modified = False  # Reset modified flag after saving
     def headerData(self, section, orientation, role=Qt.ItemDataRole.DisplayRole):
         if role == Qt.ItemDataRole.DisplayRole:
