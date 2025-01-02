@@ -8,7 +8,7 @@ from ..features.plugin_permissions import PluginPermission, PluginPermissionMana
 from ..utils.plugin_loader import PluginLoader
 from ..utils.plugin_error import PluginError, ErrorHandler
 from ..utils.plugin_config import PluginConfig
-from ..features.plugin_dependencies import DependencyManager
+from plugin_manager.features.dependencies.plugin_dependencies import DependencyManager
 from ..features.plugin_lifecycle import PluginState
 from ..utils.config_encryption import ConfigEncryption
 from ..features.plugin_workflow import PluginWorkflow
@@ -44,7 +44,11 @@ class PluginSystem:
         self.loader = PluginLoader(plugin_dir=self.plugin_dir, plugin_system=self)
         self.permission_manager = PluginPermissionManager(self.permission_file)
         self.permission_manager.set_plugin_config(self.config)
-        self.dependency_manager = DependencyManager()
+        self.dependency_manager = DependencyManager(
+            dependencies_dir=os.path.join(plugin_dir, "dependencies"),
+            cleanup_interval=7,   # 每7天检查一次
+            retention_period=30   # 保留30天未使用的依赖
+        )
         
         # 内部状态
         self._plugins: Dict[str, PluginInfo] = {}
@@ -202,6 +206,9 @@ class PluginSystem:
                     'plugin_info': plugin_info
                 })
                 
+            # 检查是否需要清理依赖
+            self.dependency_manager.cleanup_unused_dependencies()
+            
             return True
             
         except Exception as e:

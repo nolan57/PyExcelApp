@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Set, Any, Optional
+from typing import Dict, Set, Any, Optional, List
 from PyQt6.QtWidgets import QTableView
 from ..features.plugin_permissions import PluginPermission
 from ..features.plugin_events import PluginEventInterface
@@ -46,4 +46,28 @@ class PluginInterface(PluginEventInterface, PluginLifecycle):
     @abstractmethod
     def get_optional_permissions(self) -> Set[PluginPermission]:
         """获取插件的可选权限"""
-        pass 
+        pass
+        
+    @abstractmethod
+    def verify_dependency_signature(self, dependency_name: str, signature: str) -> bool:
+        """
+        验证依赖包签名
+        
+        参数：
+        - dependency_name: 依赖名称
+        - signature: 依赖包签名
+        
+        返回：
+        - bool: 签名是否有效
+        """
+        pass
+        
+    @abstractmethod
+    def get_trusted_sources(self) -> List[str]:
+        """
+        获取可信源列表
+        
+        返回：
+        - List[str]: 可信源URL列表
+        """
+        pass

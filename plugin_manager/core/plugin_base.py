@@ -1,4 +1,4 @@
-from typing import Dict, Set, Any, Optional, Callable
+from typing import Dict, Set, Any, Optional, Callable, List
 from PyQt6.QtWidgets import QTableView, QWidget, QMessageBox
 from .plugin_interface import PluginInterface
 from ..features.plugin_permissions import PluginPermission
@@ -145,3 +145,7 @@ class PluginBase(PluginInterface):
         if self.plugin_system:
             return self.plugin_system.config.get_config(self.get_name())
         return {} 
+        
+    def get_dependencies(self) -> List[str]:
+        """获取插件依赖"""
+        return []  # 默认实现返回空列表 
