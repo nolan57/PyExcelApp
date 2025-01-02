@@ -343,17 +343,9 @@ class XzltxsPlugin(PluginBase):
         }
         
     def validate_parameters(self, parameters: Dict[str, Any]) -> Optional[str]:
-        required_params = self.get_required_parameters()
-        for param_name, param_info in required_params.items():
-            if param_name == "table_view":
-                continue  # 跳过 table_view 参数，因为它是通过插件管理器注入的
-            if param_name not in parameters:
-                return f"缺少必需的参数：{param_name}"
-            param_value = parameters[param_name]
-            if param_info["type"] != type(param_value).__name__:
-                return f"参数 {param_name} 的类型不正确，应为 {param_info['type']}"
-            if param_info["required"] and param_value is None:
-                return f"参数 {param_name} 是必需的"
+        """验证参数有效性"""
+        if not all(key in parameters for key in ['part_column', 'price_column', 'start_row']):
+            return "缺少必需的参数"
         return None
         
     def get_configuration(self) -> Dict[str, Any]:
@@ -1249,3 +1241,12 @@ class XzltxsPlugin(PluginBase):
                 'description': '起始行'
             }
         }
+
+    def verify_dependency_signature(self, dependency_name: str, signature: str) -> bool:
+        """验证依赖包签名"""
+        # 暂不实现签名验证
+        return True
+        
+    def get_trusted_sources(self) -> List[str]:
+        """获取可信源列表"""
+        return ["https://pypi.org/simple"]

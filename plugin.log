@@ -2134,3 +2134,7 @@
 2025-01-01 23:48:35,097 - plugin_manager.plugins.xzltxs - INFO - 插件配置: {'part_code_column': 2, 'part_name_column': 3, 'xs_column': 19, 'price_column': 4, 'start_row': 2}
 2025-01-01 23:48:35,097 - plugin_manager.plugins.xzltxs - INFO - 零件配置数量: 5
 2025-01-01 23:48:35,097 - plugin_manager.plugins.xzltxs - INFO - table_view 状态: False
+2025-01-02 23:41:49,017 - plugin_manager.plugins.xzltxs - INFO - xzltxs插件初始化
+2025-01-02 23:41:49,017 - plugin_manager.plugins.xzltxs - INFO - 插件配置: {'part_code_column': 2, 'part_name_column': 3, 'xs_column': 19, 'price_column': 4, 'start_row': 2}
+2025-01-02 23:41:49,017 - plugin_manager.plugins.xzltxs - INFO - 零件配置数量: 5
+2025-01-02 23:41:49,017 - plugin_manager.plugins.xzltxs - INFO - table_view 状态: False
