@@ -1,66 +1,178 @@
-# 通知机制与依赖健康检查的协同工作
+# 通知机制详情
 
-## 功能模块关系
+## 事件总线 (`dependency_monitoring_framework/src/core/event_bus.py`)
 
-通知机制与依赖健康检查是两个独立但协同工作的功能模块：
+### 功能概述
+事件总线是项目中用于处理系统内事件发布和订阅的核心组件。它允许不同模块之间通过事件进行通信，而不需要直接耦合。
 
-1. **依赖健康检查模块**
-   - 定期扫描和验证依赖状态
-   - 检查内容包括：
-     * 依赖版本更新
-     * 安全漏洞扫描
-     * 依赖包完整性验证
-     * 兼容性检查
-   - 将检查结果发送到事件总线
+### 主要功能
+1. **订阅事件**:
+   - `subscribe(event_type: str, callback: Callable)`: 订阅特定类型的事件，并提供一个回调函数，在事件触发时调用。
+   
+2. **取消订阅事件**:
+   - `unsubscribe(event_type: str, callback: Callable)`: 取消对特定事件类型的订阅。
+   
+3. **发布事件**:
+   - `publish(event_type: str, data: Any = None)`: 发布特定类型的事件，并传递相关数据。
+   
+4. **获取最后一次事件数据**:
+   - `get_last_event(event_type: str)`: 获取最后一次发布的事件数据。
+   
+5. **清除订阅者**:
+   - `clear_subscribers(event_type: str = None)`: 清除特定事件类型的订阅者，或清除所有订阅者。
+   
+6. **获取订阅者数量**:
+   - `get_subscriber_count(event_type: str)`: 获取特定事件类型的订阅者数量。
+   
+7. **获取所有事件类型**:
+   - `get_all_event_types()`: 获取所有已注册的事件类型。
 
-2. **通知机制模块**
-   - 监听事件总线上的依赖相关事件
-   - 根据事件类型生成相应的通知
-   - 通过多种渠道（日志、邮件、系统通知等）发送通知
-   - 在插件管理界面展示重要通知
+### 示例代码
+```python
+# 订阅事件
+def on_plugin_started(data):
+    print(f"Plugin started: {data}")
 
-## 工作流程
+event_bus = EventBus()
+event_bus.subscribe('plugin.started', on_plugin_started)
 
-1. 健康检查模块定期执行扫描任务
-2. 发现异常或重要变更时，生成事件并发布到事件总线
-3. 通知机制模块监听事件总线，接收相关事件
-4. 根据事件类型和严重程度，生成相应的通知内容
-5. 通过配置的渠道发送通知
-6. 在插件管理界面展示重要通知，供用户查看和处理
+# 发布事件
+event_bus.publish('plugin.started', {'plugin_name': 'test_plugin'})
+```
 
-## 事件类型
+### 插件系统中的使用
+插件系统利用事件总线来通知主窗口或其他模块关于插件的启动、停止和其他状态变化。以下是一些关键事件：
+- `plugin.started`: 当插件启动时触发。
+- `plugin.stopped`: 当插件停止时触发。
+- `plugin.activated`: 当插件激活时触发。
+- `plugin.deactivated`: 当插件停用时触发。
+- `plugin.data_processed`: 当插件处理数据时触发。
+- `plugin.config_changed`: 当插件配置更改时触发。
+- `plugin.permission_revoked`: 当插件权限被撤销时触发。
 
-| 事件类型 | 触发条件 | 通知级别 |
-|----------|----------|----------|
-| 版本更新 | 检测到依赖有新版本 | 信息 |
-| 安全漏洞 | 发现依赖存在已知安全漏洞 | 警告 |
-| 依赖弃用 | 依赖被标记为弃用或移除 | 警告 |
-| 兼容性问题 | 检测到依赖版本不兼容 | 错误 |
-| 完整性验证失败 | 依赖包签名验证失败 | 错误 |
+### 改进建议
+1. **增加异步事件处理能力**:
+   - 当前事件处理是同步的，可能会阻塞主线程。已经使用`asyncio`库实现了异步事件处理，提高了性能。
+   
+2. **提供事件优先级机制**:
+   - 允许事件具有不同的优先级，确保重要事件能够优先处理。已经通过`PriorityQueue`实现了事件优先级机制。
+   
+3. **增加事件回调的错误处理**:
+   - 在事件回调中增加了详细的错误处理机制，使用装饰器`event_handler_wrapper`来捕获和记录异常。
+   
+4. **提供事件过滤机制**:
+   - 允许订阅者指定过滤条件，只接收符合特定条件的事件。通过在`subscribe`方法中添加`filter_condition`参数实现了这一功能。
 
-## 通知渠道
+## 事件总线 (`utils/event_bus.py`)
 
-1. **系统日志**
-   - 记录所有依赖相关事件
-   - 便于系统管理员查看和分析
+### 功能概述
+事件总线是项目中用于处理系统内事件发布和订阅的核心组件。它允许不同模块之间通过事件进行通信，而不需要直接耦合。
 
-2. **邮件通知**
-   - 发送重要事件通知给相关开发者
-   - 可配置接收人和通知级别
+### 主要功能
+1. **订阅事件**:
+   - `subscribe(event_type: str, callback: Callable, priority: int = 1)`: 订阅特定类型的事件，并提供一个回调函数，在事件触发时调用。允许指定回调优先级，默认为1（数字越小优先级越高）。
+   
+2. **取消订阅事件**:
+   - `unsubscribe(event_type: str, callback: Callable)`: 取消对特定事件类型的订阅。
+   
+3. **发布事件**:
+   - `publish(event_type: str, data: Any = None, priority: int = 1)`: 发布特定类型的事件，并传递相关数据。允许指定事件优先级，默认为1（数字越小优先级越高）。
+   
+4. **获取最后一次事件数据**:
+   - `get_last_event(event_type: str)`: 获取最后一次发布的事件数据。
+   
+5. **清除订阅者**:
+   - `clear_subscribers(event_type: str = None)`: 清除特定事件类型的订阅者，或清除所有订阅者。
+   
+6. **获取订阅者数量**:
+   - `get_subscriber_count(event_type: str)`: 获取特定事件类型的订阅者数量。
+   
+7. **获取所有事件类型**:
+   - `get_all_event_types()`: 获取所有已注册的事件类型。
 
-3. **系统通知**
-   - 在插件管理界面显示重要通知
-   - 提供快速查看和处理入口
+### 示例代码
+```python
+# 订阅事件
+def on_plugin_started(data):
+    print(f"Plugin started: {data}")
 
-4. **API接口**
-   - 提供事件订阅接口
-   - 允许其他系统集成和自定义处理
+event_bus = EventBus()
+event_bus.subscribe('plugin.started', on_plugin_started, priority=1)
 
-## 配置管理
+# 发布事件
+event_bus.publish('plugin.started', {'plugin_name': 'test_plugin'}, priority=1)
+```
 
-通知机制支持灵活的配置，包括：
+### 插件系统中的使用
+插件系统利用事件总线来通知主窗口或其他模块关于插件的启动、停止和其他状态变化。以下是一些关键事件：
+- `plugin.started`: 当插件启动时触发。
+- `plugin.stopped`: 当插件停止时触发。
+- `plugin.activated`: 当插件激活时触发。
+- `plugin.deactivated`: 当插件停用时触发。
+- `plugin.data_processed`: 当插件处理数据时触发。
+- `plugin.config_changed`: 当插件配置更改时触发。
+- `plugin.permission_revoked`: 当插件权限被撤销时触发。
 
-- 通知级别过滤
-- 接收人配置
-- 通知渠道启用/禁用
-- 通知模板自定义
+### 改进建议
+1. **增加异步事件处理能力**:
+   - 当前事件处理是同步的，可能会阻塞主线程。已经使用`asyncio`库实现了异步事件处理，提高了性能。
+   
+2. **提供事件优先级机制**:
+   - 允许事件具有不同的优先级，确保重要事件能够优先处理。已经通过`PriorityQueue`实现了事件优先级机制。
+   
+3. **增加事件回调的错误处理**:
+   - 在事件回调中增加了详细的错误处理机制，使用装饰器`event_handler_wrapper`来捕获和记录异常。
+   
+4. **提供事件过滤机制**:
+   - 允许订阅者指定过滤条件，只接收符合特定条件的事件。通过在`subscribe`方法中添加`filter_condition`参数实现了这一功能。
+
+## 插件系统 (`plugin_manager/core/plugin_system.py`)
+
+### 事件发布
+插件系统在多个关键操作中发布事件，以通知其他模块。以下是主要事件发布点：
+- **插件加载**:
+  - `load_plugin(plugin_name: str)`: 发布 `plugin.loaded` 事件。
+  
+- **插件激活**:
+  - `activate_plugin(plugin_name: str)`: 发布 `plugin.activated` 事件。
+  
+- **插件停用**:
+  - `deactivate_plugin(plugin_name: str)`: 发布 `plugin.deactivated` 事件。
+  
+- **插件启动**:
+  - `start_plugin(plugin_name: str)`: 发布 `plugin.started` 事件。
+  
+- **插件停止**:
+  - `stop_plugin(plugin_name: str)`: 发布 `plugin.stopped` 事件。
+  
+- **插件数据处理**:
+  - `process_data(plugin_name: str, table_view, **parameters)`: 发布 `plugin.data_processed` 事件。
+  
+- **插件配置更改**:
+  - `set_plugin_config(plugin_name: str, config: Dict[str, Any])`: 发布 `plugin.config_changed` 事件。
+  
+- **插件权限撤销**:
+  - `revoke_permission(plugin_name: str, permission: PluginPermission)`: 发布 `plugin.permission_revoked` 事件。
+
+### 示例代码
+```python
+# 订阅插件启动事件
+def on_plugin_started(data):
+    print(f"Plugin started: {data}")
+
+plugin_system = PluginSystem()
+plugin_system._event_bus.subscribe('plugin.started', on_plugin_started, priority=1)
+
+# 启动插件
+plugin_system.start_plugin('test_plugin')
+```
+
+### 改进建议
+1. **增加事件回调的错误处理**:
+   - 当前事件回调中的错误会被捕获并打印，但可以提供更详细的错误处理机制，例如记录日志或通知其他模块。
+   
+2. **提供事件过滤机制**:
+   - 允许订阅者指定过滤条件，只接收符合特定条件的事件。通过在`subscribe`方法中添加`filter_condition`参数实现了这一功能。
+
+## 结论
+事件总线和插件系统中的通知机制是项目中重要的通信手段。通过优化和扩展这些机制，可以提高系统的灵活性和可维护性。

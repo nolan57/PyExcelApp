@@ -8,6 +8,7 @@ from utils.error_handler import ErrorHandler
 from utils.event_bus import EventBus
 from plugin_manager.core.plugin_system import PluginSystem
 import logging
+from logging_config import LoggingConfig, LogLevel
 
 def main():
     try:

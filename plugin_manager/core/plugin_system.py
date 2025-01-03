@@ -1,7 +1,8 @@
 import os
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Callable
 import logging
 from dataclasses import dataclass
+from functools import wraps
 
 from .plugin_interface import PluginInterface
 from ..features.plugin_permissions import PluginPermission, PluginPermissionManager
@@ -21,6 +22,17 @@ class PluginInfo:
     description: str
     path: str
     instance: PluginInterface
+
+def event_handler_wrapper(func: Callable) -> Callable:
+    """事件回调的装饰器，用于处理异常"""
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        try:
+            await func(*args, **kwargs)
+        except Exception as e:
+            logging.getLogger(__name__).error(f"Error in event handler {func.__name__}: {str(e)}")
+            ErrorHandler.handle_error(e)
+    return wrapper
 
 class PluginSystem:
     """插件系统核心类"""
@@ -60,7 +72,7 @@ class PluginSystem:
         # 初始化工作流管理器
         self.workflow = PluginWorkflow(self)
         
-    def process_data(self, plugin_name: str, table_view, **parameters) -> Any:
+    async def process_data(self, plugin_name: str, table_view, **parameters) -> Any:
         """使用插件处理数据"""
         plugin = self.get_plugin(plugin_name)
         if not plugin:
@@ -89,7 +101,7 @@ class PluginSystem:
             
             # 触发事件
             if self._event_bus:
-                self._event_bus.emit('plugin.data_processed', {
+                await self._event_bus.publish('plugin.data_processed', {
                     'plugin_name': plugin_name,
                     'parameters': parameters,
                     'result': result
@@ -101,7 +113,7 @@ class PluginSystem:
             self._logger.error(f"使用插件 {plugin_name} 处理数据时出错: {str(e)}")
             raise PluginError(f"插件处理错误: {str(e)}")
             
-    def deactivate_plugin(self, plugin_name: str) -> bool:
+    async def deactivate_plugin(self, plugin_name: str) -> bool:
         """停用插件"""
         if plugin_name not in self._plugins:
             return False
@@ -113,7 +125,7 @@ class PluginSystem:
             
             # 触发事件
             if self._event_bus:
-                self._event_bus.emit('plugin.deactivated', {
+                await self._event_bus.publish('plugin.deactivated', {
                     'plugin_name': plugin_name
                 })
                 
@@ -123,7 +135,7 @@ class PluginSystem:
             self._logger.error(f"停用插件 {plugin_name} 失败: {str(e)}")
             return False
             
-    def start_plugin(self, plugin_name: str) -> bool:
+    async def start_plugin(self, plugin_name: str) -> bool:
         """启动插件"""
         if not self.is_plugin_active(plugin_name):
             return False
@@ -135,7 +147,7 @@ class PluginSystem:
             
             # 触发事件
             if self._event_bus:
-                self._event_bus.emit('plugin.started', {
+                await self._event_bus.publish('plugin.started', {
                     'plugin_name': plugin_name
                 })
                 
@@ -145,7 +157,7 @@ class PluginSystem:
             self._logger.error(f"启动插件 {plugin_name} 失败: {str(e)}")
             return False
             
-    def stop_plugin(self, plugin_name: str) -> bool:
+    async def stop_plugin(self, plugin_name: str) -> bool:
         """停止插件"""
         plugin = self._running_plugins.get(plugin_name)
         if plugin:
@@ -155,7 +167,7 @@ class PluginSystem:
                 
                 # 触发事件
                 if self._event_bus:
-                    self._event_bus.emit('plugin.stopped', {
+                    await self._event_bus.publish('plugin.stopped', {
                         'plugin_name': plugin_name
                     })
                     
@@ -174,7 +186,7 @@ class PluginSystem:
         """获取插件状态"""
         return self._plugin_states.get(plugin_name)
         
-    def load_plugin(self, plugin_name: str, show_info: bool = False) -> bool:
+    async def load_plugin(self, plugin_name: str, show_info: bool = False) -> bool:
         """加载单个插件"""
         try:
             # 使用 loader 加载插件类
@@ -201,7 +213,7 @@ class PluginSystem:
             
             # 触发事件
             if self._event_bus:
-                self._event_bus.emit('plugin.loaded', {
+                await self._event_bus.publish('plugin.loaded', {
                     'plugin_name': plugin_name,
                     'plugin_info': plugin_info
                 })
@@ -251,7 +263,7 @@ class PluginSystem:
                 return False
         return False
         
-    def activate_plugin(self, plugin_name: str) -> bool:
+    async def activate_plugin(self, plugin_name: str) -> bool:
         """激活插件"""
         if plugin_name not in self._plugins:
             return False
@@ -283,7 +295,7 @@ class PluginSystem:
             
             # 触发事件
             if self._event_bus:
-                self._event_bus.emit('plugin.activated', {
+                await self._event_bus.publish('plugin.activated', {
                     'plugin_name': plugin_name,
                     'plugin_info': self._plugins[plugin_name]
                 })
@@ -312,7 +324,7 @@ class PluginSystem:
         """检查插件是否已激活"""
         return self._plugin_states.get(plugin_name) == PluginState.ACTIVE 
         
-    def reload_plugin(self, plugin_name: str) -> bool:
+    async def reload_plugin(self, plugin_name: str) -> bool:
         """重新加载插件"""
         try:
             # 1. 保存状态
@@ -322,7 +334,7 @@ class PluginSystem:
                 self.unload_plugin(plugin_name)
                 
             # 2. 重新加载
-            self.load_plugin(plugin_name)
+            await self.load_plugin(plugin_name)
             
             # 3. 恢复状态
             if old_state and plugin_name in self._plugins:
@@ -330,7 +342,7 @@ class PluginSystem:
                 
             # 4. 触发事件
             if self._event_bus:
-                self._event_bus.emit('plugin.reloaded', {
+                await self._event_bus.publish('plugin.reloaded', {
                     'plugin_name': plugin_name,
                     'plugin_info': self._plugins.get(plugin_name)
                 })
@@ -345,7 +357,7 @@ class PluginSystem:
         """获取插件配置"""
         return self.config.get_config(plugin_name)
         
-    def set_plugin_config(self, plugin_name: str, config: Dict[str, Any]) -> None:
+    async def set_plugin_config(self, plugin_name: str, config: Dict[str, Any]) -> None:
         """设置插件配置"""
         plugin = self.get_plugin(plugin_name)
         if not plugin:
@@ -359,10 +371,10 @@ class PluginSystem:
             
         # 保存配置
         self.config.save_config(plugin_name, config)
-        
+    
         # 触发事件
         if self._event_bus:
-            self._event_bus.emit('plugin.config_changed', {
+            await self._event_bus.publish('plugin.config_changed', {
                 'plugin_name': plugin_name,
                 'config': config
             })
@@ -375,13 +387,29 @@ class PluginSystem:
             
         return plugin.request_permission(permission)
         
-    def revoke_permission(self, plugin_name: str, permission: PluginPermission) -> None:
+    async def revoke_permission(self, plugin_name: str, permission: PluginPermission) -> None:
         """撤销插件权限"""
         self.permission_manager.revoke_permission(plugin_name, permission)
         
         # 触发事件
         if self._event_bus:
-            self._event_bus.emit('plugin.permission_revoked', {
+            await self._event_bus.publish('plugin.permission_revoked', {
                 'plugin_name': plugin_name,
                 'permission': permission
             })
+
+    def subscribe(self, event_type: str, callback: Callable, filter_condition: Callable = None) -> None:
+        """订阅特定类型的事件，并提供一个回调函数，在事件触发时调用。
+
+        Args:
+            event_type: 事件类型
+            callback: 回调函数，接收事件数据作为参数
+            filter_condition: 过滤条件函数，返回True表示接收事件，False表示忽略事件
+        """
+        if filter_condition:
+            wrapped_callback = event_handler_wrapper(lambda data: callback(data) if filter_condition(data) else None)
+        else:
+            wrapped_callback = event_handler_wrapper(callback)
+        
+        if self._event_bus:
+            self._event_bus.subscribe(event_type, wrapped_callback)
