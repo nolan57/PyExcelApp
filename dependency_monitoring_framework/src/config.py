@@ -7,6 +7,7 @@ configuration settings from both a JSON file and environment variables.
 import os
 import json
 from typing import Dict, Any
+import logging
 
 class Config:
     """Configuration manager for the dependency monitoring framework.
@@ -16,7 +17,9 @@ class Config:
         _config (Dict[str, Any]): Internal dictionary storing configuration values.
     """
     def __init__(self):
-        self.config_file = os.getenv('CONFIG_FILE', 'config.json')
+        self._logger = logging.getLogger(__name__)
+        # self.config_file = os.getenv('CONFIG_FILE', 'config.json')
+        self.config_file = os.path.join(os.path.dirname(__file__), 'config.json')
         self._config = self._load_config()
 
     def _load_config(self) -> Dict[str, Any]:

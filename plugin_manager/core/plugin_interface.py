@@ -71,3 +71,12 @@ class PluginInterface(PluginEventInterface, PluginLifecycle):
         - List[str]: 可信源URL列表
         """
         pass
+        
+    @abstractmethod
+    def get_dependencies(self) -> List[str]:
+        """获取插件依赖列表
+        
+        Returns:
+            List[str]: 依赖包列表，例如 ["numpy>=1.20.0", "pandas>=1.3.0"]
+        """
+        pass

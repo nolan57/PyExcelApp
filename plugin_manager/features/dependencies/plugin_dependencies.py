@@ -14,6 +14,34 @@ from packaging import version
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
+from ..plugin_permissions import PluginPermission
+from ...utils.plugin_error import PluginError
+from ..environment.virtualenv_manager import VirtualEnvManager
+
+@dataclass(frozen=True)
+class PluginDependency:
+    """插件依赖信息"""
+    name: str
+    version: str
+    optional: bool = False
+    source: str = ""        # 依赖来源
+    signature: str = ""     # 依赖签名
+
+    def __hash__(self):
+        return hash((self.name, self.version, self.optional, self.source))
+
+    def __eq__(self, other):
+        return (self.name, self.version, self.optional, self.source) == \
+               (other.name, other.version, other.optional, other.source)
+
+@dataclass
+class DependencyInfo:
+    """依赖详细信息"""
+    name: str                # 依赖包名称
+    version: str            # 当前版本
+    path: str               # 安装路径
+    last_used: datetime     # 最后使用时间
+    optional: bool = False  # 是否为可选依赖
 
 class DependencySecurity:
     """依赖安全验证"""
@@ -87,39 +115,18 @@ class DependencyDownloadHandler(Protocol):
         """
         ...
 
-@dataclass(frozen=True)
-class PluginDependency:
-    """插件依赖信息"""
-    name: str
-    version: str
-    optional: bool = False
-
-    def __hash__(self):
-        return hash((self.name, self.version, self.optional))
-
-    def __eq__(self, other):
-        return (self.name, self.version, self.optional) == \
-               (other.name, other.version, other.optional)
-
-@dataclass
-class DependencyInfo:
-    """依赖信息"""
-    name: str
-    version: str
-    path: str
-    last_used: datetime
-    optional: bool = False
-    
 class DependencyManager:
     """插件依赖管理"""
     
     def __init__(self, dependencies_dir: str = "plugin_dependencies", 
                  cleanup_interval: int = 7,  # 清理间隔(天)
                  retention_period: int = 30, # 保留期限(天)
-                 enable_security: bool = True): # 是否启用安全验证
+                 enable_security: bool = True,  # 是否启用安全验证
+                 event_bus = None):            # 事件总线
         self._dependencies: Dict[str, Set[PluginDependency]] = {}
         self._logger = logging.getLogger(__name__)
         self.dependencies_dir = dependencies_dir
+        self._environments: Dict[str, VirtualEnvManager] = {}  # 插件环境管理器
         self._cache: Dict[str, str] = {}  # 依赖缓存：{依赖名称: 缓存路径}
         self._callbacks: Dict[str, callable] = {}  # 插件回调：{插件名称: 回调函数}
         self._dependencies_info: Dict[str, DependencyInfo] = {}
@@ -127,6 +134,7 @@ class DependencyManager:
         self.retention_period = retention_period
         self._last_cleanup = datetime.now()
         self._security = DependencySecurity() if enable_security else None
+        self._event_bus = event_bus
         os.makedirs(self.dependencies_dir, exist_ok=True)
         
     def register_callback(self, plugin_name: str, callback: callable) -> None:
@@ -149,27 +157,43 @@ class DependencyManager:
         self._download_handlers[plugin_name] = handler
         
     def preload_dependencies(self, plugin_name: str) -> bool:
-        """在插件加载前处理依赖
-        
-        Returns:
-            bool: 是否成功处理所有依赖
-        """
-        # 检查是否所有依赖都已安装
-        dependencies = self.get_dependencies(plugin_name)
-        if not dependencies:
+        """在插件加载前处理依赖"""
+        try:
+            # 1. 检查并下载依赖
+            dependencies = self.get_dependencies(plugin_name)
+            if dependencies:
+                # 检查缓存，确定需要下载的依赖
+                dependencies_to_download = [
+                    dep for dep in dependencies
+                    if dep.name not in self._cache
+                ]
+                
+                if dependencies_to_download:
+                    if not self.download_dependencies(plugin_name):
+                        raise PluginError(f"下载插件 {plugin_name} 的依赖失败")
+            
+            # 2. 创建并激活虚拟环境
+            env_manager = VirtualEnvManager(plugin_name)
+            if not env_manager.create():
+                raise PluginError(f"为插件 {plugin_name} 创建虚拟环境失败")
+            self._environments[plugin_name] = env_manager
+            
+            # 3. 生成requirements.txt并安装依赖
+            dependencies = self.get_dependencies(plugin_name)
+            if dependencies:
+                req_path = os.path.join(self.dependencies_dir, f"{plugin_name}_requirements.txt")
+                with open(req_path, 'w') as f:
+                    for dep in dependencies:
+                        f.write(f"{dep}\n")
+                
+                if not env_manager.install_dependencies(req_path):
+                    raise PluginError(f"安装插件 {plugin_name} 的依赖失败")
+                
             return True
             
-        # 检查缓存，确定需要下载的依赖
-        dependencies_to_download = [
-            dep for dep in dependencies
-            if dep.name not in self._cache
-        ]
-        
-        if not dependencies_to_download:
-            return True
-            
-        # 下载缺失的依赖
-        return self.download_dependencies(plugin_name)
+        except Exception as e:
+            self._logger.error(f"预加载插件 {plugin_name} 的依赖失败: {str(e)}")
+            return False
         
     def download_dependencies(self, plugin_name: str) -> bool:
         """下载插件的依赖
@@ -247,6 +271,12 @@ class DependencyManager:
         if plugin_name not in self._dependencies:
             self._dependencies[plugin_name] = set()
         self._dependencies[plugin_name].add(dependency)
+        # 发布依赖添加事件
+        if self._event_bus:
+            self._event_bus.emit('dependency.added', {
+                'plugin_name': plugin_name,
+                'dependency': dependency
+            })
         
     def remove_dependency(self, plugin_name: str, dependency_name: str) -> None:
         """移除插件依赖"""
@@ -493,20 +523,19 @@ class DependencyManager:
         now = datetime.now()
         cleaned_count = 0
         
-        for dep_name, dep_info in list(self._dependencies_info.items()):
-            # 跳过必需的依赖
-            if not dep_info.optional:
-                continue
-                
-            # 检查是否超过保留期限
-            if (now - dep_info.last_used).days > self.retention_period:
-                try:
-                    self._logger.info(f"清理依赖: {dep_name}")
-                    self.uninstall_dependency(dep_name)
+        for plugin_name, env_manager in list(self._environments.items()):
+            try:
+                # 清理虚拟环境
+                if env_manager.cleanup():
+                    del self._environments[plugin_name]
                     cleaned_count += 1
-                except Exception as e:
-                    self._logger.error(f"清理依赖 {dep_name} 失败: {str(e)}")
-                    
+                if self._event_bus:
+                    self._event_bus.emit('dependency.cleaned', {
+                        'plugin_name': plugin_name
+                    })
+            except Exception as e:
+                self._logger.error(f"清理插件 {plugin_name} 的依赖失败: {str(e)}")
+                
         self._last_cleanup = now
         self._logger.info(f"依赖清理完成，共清理 {cleaned_count} 个依赖")
         
@@ -524,3 +553,51 @@ class DependencyManager:
             dep_name for dep_name, dep_info in self._dependencies_info.items()
             if dep_info.optional and (now - dep_info.last_used).days > days
         ]
+        
+    def check_security(self, package_name: str) -> bool:
+        """检查依赖包的安全性
+        
+        Args:
+            package_name: 依赖包名称
+            
+        Returns:
+            bool: 是否安全
+        """
+        try:
+            # 1. 检查本地安全数据库
+            if self._security:
+                if not self._security.check_whitelist(package_name):
+                    self._logger.warning(f"依赖 {package_name} 不在白名单中")
+                    return False
+                    
+            # 2. 使用已有的安全扫描器
+            if hasattr(self, '_scanner'):
+                scanner = self._scanner
+            else:
+                from dependency_monitoring_framework.src.services.security_scanner import SecurityScanner
+                self._scanner = SecurityScanner(self._event_bus)
+                scanner = self._scanner
+
+            try:
+                result = scanner.check()
+                vulnerabilities = result.get('vulnerabilities', [])
+                if any(v.get('package') == package_name for v in vulnerabilities):
+                    self._logger.error(f"依赖 {package_name} 存在已知漏洞")
+                    # 发布安全问题事件
+                    if self._event_bus:
+                        self._event_bus.emit('dependency.security_check', {
+                            'package': package_name,
+                            'has_vulnerabilities': True,
+                            'vulnerabilities': vulnerabilities
+                        })
+                    return False
+            except Exception as e:
+                self._logger.warning(f"检查漏洞数据库失败: {str(e)}")
+                # 如果检查失败，不阻止依赖使用，但记录警告
+                
+            return True
+            
+        except Exception as e:
+            self._logger.error(f"检查依赖 {package_name} 安全性时出错: {str(e)}")
+            # 如果发生错误，为安全起见返回False
+            return False

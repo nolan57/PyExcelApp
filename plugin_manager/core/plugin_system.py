@@ -13,6 +13,7 @@ from plugin_manager.features.dependencies.plugin_dependencies import DependencyM
 from ..features.plugin_lifecycle import PluginState
 from ..utils.config_encryption import ConfigEncryption
 from ..features.plugin_workflow import PluginWorkflow
+from ..utils.event_bus_adapter import EventBus
 
 @dataclass
 class PluginInfo:
@@ -43,6 +44,9 @@ class PluginSystem:
         self.config_dir = os.path.join(self.plugin_dir, 'configs')  # 插件配置目录
         self.permission_file = os.path.join(self.plugin_dir, 'permissions.json')
         
+        # 初始化事件总线
+        self._event_bus = event_bus or EventBus()
+        
         # 确保目录结构
         os.makedirs(self.plugin_dir, exist_ok=True)
         os.makedirs(self.config_dir, exist_ok=True)
@@ -56,10 +60,13 @@ class PluginSystem:
         self.loader = PluginLoader(plugin_dir=self.plugin_dir, plugin_system=self)
         self.permission_manager = PluginPermissionManager(self.permission_file)
         self.permission_manager.set_plugin_config(self.config)
+        
+        # 初始化依赖管理器
         self.dependency_manager = DependencyManager(
             dependencies_dir=os.path.join(plugin_dir, "dependencies"),
             cleanup_interval=7,   # 每7天检查一次
-            retention_period=30   # 保留30天未使用的依赖
+            retention_period=30,  # 保留30天未使用的依赖
+            event_bus=self._event_bus  # 传入事件总线
         )
         
         # 内部状态
@@ -67,10 +74,35 @@ class PluginSystem:
         self._plugin_states: Dict[str, PluginState] = {}
         self._running_plugins = {}
         self._logger = logging.getLogger(__name__)
-        self._event_bus = event_bus
         
         # 初始化工作流管理器
         self.workflow = PluginWorkflow(self)
+        
+        # 订阅依赖相关事件
+        self._event_bus.subscribe('dependency.security_check', self._on_security_check)
+        self._event_bus.subscribe('dependency.update_available', self._on_update_available)
+        
+    def _on_security_check(self, data: Dict):
+        """处理依赖安全检查事件"""
+        if data.get('has_vulnerabilities'):
+            self._logger.warning(f"发现依赖安全问题: {data}")
+            # 通知相关插件
+            affected_plugins = self._find_affected_plugins(data.get('package'))
+            for plugin in affected_plugins:
+                plugin.handle_dependency_security_issue(data)
+                
+    def _on_update_available(self, data: Dict):
+        """处理依赖更新事件"""
+        self._logger.info(f"依赖更新可用: {data}")
+        # 可以在这里实现自动更新逻辑
+        
+    def _find_affected_plugins(self, package_name: str) -> List[PluginInterface]:
+        """查找使用指定依赖的插件"""
+        affected = []
+        for plugin_info in self._plugins.values():
+            if package_name in plugin_info.instance.get_dependencies():
+                affected.append(plugin_info.instance)
+        return affected
         
     async def process_data(self, plugin_name: str, table_view, **parameters) -> Any:
         """使用插件处理数据"""
@@ -194,6 +226,16 @@ class PluginSystem:
             if not plugin_class:
                 return False
                 
+            # 处理插件依赖
+            dependencies = plugin_class.get_dependencies()
+            if dependencies:
+                for dep in dependencies:
+                    self.dependency_manager.add_dependency(plugin_name, dep)
+                
+                # 预加载依赖
+                if not self.dependency_manager.preload_dependencies(plugin_name):
+                    raise PluginError(f"插件 {plugin_name} 依赖预加载失败")
+
             # 实例化并初始化插件
             plugin = plugin_class()
             plugin.plugin_system = self
@@ -270,6 +312,11 @@ class PluginSystem:
             
         try:
             plugin = self._plugins[plugin_name].instance
+            
+            # 激活插件的虚拟环境
+            env_manager = self.dependency_manager._environments.get(plugin_name)
+            if env_manager and not env_manager.activate():
+                raise PluginError(f"激活插件 {plugin_name} 的虚拟环境失败")
             
             # 检查依赖
             error = self.dependency_manager.check_dependencies(

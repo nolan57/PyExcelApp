@@ -17,6 +17,7 @@ class PluginLoader:
         self.plugin_system = plugin_system
         self._loaded_modules: Dict[str, Any] = {}
         self._logger = logging.getLogger(__name__)
+        self._dependency_cache = {}  # 缓存已验证的依赖
         
     def scan_plugins(self) -> List[str]:
         """扫描插件目录，返回可用的插件名称列表"""
@@ -90,6 +91,27 @@ class PluginLoader:
                     f"插件 {plugin_name} 中未找到有效的插件类。"
                     f"插件类必须实现 PluginInterface 或继承自 PluginBase，且不能是抽象类"
                 )
+            
+            # 验证插件类
+            if plugin_class:
+                # 验证依赖相关方法
+                required_methods = [
+                    'get_name', 'get_version', 'get_description',
+                    'get_config_schema', 'validate_parameters',
+                    'get_dependencies', 'get_trusted_sources',
+                    'verify_dependency_signature'
+                ]
+                
+                for method in required_methods:
+                    if not hasattr(plugin_class, method):
+                        raise PluginLoadError(f"插件类缺少必需的方法: {method}")
+                        
+                # 验证依赖
+                if hasattr(plugin_class, 'get_dependencies'):
+                    dependencies = plugin_class.get_dependencies()
+                    if dependencies and not self._verify_dependencies(plugin_name, dependencies):
+                        raise PluginLoadError(f"插件 {plugin_name} 依赖验证失败")
+                        
             return plugin_class
             
         except ImportError as e:
@@ -158,3 +180,81 @@ class PluginLoader:
             if not hasattr(plugin_class, method):
                 return f"插件类缺少必需的方法: {method}"
         return None
+
+    def _verify_dependencies(self, plugin_name: str, dependencies: List[str]) -> bool:
+        """验证插件依赖"""
+        try:
+            # 检查缓存
+            cache_key = f"{plugin_name}:{','.join(dependencies)}"
+            if cache_key in self._dependency_cache:
+                return self._dependency_cache[cache_key]
+                
+            # 验证每个依赖
+            for dep in dependencies:
+                if not self._verify_single_dependency(plugin_name, dep):
+                    return False
+                    
+            # 缓存结果
+            self._dependency_cache[cache_key] = True
+            return True
+            
+        except Exception as e:
+            self._logger.error(f"验证插件 {plugin_name} 依赖时出错: {str(e)}")
+            return False
+            
+    def _verify_single_dependency(self, plugin_name: str, dependency: str) -> bool:
+        """验证单个依赖
+        
+        Args:
+            plugin_name: 插件名称
+            dependency: 依赖包说明，格式如 "package>=1.0.0"
+            
+        Returns:
+            bool: 依赖是否有效
+        """
+        try:
+            # 1. 解析依赖格式
+            import re
+            pattern = re.compile(r"^([a-zA-Z0-9\-_\.]+)(?:(>=|<=|==|>|<)(.+))?$")
+            match = pattern.match(dependency)
+            if not match:
+                self._logger.error(f"依赖格式无效: {dependency}")
+                return False
+                
+            package_name, operator, version = match.groups()
+            
+            # 2. 检查包名是否合法
+            if not re.match(r"^[a-zA-Z0-9\-_\.]+$", package_name):
+                self._logger.error(f"包名不合法: {package_name}")
+                return False
+                
+            # 3. 检查版本号格式（如果指定了版本）
+            if version:
+                try:
+                    from packaging import version as Version
+                    Version.parse(version)
+                except Exception:
+                    self._logger.error(f"版本号格式无效: {version}")
+                    return False
+                    
+            # 4. 检查是否在可信源列表中
+            if self.plugin_system:
+                plugin = self.plugin_system.get_plugin(plugin_name)
+                if plugin:
+                    trusted_sources = plugin.get_trusted_sources()
+                    if not any(source.endswith(package_name) for source in trusted_sources):
+                        self._logger.warning(f"依赖 {package_name} 不在可信源列表中")
+                        # 不阻止加载，但记录警告
+                        
+            # 5. 检查是否有已知的安全漏洞
+            if self.plugin_system and hasattr(self.plugin_system, 'dependency_manager'):
+                security_check = self.plugin_system.dependency_manager.check_security(package_name)
+                if not security_check:
+                    self._logger.error(f"依赖 {package_name} 存在安全风险")
+                    return False
+                    
+            return True
+            
+        except Exception as e:
+            self._logger.error(f"验证依赖 {dependency} 时出错: {str(e)}")
+            return False

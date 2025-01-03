@@ -1,0 +1,14 @@
+{
+    "security_scanner": {
+        "base_url": "https://ossindex.sonatype.org/api/v3",
+        "timeout": 5
+    },
+    "version_checker": {
+        "base_url": "http://localhost:8000",
+        "timeout": 5
+    },
+    "compatibility_checker": {
+        "base_url": "http://localhost:8000",
+        "timeout": 5
+    }
+}

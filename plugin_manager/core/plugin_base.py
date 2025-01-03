@@ -21,6 +21,7 @@ class PluginBase(PluginInterface):
         self._optional_permissions: Set[PluginPermission] = set()
         self._granted_permissions: Set[PluginPermission] = set()
         self.plugin_system = None  # 由插件系统设置
+        self._dependencies: List[str] = []  # 插件依赖列表
         
     # PluginInterface 实现
     def get_name(self) -> str:
@@ -147,5 +148,13 @@ class PluginBase(PluginInterface):
         return {} 
         
     def get_dependencies(self) -> List[str]:
-        """获取插件依赖"""
-        return []  # 默认实现返回空列表 
+        """获取插件依赖列表"""
+        return self._dependencies.copy()  # 返回副本以防止外部修改
+        
+    def verify_dependency_signature(self, dependency_name: str, signature: str) -> bool:
+        """验证依赖包签名"""
+        return True  # 基类提供默认实现，返回True表示不验证签名
+        
+    def get_trusted_sources(self) -> List[str]:
+        """获取可信源列表"""
+        return ["https://pypi.org/simple"]  # 基类提供默认可信源 
