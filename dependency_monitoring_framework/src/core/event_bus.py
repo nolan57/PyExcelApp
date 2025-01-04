@@ -13,27 +13,31 @@ class EventBus:
         self._processing = False
         self._lock = asyncio.Lock()
 
-    def subscribe(self, event_type: str, callback: Callable) -> None:
+    def subscribe(self, event_type: str, callback: Callable, priority: int = 1) -> None:
         """订阅事件
         
         Args:
             event_type: 事件类型
             callback: 回调函数，接收事件数据作为参数
+            priority: 回调优先级，默认为1（数字越小优先级越高）
         """
-        if callback not in self._subscribers[event_type]:
-            self._subscribers[event_type].append(callback)
+        if not any(cb == callback for _, cb in self._subscribers[event_type]):
+            self._subscribers[event_type].append((priority, callback))
+            self._subscribers[event_type].sort(key=lambda x: x[0])
 
-    def unsubscribe(self, event_type: str, callback: Callable) -> None:
-        """取消订阅事件
+    def emit(self, event_type: str, data: Any = None) -> None:
+        """同步发送事件（向后兼容）
         
         Args:
             event_type: 事件类型
-            callback: 要取消的回调函数
+            data: 事件数据
         """
         if event_type in self._subscribers:
-            self._subscribers[event_type].remove(callback)
-            if not self._subscribers[event_type]:
-                del self._subscribers[event_type]
+            for _, callback in self._subscribers[event_type]:
+                try:
+                    callback(data)
+                except Exception as e:
+                    print(f"Error in event handler: {str(e)}")
 
     async def publish(self, event_type: str, data: Any = None, priority: int = 1) -> None:
         """发布事件
@@ -49,16 +53,36 @@ class EventBus:
             if not self._processing:
                 self._processing = True
                 asyncio.create_task(self._process_events())
-        
+
     async def _process_events(self) -> None:
+        """处理事件队列"""
         while not self._event_queue.empty():
             _, (event_type, data) = self._event_queue.get_nowait()
-            for callback in self._subscribers[event_type]:
-                try:
-                    await callback(data)
-                except Exception as e:
-                    print(f"Error in event handler: {str(e)}")
+            if event_type in self._subscribers:
+                for _, callback in self._subscribers[event_type]:
+                    try:
+                        if asyncio.iscoroutinefunction(callback):
+                            await callback(data)
+                        else:
+                            callback(data)
+                    except Exception as e:
+                        print(f"Error in event handler: {str(e)}")
         self._processing = False
+
+    def unsubscribe(self, event_type: str, callback: Callable) -> None:
+        """取消订阅事件
+        
+        Args:
+            event_type: 事件类型
+            callback: 要取消的回调函数
+        """
+        if event_type in self._subscribers:
+            self._subscribers[event_type] = [
+                (p, cb) for p, cb in self._subscribers[event_type] 
+                if cb != callback
+            ]
+            if not self._subscribers[event_type]:
+                del self._subscribers[event_type]
 
     def get_last_event(self, event_type: str) -> Any:
         """获取最后一次事件数据
@@ -82,32 +106,6 @@ class EventBus:
                 del self._subscribers[event_type]
         else:
             self._subscribers.clear()
-
-    def subscribe(self, event_type: str, callback: Callable, priority: int = 1) -> None:
-        """订阅事件
-        
-        Args:
-            event_type: 事件类型
-            callback: 回调函数，接收事件数据作为参数
-            priority: 回调优先级，默认为1（数字越小优先级越高）
-        """
-        if callback not in self._subscribers[event_type]:
-            self._subscribers[event_type].append((priority, callback))
-            self._subscribers[event_type].sort(key=lambda x: x[0])
-
-    def unsubscribe(self, event_type: str, callback: Callable) -> None:
-        """取消订阅事件
-        
-        Args:
-            event_type: 事件类型
-            callback: 要取消的回调函数
-        """
-        if event_type in self._subscribers:
-            self._subscribers[event_type] = [
-                (p, cb) for p, cb in self._subscribers[event_type] if cb != callback
-            ]
-            if not self._subscribers[event_type]:
-                del self._subscribers[event_type]
 
     def get_subscriber_count(self, event_type: str) -> int:
         """获取订阅者数量

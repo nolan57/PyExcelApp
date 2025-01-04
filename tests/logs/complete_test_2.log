@@ -1,0 +1,2835 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0 -- /opt/miniconda3/envs/PyQt/bin/python
+cachedir: .pytest_cache
+PyQt6 6.4.2 -- Qt runtime 6.4.3 -- Qt compiled 6.4.2
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/lpcw/Documents/PyQt/PyExcelApp
+configfile: pytest.ini
+testpaths: tests
+plugins: qt-4.4.0, cov-6.0.0, benchmark-5.1.0, anyio-4.6.2, xdist-3.6.1, asyncio-0.25.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None
+collecting ... collected 104 items
+
+tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_excel_processing_workflow FAILED [  0%]
+tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_plugin_integration ERROR [  1%]
+tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_monitoring_integration ERROR [  2%]
+tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel1::test_basic_health_check ERROR [  3%]
+tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel2::test_monitoring_with_notifications ERROR [  4%]
+tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel3::test_full_monitoring_system ERROR [  5%]
+tests/integration/test_plugin_integration.py::test_plugin_lifecycle FAILED [  6%]
+tests/integration/test_plugin_integration.py::test_plugin_permissions FAILED [  7%]
+tests/integration/test_plugin_integration.py::test_plugin_configuration FAILED [  8%]
+tests/integration/test_plugin_integration.py::test_plugin_error_handling FAILED [  9%]
+tests/integration/test_plugin_integration.py::test_plugin_data_processing FAILED [ 10%]
+tests/integration/test_plugin_integration.py::test_plugin_dependencies FAILED [ 11%]
+tests/integration/test_plugin_integration.py::test_plugin_events FAILED  [ 12%]
+tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::test_full_plugin_lifecycle ERROR [ 13%]
+tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::test_plugin_dependency_resolution ERROR [ 14%]
+tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::test_async_data_processing ERROR [ 15%]
+tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::test_plugin_error_recovery ERROR [ 16%]
+tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel1::test_basic_plugin_operations ERROR [ 17%]
+tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel2::test_plugin_with_permissions ERROR [ 18%]
+tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel3::test_plugin_with_dependencies ERROR [ 19%]
+tests/integration/test_workflow.py::test_file_open_workflow FAILED       [ 20%]
+tests/integration/test_workflow.py::test_data_processing_workflow FAILED [ 21%]
+tests/integration/test_workflow.py::test_save_workflow FAILED            [ 22%]
+tests/performance/test_monitoring_performance.py::TestMonitoringPerformance::test_health_check_performance FAILED [ 23%]
+tests/performance/test_performance.py::test_large_file_processing_performance PASSED [ 24%]
+tests/performance/test_performance.py::test_data_processing_benchmark FAILED [ 25%]
+tests/unit/excel/test_excel_operations.py::TestExcelOperations::test_data_processing FAILED [ 25%]
+tests/unit/excel/test_excel_operations.py::TestExcelOperations::test_load_excel PASSED [ 26%]
+tests/unit/excel/test_excel_operations.py::TestExcelOperations::test_save_excel PASSED [ 27%]
+tests/unit/excel/test_excel_operations.py::TestPandasModel::test_columnCount PASSED [ 28%]
+tests/unit/excel/test_excel_operations.py::TestPandasModel::test_data PASSED [ 29%]
+tests/unit/excel/test_excel_operations.py::TestPandasModel::test_rowCount PASSED [ 30%]
+tests/unit/excel/test_excel_operations.py::TestPandasModel::test_setData PASSED [ 31%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data0-up_to_date] PASSED [ 32%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data1-outdated] PASSED [ 33%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data2-error] PASSED [ 34%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data0] PASSED [ 35%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data1] PASSED [ 36%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data2] PASSED [ 37%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data0-True] PASSED [ 38%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data1-False] PASSED [ 39%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data2-None] PASSED [ 40%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_email_notification PASSED [ 41%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_slack_notification PASSED [ 42%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_monitoring_workflow PASSED [ 43%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_async_monitoring PASSED [ 44%]
+tests/unit/monitoring/test_health_checker.py::TestHealthChecker::test_register_plugin ERROR [ 45%]
+tests/unit/monitoring/test_health_checker.py::TestHealthChecker::test_check_health ERROR [ 46%]
+tests/unit/monitoring/test_health_checker.py::TestHealthChecker::test_remove_plugin ERROR [ 47%]
+tests/unit/monitoring/test_notification_manager.py::TestNotificationManager::test_add_channel ERROR [ 48%]
+tests/unit/monitoring/test_notification_manager.py::TestNotificationManager::test_send_notification ERROR [ 49%]
+tests/unit/monitoring/test_notification_manager.py::TestNotificationManager::test_remove_channel ERROR [ 50%]
+tests/unit/plugin/test_dependency_downloader.py::TestDependencyDownloader::test_download_package FAILED [ 50%]
+tests/unit/plugin/test_dependency_downloader.py::TestDependencyDownloader::test_validate_package_spec FAILED [ 51%]
+tests/unit/plugin/test_dependency_downloader.py::TestDependencyDownloader::test_cleanup_downloaded FAILED [ 52%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemCore::test_plugin_loading FAILED [ 53%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemCore::test_plugin_activation FAILED [ 54%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemCore::test_plugin_deactivation FAILED [ 55%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemOperations::test_plugin_start_stop FAILED [ 56%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemOperations::test_plugin_reload FAILED [ 57%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemPermissions::test_permission_management FAILED [ 58%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemPermissions::test_permission_validation[PluginPermission.FILE_READ] FAILED [ 59%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemPermissions::test_permission_validation[PluginPermission.DATA_READ] FAILED [ 60%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemPermissions::test_permission_validation[PluginPermission.UI_MODIFY] FAILED [ 61%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemErrorHandling::test_invalid_plugin_operations FAILED [ 62%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemErrorHandling::test_plugin_error_recovery FAILED [ 63%]
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemIntegration::test_plugin_lifecycle FAILED [ 64%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerBasic::test_add_dependency PASSED [ 65%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerBasic::test_remove_dependency PASSED [ 66%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerBasic::test_get_dependency_status PASSED [ 67%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_preload_dependencies FAILED [ 68%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_dependency_verification FAILED [ 69%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_dependency_version_check PASSED [ 70%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_rollback_dependencies PASSED [ 71%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_circular_dependency_detection FAILED [ 72%]
+tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_optional_dependencies FAILED [ 73%]
+tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_window_initialization FAILED [ 74%]
+tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_plugin_list_display FAILED [ 75%]
+tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_plugin_operations FAILED [ 75%]
+tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_plugin_settings FAILED [ 76%]
+tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_error_handling FAILED [ 77%]
+tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_plugin_info_display FAILED [ 78%]
+tests/unit/test_excel_processor.py::test_excel_file_loading PASSED       [ 79%]
+tests/unit/test_excel_processor.py::test_excel_file_saving PASSED        [ 80%]
+tests/unit/test_excel_processor.py::test_invalid_file PASSED             [ 81%]
+tests/unit/test_excel_processor.py::test_sheet_operations PASSED         [ 82%]
+tests/unit/test_main_window.py::test_main_window_init FAILED             [ 83%]
+tests/unit/test_main_window.py::test_file_menu_actions FAILED            [ 84%]
+tests/unit/test_main_window.py::test_table_view FAILED                   [ 85%]
+tests/unit/test_main_window.py::test_keyboard_input[16777223-] FAILED    [ 86%]
+tests/unit/test_main_window.py::test_keyboard_input[65-A] FAILED         [ 87%]
+tests/unit/test_main_window.py::test_keyboard_input[49-1] FAILED         [ 88%]
+tests/unit/test_response.py::test_response_initialization FAILED         [ 89%]
+tests/unit/test_response.py::test_response_to_markdown FAILED            [ 90%]
+tests/unit/test_response.py::test_invalid_response FAILED                [ 91%]
+tests/unit/test_response.py::test_response_formatting FAILED             [ 92%]
+tests/unit/test_response.py::test_response_with_empty_content FAILED     [ 93%]
+tests/unit/test_response.py::test_response_with_special_characters FAILED [ 94%]
+tests/unit/test_response.py::test_response_different_formats[markdown] FAILED [ 95%]
+tests/unit/test_response.py::test_response_different_formats[code] FAILED [ 96%]
+tests/unit/test_response.py::test_response_different_formats[text] FAILED [ 97%]
+tests/unit/test_response.py::test_response_different_formats[None] FAILED [ 98%]
+tests/unit/test_utils.py::test_format_markdown PASSED                    [ 99%]
+tests/unit/test_utils.py::test_clean_text PASSED                         [100%]
+
+==================================== ERRORS ====================================
+_____ ERROR at setup of TestFunctionalIntegration.test_plugin_integration ______
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_functional_integration.py, line 72
+      @pytest.mark.integration
+      def test_plugin_integration(self, mock_main_window, mock_plugin):
+E       fixture 'mock_plugin' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_functional_integration.py::<event_loop>, tests/integration/test_functional_integration.py::TestFunctionalIntegration::<event_loop>, tests::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_functional_integration.py:72
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+___ ERROR at setup of TestFunctionalIntegration.test_monitoring_integration ____
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_functional_integration.py, line 89
+      @pytest.mark.integration
+      def test_monitoring_integration(self, mock_main_window, monitoring_system):
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/conftest.py, line 124
+  @pytest.fixture
+  def monitoring_system(health_checker, notification_manager):
+E       fixture 'health_checker' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_functional_integration.py::<event_loop>, tests/integration/test_functional_integration.py::TestFunctionalIntegration::<event_loop>, tests::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/conftest.py:124
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+__ ERROR at setup of TestMonitoringIntegrationLevel1.test_basic_health_check ___
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_monitoring_integration.py, line 10
+      def test_basic_health_check(self, health_checker, version_checker):
+E       fixture 'health_checker' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_monitoring_integration.py::<event_loop>, tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel1::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_monitoring_integration.py:10
+_ ERROR at setup of TestMonitoringIntegrationLevel2.test_monitoring_with_notifications _
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_monitoring_integration.py, line 19
+      def test_monitoring_with_notifications(self, health_checker, notification_manager):
+E       fixture 'health_checker' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_monitoring_integration.py::<event_loop>, tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel2::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_monitoring_integration.py:19
+_ ERROR at setup of TestMonitoringIntegrationLevel3.test_full_monitoring_system _
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_monitoring_integration.py, line 35
+      def test_full_monitoring_system(self, health_checker, notification_manager):
+E       fixture 'health_checker' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_monitoring_integration.py::<event_loop>, tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel3::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_monitoring_integration.py:35
+__ ERROR at setup of TestPluginManagerIntegration.test_full_plugin_lifecycle ___
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py, line 43
+      def test_full_plugin_lifecycle(self, plugin_manager, complex_plugin):
+E       fixture 'plugin_manager' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, complex_plugin, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_plugin_manager_integration.py::<event_loop>, tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py:43
+_ ERROR at setup of TestPluginManagerIntegration.test_plugin_dependency_resolution _
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py, line 70
+      def test_plugin_dependency_resolution(self, plugin_manager, complex_plugin):
+E       fixture 'plugin_manager' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, complex_plugin, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_plugin_manager_integration.py::<event_loop>, tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py:70
+__ ERROR at setup of TestPluginManagerIntegration.test_async_data_processing ___
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py, line 83
+      @pytest.mark.asyncio
+      async def test_async_data_processing(self, plugin_manager, complex_plugin):
+          """测试异步数据处理"""
+          plugin_manager.register_plugin("complex_plugin", complex_plugin)
+          await plugin_manager.initialize_plugin_async("complex_plugin")
+          await plugin_manager.activate_plugin_async("complex_plugin")
+
+          test_data = [{"id": i} for i in range(5)]
+          results = await plugin_manager.process_plugin_data_async("complex_plugin", test_data)
+
+          assert len(results) == len(test_data)
+E       fixture 'plugin_manager' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, complex_plugin, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_plugin_manager_integration.py::<event_loop>, tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py:83
+__ ERROR at setup of TestPluginManagerIntegration.test_plugin_error_recovery ___
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py, line 95
+      def test_plugin_error_recovery(self, plugin_manager, complex_plugin):
+E       fixture 'plugin_manager' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, complex_plugin, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_plugin_manager_integration.py::<event_loop>, tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py:95
+_ ERROR at setup of TestPluginSystemIntegrationLevel1.test_basic_plugin_operations _
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_system_integration.py, line 11
+      def test_basic_plugin_operations(self, plugin_system, mock_plugin):
+E       fixture 'plugin_system' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_plugin_system_integration.py::<event_loop>, tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel1::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_system_integration.py:11
+_ ERROR at setup of TestPluginSystemIntegrationLevel2.test_plugin_with_permissions _
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_system_integration.py, line 24
+      def test_plugin_with_permissions(self, plugin_system, mock_plugin):
+E       fixture 'plugin_system' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_plugin_system_integration.py::<event_loop>, tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel2::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_system_integration.py:24
+_ ERROR at setup of TestPluginSystemIntegrationLevel3.test_plugin_with_dependencies _
+file /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_system_integration.py, line 41
+      def test_plugin_with_dependencies(self, plugin_system, mock_plugin):
+E       fixture 'plugin_system' not found
+>       available fixtures: _session_event_loop, anyio_backend, anyio_backend_name, anyio_backend_options, benchmark, benchmark_weave, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, compatibility_checker, cov, create_test_data, doctest_namespace, email_notifier, event_loop, event_loop_policy, mock_email_channel, mock_excel_processor, mock_health_plugin, mock_main_window, monitoring_system, monkeypatch, no_cover, pytestconfig, qapp, qapp_args, qapp_cls, qtbot, qtlog, qtmodeltester, record_property, record_testsuite_property, record_xml_attribute, recwarn, sample_excel_data, security_scanner, slack_notifier, temp_excel_file, testrun_uid, tests/integration/test_plugin_system_integration.py::<event_loop>, tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel3::<event_loop>, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, unused_tcp_port, unused_tcp_port_factory, unused_udp_port, unused_udp_port_factory, validate_dependency_results, validate_notification_results, validate_processed_data, validate_ui_results, version_checker, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_system_integration.py:41
+___________ ERROR at setup of TestHealthChecker.test_register_plugin ___________
+
+    @pytest.fixture
+    def health_checker():
+>       return HealthChecker()
+E       TypeError: HealthChecker.__init__() missing 1 required positional argument: 'event_bus'
+
+tests/unit/monitoring/test_health_checker.py:16: TypeError
+____________ ERROR at setup of TestHealthChecker.test_check_health _____________
+
+    @pytest.fixture
+    def health_checker():
+>       return HealthChecker()
+E       TypeError: HealthChecker.__init__() missing 1 required positional argument: 'event_bus'
+
+tests/unit/monitoring/test_health_checker.py:16: TypeError
+____________ ERROR at setup of TestHealthChecker.test_remove_plugin ____________
+
+    @pytest.fixture
+    def health_checker():
+>       return HealthChecker()
+E       TypeError: HealthChecker.__init__() missing 1 required positional argument: 'event_bus'
+
+tests/unit/monitoring/test_health_checker.py:16: TypeError
+__________ ERROR at setup of TestNotificationManager.test_add_channel __________
+
+    @pytest.fixture
+    def mock_notification_channel():
+        class MockChannel(NotificationChannel):
+            def notify(self, title, message):
+                return True
+>       return MockChannel()
+E       TypeError: Can't instantiate abstract class MockChannel with abstract methods configure, get_last_error, get_status, test_connection
+
+tests/unit/monitoring/test_notification_manager.py:12: TypeError
+_______ ERROR at setup of TestNotificationManager.test_send_notification _______
+
+    @pytest.fixture
+    def mock_notification_channel():
+        class MockChannel(NotificationChannel):
+            def notify(self, title, message):
+                return True
+>       return MockChannel()
+E       TypeError: Can't instantiate abstract class MockChannel with abstract methods configure, get_last_error, get_status, test_connection
+
+tests/unit/monitoring/test_notification_manager.py:12: TypeError
+________ ERROR at setup of TestNotificationManager.test_remove_channel _________
+
+    @pytest.fixture
+    def mock_notification_channel():
+        class MockChannel(NotificationChannel):
+            def notify(self, title, message):
+                return True
+>       return MockChannel()
+E       TypeError: Can't instantiate abstract class MockChannel with abstract methods configure, get_last_error, get_status, test_connection
+
+tests/unit/monitoring/test_notification_manager.py:12: TypeError
+=================================== FAILURES ===================================
+___________ TestFunctionalIntegration.test_excel_processing_workflow ___________
+
+self = <test_functional_integration.TestFunctionalIntegration object at 0x160b884d0>
+mock_main_window = <ui.main_window.MainWindow object at 0x164353b50>
+sample_excel_data =   Column1  Column2 Column3
+0      A1        1       X
+1      A2        2       Y
+2      A3        3       Z
+
+    def test_excel_processing_workflow(self, mock_main_window, sample_excel_data):
+        """测试Excel处理工作流"""
+        # 模拟打开文件
+        operations = [
+            ("click", {"widget_type": "QPushButton", "widget_name": "openButton"}),
+            ("select", {"widget_type": "QComboBox", "widget_name": "sheetSelect", "index": 0})
+        ]
+>       simulate_ui_operations(mock_main_window, operations)
+
+tests/integration/test_functional_integration.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+window = <ui.main_window.MainWindow object at 0x164353b50>
+operations = [('click', {'widget_name': 'openButton', 'widget_type': 'QPushButton'}), ('select', {'index': 0, 'widget_name': 'sheetSelect', 'widget_type': 'QComboBox'})]
+
+    def simulate_ui_operations(window, operations):
+        """模拟UI操作
+    
+        Args:
+            window: 要操作的窗口
+            operations: 操作列表，每个操作是一个(action, params)元组
+        """
+        for action, params in operations:
+            if action == "click":
+>               widget = window.findChild(params["widget_type"], params["widget_name"])
+E               TypeError: arguments did not match any overloaded call:
+E                 findChild(self, type: type, name: str = '', options: Qt.FindChildOption = Qt.FindChildrenRecursively): argument 1 has unexpected type 'str'
+E                 findChild(self, types: Tuple, name: str = '', options: Qt.FindChildOption = Qt.FindChildrenRecursively): argument 1 has unexpected type 'str'
+
+tests/integration/test_functional_integration.py:20: TypeError
+---------------------------- Captured stderr setup -----------------------------
+2025-01-04 11:47:22.971 python[92570:1875409] +[IMKClient subclass]: chose IMKClient_Modern
+2025-01-04 11:47:22.971 python[92570:1875409] +[IMKInputSession subclass]: chose IMKInputSession_Modern
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+____________________________ test_plugin_lifecycle _____________________________
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+>               __import__(used)
+E               ModuleNotFoundError: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:77: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x1646ebb10>
+mock_plugin = <class 'test_plugin_integration.mock_plugin.<locals>.TestPlugin'>
+
+    def test_plugin_lifecycle(plugin_system, mock_plugin):
+        """测试插件完整生命周期"""
+        # 加载插件
+        with pytest.MonkeyPatch.context() as mp:
+>           mp.setattr('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                      lambda *args: mock_plugin)
+
+tests/integration/test_plugin_integration.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:102: in derive_importpath
+    target = resolve(module)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+                __import__(used)
+            except ImportError as ex:
+                expected = str(ex).split()[-1]
+                if expected == used:
+                    raise
+                else:
+>                   raise ImportError(f"import error in {used}: {ex}") from ex
+E                   ImportError: import error in plugin_manager.core.plugin_loader: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:83: ImportError
+___________________________ test_plugin_permissions ____________________________
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+>               __import__(used)
+E               ModuleNotFoundError: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:77: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x1646ebf10>
+mock_plugin = <class 'test_plugin_integration.mock_plugin.<locals>.TestPlugin'>
+
+    def test_plugin_permissions(plugin_system, mock_plugin):
+        """测试插件权限管理"""
+        with pytest.MonkeyPatch.context() as mp:
+>           mp.setattr('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                      lambda *args: mock_plugin)
+
+tests/integration/test_plugin_integration.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:102: in derive_importpath
+    target = resolve(module)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+                __import__(used)
+            except ImportError as ex:
+                expected = str(ex).split()[-1]
+                if expected == used:
+                    raise
+                else:
+>                   raise ImportError(f"import error in {used}: {ex}") from ex
+E                   ImportError: import error in plugin_manager.core.plugin_loader: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:83: ImportError
+__________________________ test_plugin_configuration ___________________________
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+>               __import__(used)
+E               ModuleNotFoundError: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:77: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x1647445d0>
+mock_plugin = <class 'test_plugin_integration.mock_plugin.<locals>.TestPlugin'>
+
+    def test_plugin_configuration(plugin_system, mock_plugin):
+        """测试插件配置管理"""
+        with pytest.MonkeyPatch.context() as mp:
+>           mp.setattr('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                      lambda *args: mock_plugin)
+
+tests/integration/test_plugin_integration.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:102: in derive_importpath
+    target = resolve(module)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+                __import__(used)
+            except ImportError as ex:
+                expected = str(ex).split()[-1]
+                if expected == used:
+                    raise
+                else:
+>                   raise ImportError(f"import error in {used}: {ex}") from ex
+E                   ImportError: import error in plugin_manager.core.plugin_loader: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:83: ImportError
+__________________________ test_plugin_error_handling __________________________
+
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x1646f01d0>
+
+    def test_plugin_error_handling(plugin_system):
+        """测试插件错误处理"""
+        # 测试加载不存在的插件
+>       with pytest.raises(Exception):
+E       Failed: DID NOT RAISE <class 'Exception'>
+
+tests/integration/test_plugin_integration.py:88: Failed
+_________________________ test_plugin_data_processing __________________________
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+>               __import__(used)
+E               ModuleNotFoundError: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:77: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x16470dc90>
+mock_plugin = <class 'test_plugin_integration.mock_plugin.<locals>.TestPlugin'>
+sample_excel_data =   Column1  Column2 Column3
+0      A1        1       X
+1      A2        2       Y
+2      A3        3       Z
+
+    @pytest.mark.integration
+    def test_plugin_data_processing(plugin_system, mock_plugin, sample_excel_data):
+        """测试插件数据处理集成"""
+        with pytest.MonkeyPatch.context() as mp:
+>           mp.setattr('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                      lambda *args: mock_plugin)
+
+tests/integration/test_plugin_integration.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:102: in derive_importpath
+    target = resolve(module)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+                __import__(used)
+            except ImportError as ex:
+                expected = str(ex).split()[-1]
+                if expected == used:
+                    raise
+                else:
+>                   raise ImportError(f"import error in {used}: {ex}") from ex
+E                   ImportError: import error in plugin_manager.core.plugin_loader: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:83: ImportError
+___________________________ test_plugin_dependencies ___________________________
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+>               __import__(used)
+E               ModuleNotFoundError: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:77: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x167c185d0>
+mock_plugin = <class 'test_plugin_integration.mock_plugin.<locals>.TestPlugin'>
+
+    @pytest.mark.integration
+    def test_plugin_dependencies(plugin_system, mock_plugin):
+        """测试插件依赖管理"""
+        with pytest.MonkeyPatch.context() as mp:
+>           mp.setattr('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                      lambda *args: mock_plugin)
+
+tests/integration/test_plugin_integration.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:102: in derive_importpath
+    target = resolve(module)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+                __import__(used)
+            except ImportError as ex:
+                expected = str(ex).split()[-1]
+                if expected == used:
+                    raise
+                else:
+>                   raise ImportError(f"import error in {used}: {ex}") from ex
+E                   ImportError: import error in plugin_manager.core.plugin_loader: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:83: ImportError
+______________________________ test_plugin_events ______________________________
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+>               __import__(used)
+E               ModuleNotFoundError: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:77: ModuleNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x16479c890>
+mock_plugin = <class 'test_plugin_integration.mock_plugin.<locals>.TestPlugin'>
+
+    @pytest.mark.integration
+    def test_plugin_events(plugin_system, mock_plugin):
+        """测试插件事件系统"""
+        events = []
+    
+        def event_handler(event):
+            events.append(event)
+    
+        with pytest.MonkeyPatch.context() as mp:
+>           mp.setattr('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                      lambda *args: mock_plugin)
+
+tests/integration/test_plugin_integration.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:102: in derive_importpath
+    target = resolve(module)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve(name: str) -> object:
+        # Simplified from zope.dottedname.
+        parts = name.split(".")
+    
+        used = parts.pop(0)
+        found: object = __import__(used)
+        for part in parts:
+            used += "." + part
+            try:
+                found = getattr(found, part)
+            except AttributeError:
+                pass
+            else:
+                continue
+            # We use explicit un-nesting of the handling block in order
+            # to avoid nested exceptions.
+            try:
+                __import__(used)
+            except ImportError as ex:
+                expected = str(ex).split()[-1]
+                if expected == used:
+                    raise
+                else:
+>                   raise ImportError(f"import error in {used}: {ex}") from ex
+E                   ImportError: import error in plugin_manager.core.plugin_loader: No module named 'plugin_manager.core.plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/monkeypatch.py:83: ImportError
+___________________________ test_file_open_workflow ____________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x16476c820>
+temp_excel_file = PosixPath('/private/var/folders/pz/r5v5v_z53fs2zwsv6cy9tybh0000gn/T/pytest-of-lpcw/pytest-1/test_file_open_workflow0/test.xlsx')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x16478d750>
+
+    def test_file_open_workflow(mock_main_window, temp_excel_file, monkeypatch):
+        """测试文件打开工作流"""
+        # 模拟文件对话框
+        monkeypatch.setattr(QFileDialog, 'getOpenFileName',
+                           lambda *args, **kwargs: (str(temp_excel_file), ''))
+    
+        # 触发打开文件动作
+>       mock_main_window.open_file_action.trigger()
+E       AttributeError: 'MainWindow' object has no attribute 'open_file_action'
+
+tests/integration/test_workflow.py:14: AttributeError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+________________________ test_data_processing_workflow _________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x16476d750>
+sample_excel_data =   Column1  Column2 Column3
+0      A1        1       X
+1      A2        2       Y
+2      A3        3       Z
+
+    def test_data_processing_workflow(mock_main_window, sample_excel_data):
+        """测试数据处理工作流"""
+        # 加载数据
+>       mock_main_window.load_data(sample_excel_data)
+E       AttributeError: 'MainWindow' object has no attribute 'load_data'
+
+tests/integration/test_workflow.py:23: AttributeError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+______________________________ test_save_workflow ______________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x16476db40>
+sample_excel_data =   Column1  Column2 Column3
+0      A1        1       X
+1      A2        2       Y
+2      A3        3       Z
+tmp_path = PosixPath('/private/var/folders/pz/r5v5v_z53fs2zwsv6cy9tybh0000gn/T/pytest-of-lpcw/pytest-1/test_save_workflow0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x163e91210>
+
+    def test_save_workflow(mock_main_window, sample_excel_data, tmp_path, monkeypatch):
+        """测试保存工作流"""
+        output_file = tmp_path / "output.xlsx"
+    
+        # 模拟保存对话框
+        monkeypatch.setattr(QFileDialog, 'getSaveFileName',
+                           lambda *args, **kwargs: (str(output_file), ''))
+    
+        # 加载数据并保存
+>       mock_main_window.load_data(sample_excel_data)
+E       AttributeError: 'MainWindow' object has no attribute 'load_data'
+
+tests/integration/test_workflow.py:42: AttributeError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+___________ TestMonitoringPerformance.test_health_check_performance ____________
+
+self = <test_monitoring_performance.TestMonitoringPerformance object at 0x163d82c90>
+
+    def test_health_check_performance(self):
+        """测试健康检查性能"""
+>       health_checker = HealthChecker()
+E       TypeError: HealthChecker.__init__() missing 1 required positional argument: 'event_bus'
+
+tests/performance/test_monitoring_performance.py:11: TypeError
+________________________ test_data_processing_benchmark ________________________
+
+benchmark = <pytest_benchmark.fixture.BenchmarkFixture object at 0x167c2d950>
+sample_excel_data =   Column1  Column2 Column3
+0      A1        1       X
+1      A2        2       Y
+2      A3        3       Z
+
+    @pytest.mark.benchmark
+    def test_data_processing_benchmark(benchmark, sample_excel_data):
+        """基准测试数据处理性能"""
+        processor = ExcelProcessor()
+    
+        # 使用pytest-benchmark进行性能测试
+>       result = benchmark(processor.process_data, sample_excel_data)
+E       AttributeError: 'ExcelProcessor' object has no attribute 'process_data'
+
+tests/performance/test_performance.py:36: AttributeError
+___________________ TestExcelOperations.test_data_processing ___________________
+
+self = <test_excel_operations.TestExcelOperations testMethod=test_data_processing>
+
+    def test_data_processing(self):
+        plugin = XzltxsPlugin()
+        # 创建真实的QTableView实例
+        table_view = QTableView()
+        # 创建并设置模型
+        test_data = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+        model = PandasModel(test_data)
+        table_view.setModel(model)
+    
+        # 激活插件
+        plugin.activate({
+            PluginPermission.FILE_READ,
+            PluginPermission.FILE_WRITE,
+            PluginPermission.UI_MODIFY,
+            PluginPermission.DATA_READ,
+            PluginPermission.DATA_WRITE
+        })
+    
+        # 测试数据处理
+        try:
+            result = plugin.process_data(table_view)
+>           self.assertTrue(result)
+E           AssertionError: None is not true
+
+tests/unit/excel/test_excel_operations.py:63: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_excel_operations.TestExcelOperations testMethod=test_data_processing>
+
+    def test_data_processing(self):
+        plugin = XzltxsPlugin()
+        # 创建真实的QTableView实例
+        table_view = QTableView()
+        # 创建并设置模型
+        test_data = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+        model = PandasModel(test_data)
+        table_view.setModel(model)
+    
+        # 激活插件
+        plugin.activate({
+            PluginPermission.FILE_READ,
+            PluginPermission.FILE_WRITE,
+            PluginPermission.UI_MODIFY,
+            PluginPermission.DATA_READ,
+            PluginPermission.DATA_WRITE
+        })
+    
+        # 测试数据处理
+        try:
+            result = plugin.process_data(table_view)
+            self.assertTrue(result)
+        except Exception as e:
+>           self.fail(f"测试失败，异常信息: {str(e)}")
+E           AssertionError: 测试失败，异常信息: None is not true
+
+tests/unit/excel/test_excel_operations.py:65: AssertionError
+------------------------------ Captured log call -------------------------------
+INFO     plugin_manager.plugins.xzltxs_test:xzltxs_test.py:239 开始激活插件
+INFO     plugin_manager.plugins.xzltxs_test:xzltxs_test.py:262 插件激活成功
+INFO     plugin_manager.plugins.xzltxs_test:xzltxs_test.py:891 开始处理数据
+INFO     plugin_manager.plugins.xzltxs_test:xzltxs_test.py:1137 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x16476dbd0>
+INFO     plugin_manager.plugins.xzltxs_test:xzltxs_test.py:922 缺失权限: set()
+INFO     plugin_manager.plugins.xzltxs_test:xzltxs_test.py:933 权限检查通过
+INFO     plugin_manager.plugins.xzltxs_test:xzltxs_test.py:1050 开始处理零件配置
+INFO     plugin_manager.plugins.xzltxs_test:xzltxs_test.py:1083 用户取消且不使用默认值
+________________ TestDependencyDownloader.test_download_package ________________
+
+self = <plugin_manager.features.dependencies.dependency_downloader.DependencyDownloader object at 0x16aaf0dd0>
+dependency = 'test-package==1.0.0'
+
+    def download(self, dependency: PluginDependency) -> DownloadResult:
+        """下载单个依赖
+    
+        Args:
+            dependency: 依赖信息
+    
+        Returns:
+            DownloadResult: 下载结果
+        """
+        try:
+            # 1. 检查缓存
+>           cache_key = f"{dependency.name}-{dependency.version}"
+E           AttributeError: 'str' object has no attribute 'name'
+
+plugin_manager/features/dependencies/dependency_downloader.py:39: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_dependency_downloader.TestDependencyDownloader object at 0x16437c050>
+mock_pip = <MagicMock name='main' id='6084833808'>
+dependency_downloader = <plugin_manager.features.dependencies.dependency_downloader.DependencyDownloader object at 0x16aaf0dd0>
+
+    @patch('pip.main')
+    def test_download_package(self, mock_pip, dependency_downloader):
+        """测试包下载"""
+        mock_pip.return_value = 0
+>       result = dependency_downloader.download("test-package==1.0.0")
+
+tests/unit/plugin/test_dependency_downloader.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <plugin_manager.features.dependencies.dependency_downloader.DependencyDownloader object at 0x16aaf0dd0>
+dependency = 'test-package==1.0.0'
+
+    def download(self, dependency: PluginDependency) -> DownloadResult:
+        """下载单个依赖
+    
+        Args:
+            dependency: 依赖信息
+    
+        Returns:
+            DownloadResult: 下载结果
+        """
+        try:
+            # 1. 检查缓存
+            cache_key = f"{dependency.name}-{dependency.version}"
+            if cache_key in self._download_cache:
+                self._logger.info(f"使用缓存的依赖: {cache_key}")
+                return DownloadResult(True, self._download_cache[cache_key])
+    
+            # 2. 构建下载URL
+            if dependency.source:
+                download_url = dependency.source
+            else:
+                # 默认使用PyPI
+                download_url = f"https://pypi.org/simple/{dependency.name}"
+    
+            # 3. 下载依赖
+            self._logger.info(f"开始下载依赖: {dependency.name}")
+            response = requests.get(download_url, stream=True)
+            response.raise_for_status()
+    
+            # 4. 保存文件
+            file_path = self.cache_dir / f"{cache_key}.whl"
+            with open(file_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+    
+            # 5. 验证签名（如果有）
+            if dependency.signature:
+                if not self._verify_signature(file_path, dependency.signature):
+                    os.remove(file_path)
+                    return DownloadResult(False, error="签名验证失败")
+    
+            # 6. 更新缓存
+            self._download_cache[cache_key] = str(file_path)
+            self._logger.info(f"依赖下载完成: {dependency.name}")
+    
+            return DownloadResult(True, str(file_path))
+    
+        except requests.RequestException as e:
+            error_msg = f"下载依赖 {dependency.name} 失败: {str(e)}"
+            self._logger.error(error_msg)
+            return DownloadResult(False, error=error_msg)
+        except Exception as e:
+>           error_msg = f"处理依赖 {dependency.name} 时出错: {str(e)}"
+E           AttributeError: 'str' object has no attribute 'name'
+
+plugin_manager/features/dependencies/dependency_downloader.py:79: AttributeError
+_____________ TestDependencyDownloader.test_validate_package_spec ______________
+
+self = <test_dependency_downloader.TestDependencyDownloader object at 0x16437c3d0>
+dependency_downloader = <plugin_manager.features.dependencies.dependency_downloader.DependencyDownloader object at 0x16aaaa950>
+
+    def test_validate_package_spec(self, dependency_downloader):
+        """测试包规格验证"""
+        valid_specs = [
+            "package==1.0.0",
+            "package>=1.0.0",
+            "package~=1.0.0"
+        ]
+        for spec in valid_specs:
+>           assert dependency_downloader.validate_spec(spec)
+E           AttributeError: 'DependencyDownloader' object has no attribute 'validate_spec'
+
+tests/unit/plugin/test_dependency_downloader.py:27: AttributeError
+_______________ TestDependencyDownloader.test_cleanup_downloaded _______________
+
+self = <test_dependency_downloader.TestDependencyDownloader object at 0x16437c750>
+dependency_downloader = <plugin_manager.features.dependencies.dependency_downloader.DependencyDownloader object at 0x16aaa9890>
+
+    def test_cleanup_downloaded(self, dependency_downloader):
+        """测试清理下载"""
+        with patch('os.remove') as mock_remove:
+>           dependency_downloader.cleanup("test-package")
+E           AttributeError: 'DependencyDownloader' object has no attribute 'cleanup'
+
+tests/unit/plugin/test_dependency_downloader.py:32: AttributeError
+___________________ TestPluginSystemCore.test_plugin_loading ___________________
+
+self = <test_plugin_core_system.TestPluginSystemCore object at 0x16437e9d0>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x16ab23ad0>
+mock_plugin = <MagicMock spec='PluginInterface' id='6085029072'>
+
+    def test_plugin_loading(self, plugin_system, mock_plugin):
+        """测试插件加载"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+_________________ TestPluginSystemCore.test_plugin_activation __________________
+
+self = <test_plugin_core_system.TestPluginSystemCore object at 0x16437f010>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x160ad3750>
+mock_plugin = <MagicMock spec='PluginInterface' id='5916932368'>
+
+    def test_plugin_activation(self, plugin_system, mock_plugin):
+        """测试插件激活"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+________________ TestPluginSystemCore.test_plugin_deactivation _________________
+
+self = <test_plugin_core_system.TestPluginSystemCore object at 0x16437f690>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x167c1b650>
+mock_plugin = <MagicMock spec='PluginInterface' id='6035711760'>
+
+    def test_plugin_deactivation(self, plugin_system, mock_plugin):
+        """测试插件停用"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+______________ TestPluginSystemOperations.test_plugin_start_stop _______________
+
+self = <test_plugin_core_system.TestPluginSystemOperations object at 0x164394110>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x163ebb790>
+mock_plugin = <MagicMock spec='PluginInterface' id='6085170064'>
+
+    def test_plugin_start_stop(self, plugin_system, mock_plugin):
+        """测试插件启动和停止"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:57: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+________________ TestPluginSystemOperations.test_plugin_reload _________________
+
+self = <test_plugin_core_system.TestPluginSystemOperations object at 0x164394850>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x16aaf0cd0>
+mock_plugin = <MagicMock spec='PluginInterface' id='6084828112'>
+
+    def test_plugin_reload(self, plugin_system, mock_plugin):
+        """测试插件重载"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+____________ TestPluginSystemPermissions.test_permission_management ____________
+
+self = <test_plugin_core_system.TestPluginSystemPermissions object at 0x1643952d0>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x163eb8a10>
+mock_plugin = <MagicMock spec='PluginInterface' id='6085177296'>
+
+    def test_permission_management(self, plugin_system, mock_plugin):
+        """测试权限管理"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+_ TestPluginSystemPermissions.test_permission_validation[PluginPermission.FILE_READ] _
+
+self = <test_plugin_core_system.TestPluginSystemPermissions object at 0x164395910>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x16470d450>
+mock_plugin = <MagicMock spec='PluginInterface' id='5980086224'>
+permission = <PluginPermission.FILE_READ: 1>
+
+    @pytest.mark.parametrize("permission", [
+        PluginPermission.FILE_READ,
+        PluginPermission.DATA_READ,
+        PluginPermission.UI_MODIFY
+    ])
+    def test_permission_validation(self, plugin_system, mock_plugin, permission):
+        """测试权限验证"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+_ TestPluginSystemPermissions.test_permission_validation[PluginPermission.DATA_READ] _
+
+self = <test_plugin_core_system.TestPluginSystemPermissions object at 0x164395a50>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x174d58550>
+mock_plugin = <MagicMock spec='PluginInterface' id='6255128912'>
+permission = <PluginPermission.DATA_READ: 3>
+
+    @pytest.mark.parametrize("permission", [
+        PluginPermission.FILE_READ,
+        PluginPermission.DATA_READ,
+        PluginPermission.UI_MODIFY
+    ])
+    def test_permission_validation(self, plugin_system, mock_plugin, permission):
+        """测试权限验证"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+_ TestPluginSystemPermissions.test_permission_validation[PluginPermission.UI_MODIFY] _
+
+self = <test_plugin_core_system.TestPluginSystemPermissions object at 0x164395b90>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x174d0ec10>
+mock_plugin = <MagicMock spec='PluginInterface' id='6254809040'>
+permission = <PluginPermission.UI_MODIFY: 5>
+
+    @pytest.mark.parametrize("permission", [
+        PluginPermission.FILE_READ,
+        PluginPermission.DATA_READ,
+        PluginPermission.UI_MODIFY
+    ])
+    def test_permission_validation(self, plugin_system, mock_plugin, permission):
+        """测试权限验证"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+_________ TestPluginSystemErrorHandling.test_invalid_plugin_operations _________
+
+self = <test_plugin_core_system.TestPluginSystemErrorHandling object at 0x164396150>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x16aa93090>
+
+    def test_invalid_plugin_operations(self, plugin_system):
+        """测试无效插件操作"""
+>       with pytest.raises(PluginError):
+E       Failed: DID NOT RAISE <class 'plugin_manager.utils.plugin_error.PluginError'>
+
+tests/unit/plugin/test_plugin_core_system.py:113: Failed
+___________ TestPluginSystemErrorHandling.test_plugin_error_recovery ___________
+
+self = <test_plugin_core_system.TestPluginSystemErrorHandling object at 0x1643964d0>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x1646f0790>
+mock_plugin = <MagicMock spec='PluginInterface' id='6035826128'>
+
+    def test_plugin_error_recovery(self, plugin_system, mock_plugin):
+        """测试错误恢复"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+______________ TestPluginSystemIntegration.test_plugin_lifecycle _______________
+
+self = <test_plugin_core_system.TestPluginSystemIntegration object at 0x164396dd0>
+plugin_system = <plugin_manager.core.plugin_system.PluginSystem object at 0x16478edd0>
+mock_plugin = <MagicMock spec='PluginInterface' id='5980608720'>
+
+    def test_plugin_lifecycle(self, plugin_system, mock_plugin):
+        """测试完整的插件生命周期"""
+>       with patch('plugin_manager.core.plugin_loader.PluginLoader.load_plugin',
+                  return_value=mock_plugin):
+
+tests/unit/plugin/test_plugin_core_system.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'plugin_manager.core.plugin_loader.PluginLoader'
+
+    def resolve_name(name):
+        """
+        Resolve a name to an object.
+    
+        It is expected that `name` will be a string in one of the following
+        formats, where W is shorthand for a valid Python identifier and dot stands
+        for a literal period in these pseudo-regexes:
+    
+        W(.W)*
+        W(.W)*:(W(.W)*)?
+    
+        The first form is intended for backward compatibility only. It assumes that
+        some part of the dotted name is a package, and the rest is an object
+        somewhere within that package, possibly nested inside other objects.
+        Because the place where the package stops and the object hierarchy starts
+        can't be inferred by inspection, repeated attempts to import must be done
+        with this form.
+    
+        In the second form, the caller makes the division point clear through the
+        provision of a single colon: the dotted name to the left of the colon is a
+        package to be imported, and the dotted name to the right is the object
+        hierarchy within that package. Only one import is needed in this form. If
+        it ends with the colon, then a module object is returned.
+    
+        The function will return an object (which might be a module), or raise one
+        of the following exceptions:
+    
+        ValueError - if `name` isn't in a recognised format
+        ImportError - if an import failed when it shouldn't have
+        AttributeError - if a failure occurred when traversing the object hierarchy
+                         within the imported package to get to the desired object.
+        """
+        global _NAME_PATTERN
+        if _NAME_PATTERN is None:
+            # Lazy import to speedup Python startup time
+            import re
+            dotted_words = r'(?!\d)(\w+)(\.(?!\d)(\w+))*'
+            _NAME_PATTERN = re.compile(f'^(?P<pkg>{dotted_words})'
+                                       f'(?P<cln>:(?P<obj>{dotted_words})?)?$',
+                                       re.UNICODE)
+    
+        m = _NAME_PATTERN.match(name)
+        if not m:
+            raise ValueError(f'invalid format: {name!r}')
+        gd = m.groupdict()
+        if gd.get('cln'):
+            # there is a colon - a one-step import is all that's needed
+            mod = importlib.import_module(gd['pkg'])
+            parts = gd.get('obj')
+            parts = parts.split('.') if parts else []
+        else:
+            # no colon - have to iterate to find the package boundary
+            parts = name.split('.')
+            modname = parts.pop(0)
+            # first part *must* be a module/package.
+            mod = importlib.import_module(modname)
+            while parts:
+                p = parts[0]
+                s = f'{modname}.{p}'
+                try:
+                    mod = importlib.import_module(s)
+                    parts.pop(0)
+                    modname = s
+                except ImportError:
+                    break
+        # if we reach this point, mod is the module, already imported, and
+        # parts is the list of parts in the object hierarchy to be traversed, or
+        # an empty list if just the module is wanted.
+        result = mod
+        for p in parts:
+>           result = getattr(result, p)
+E           AttributeError: module 'plugin_manager.core' has no attribute 'plugin_loader'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:715: AttributeError
+___________ TestDependencyManagerAdvanced.test_preload_dependencies ____________
+
+self = <test_plugin_dependency_manager.TestDependencyManagerAdvanced object at 0x16439ed10>
+mock_download = <MagicMock name='download_dependencies' id='6256176208'>
+dependency_manager = <plugin_manager.features.dependencies.plugin_dependencies.DependencyManager object at 0x174e58bd0>
+sample_dependency = PluginDependency(name='test_package', version='1.0.0', optional=False, source='', signature='')
+
+    @patch('plugin_manager.features.dependencies.plugin_dependencies.DependencyManager.download_dependencies')
+    def test_preload_dependencies(self, mock_download, dependency_manager, sample_dependency):
+        """测试预加载依赖"""
+        mock_download.return_value = True
+        dependency_manager.add_dependency('test_plugin', sample_dependency)
+        result = dependency_manager.preload_dependencies('test_plugin')
+>       assert result
+E       assert False
+
+tests/unit/plugin/test_plugin_dependency_manager.py:48: AssertionError
+----------------------------- Captured stderr call -----------------------------
+ERROR: Invalid requirement: "PluginDependency(name='test_package', version='1.0.0', optional=False, source='', signature='')" (from line 1 of plugin_dependencies/test_plugin_requirements.txt)
+Hint: = is not a valid operator. Did you mean == ?
+
+[notice] A new release of pip is available: 24.0 -> 24.3.1
+[notice] To update, run: python -m pip install --upgrade pip
+------------------------------ Captured log call -------------------------------
+ERROR    plugin_manager.features.environment.virtualenv_manager:virtualenv_manager.py:78 安装依赖失败: plugin_dependencies/test_plugin_requirements.txt
+ERROR    plugin_manager.features.dependencies.plugin_dependencies:plugin_dependencies.py:195 预加载插件 test_plugin 的依赖失败: 安装插件 test_plugin 的依赖失败
+__________ TestDependencyManagerAdvanced.test_dependency_verification __________
+
+item = <Function test_dependency_verification>
+
+    @pytest.hookimpl(wrapper=True, tryfirst=True)
+    def pytest_runtest_call(item):
+>       result = yield
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/pytestqt/plugin.py:189: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1375: in patched
+    with self.decoration_helper(patched,
+/opt/miniconda3/envs/PyQt/lib/python3.11/contextlib.py:137: in __enter__
+    return next(self.gen)
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1357: in decoration_helper
+    arg = exit_stack.enter_context(patching)
+/opt/miniconda3/envs/PyQt/lib/python3.11/contextlib.py:517: in enter_context
+    result = _enter(cm)
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1446: in __enter__
+    original, local = self.get_original()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <unittest.mock._patch object at 0x16439c0d0>
+
+    def get_original(self):
+        target = self.getter()
+        name = self.attribute
+    
+        original = DEFAULT
+        local = False
+    
+        try:
+            original = target.__dict__[name]
+        except (AttributeError, KeyError):
+            original = getattr(target, name, DEFAULT)
+        else:
+            local = True
+    
+        if name in _builtins and isinstance(target, ModuleType):
+            self.create = True
+    
+        if not self.create and original is DEFAULT:
+>           raise AttributeError(
+                "%s does not have the attribute %r" % (target, name)
+            )
+E           AttributeError: <class 'plugin_manager.features.dependencies.plugin_dependencies.DependencyManager'> does not have the attribute 'verify_dependency'
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1419: AttributeError
+_______ TestDependencyManagerAdvanced.test_circular_dependency_detection _______
+
+self = <test_plugin_dependency_manager.TestDependencyManagerAdvanced object at 0x1643a08d0>
+dependency_manager = <plugin_manager.features.dependencies.plugin_dependencies.DependencyManager object at 0x160ad1750>
+
+    def test_circular_dependency_detection(self, dependency_manager):
+        """测试循环依赖检测"""
+        # 创建循环依赖场景
+        dep_a = PluginDependency(name='plugin_a', version='1.0.0')
+        dep_b = PluginDependency(name='plugin_b', version='1.0.0')
+    
+        dependency_manager.add_dependency('plugin_a', dep_b)
+        dependency_manager.add_dependency('plugin_b', dep_a)
+    
+        with pytest.raises(PluginError) as exc_info:
+>           dependency_manager.verify_dependencies('plugin_a')
+E           AttributeError: 'DependencyManager' object has no attribute 'verify_dependencies'
+
+tests/unit/plugin/test_plugin_dependency_manager.py:98: AttributeError
+___________ TestDependencyManagerAdvanced.test_optional_dependencies ___________
+
+self = <test_plugin_dependency_manager.TestDependencyManagerAdvanced object at 0x1643a0fd0>
+dependency_manager = <plugin_manager.features.dependencies.plugin_dependencies.DependencyManager object at 0x174cb3a90>
+
+    def test_optional_dependencies(self, dependency_manager):
+        """测试可选依赖"""
+>       required_dep = PluginDependency(name='required_pkg', version='1.0.0', required=True)
+E       TypeError: PluginDependency.__init__() got an unexpected keyword argument 'required'
+
+tests/unit/plugin/test_plugin_dependency_manager.py:103: TypeError
+______________ TestPluginManagerWindow.test_window_initialization ______________
+
+self = <test_plugin_manager.TestPluginManagerWindow object at 0x1643a2ed0>
+plugin_manager_window = <plugin_manager.ui.plugin_manager_window.PluginManagerWindow object at 0x164776b00>
+
+    def test_window_initialization(self, plugin_manager_window):
+        """测试窗口初始化"""
+>       assert isinstance(plugin_manager_window.plugin_listview, QListView)
+E       AttributeError: 'PluginManagerWindow' object has no attribute 'plugin_listview'
+
+tests/unit/plugin/test_plugin_manager.py:64: AttributeError
+_______________ TestPluginManagerWindow.test_plugin_list_display _______________
+
+self = <test_plugin_manager.TestPluginManagerWindow object at 0x1643a3250>
+plugin_manager_window = <plugin_manager.ui.plugin_manager_window.PluginManagerWindow object at 0x167c75000>
+mock_plugin = <test_plugin_manager.mock_plugin.<locals>.TestPlugin object at 0x175f48f10>
+
+    def test_plugin_list_display(self, plugin_manager_window, mock_plugin):
+        """测试插件列表显示"""
+>       plugin_manager_window.plugin_system.register_plugin("test", mock_plugin)
+E       AttributeError: 'PluginSystem' object has no attribute 'register_plugin'
+
+tests/unit/plugin/test_plugin_manager.py:69: AttributeError
+________________ TestPluginManagerWindow.test_plugin_operations ________________
+
+self = <test_plugin_manager.TestPluginManagerWindow object at 0x1643a37d0>
+plugin_manager_window = <plugin_manager.ui.plugin_manager_window.PluginManagerWindow object at 0x167c76440>
+mock_plugin = <test_plugin_manager.mock_plugin.<locals>.TestPlugin object at 0x167cad790>
+
+    def test_plugin_operations(self, plugin_manager_window, mock_plugin):
+        """测试插件操作"""
+>       plugin_manager_window.plugin_system.register_plugin("test", mock_plugin)
+E       AttributeError: 'PluginSystem' object has no attribute 'register_plugin'
+
+tests/unit/plugin/test_plugin_manager.py:75: AttributeError
+_________________ TestPluginManagerWindow.test_plugin_settings _________________
+
+self = <test_plugin_manager.TestPluginManagerWindow object at 0x1643a3e50>
+plugin_manager_window = <plugin_manager.ui.plugin_manager_window.PluginManagerWindow object at 0x167c777f0>
+mock_plugin = <test_plugin_manager.mock_plugin.<locals>.TestPlugin object at 0x175f48d50>
+
+    def test_plugin_settings(self, plugin_manager_window, mock_plugin):
+        """测试插件设置"""
+>       plugin_manager_window.plugin_system.register_plugin("test", mock_plugin)
+E       AttributeError: 'PluginSystem' object has no attribute 'register_plugin'
+
+tests/unit/plugin/test_plugin_manager.py:89: AttributeError
+_________________ TestPluginManagerWindow.test_error_handling __________________
+
+self = <test_plugin_manager.TestPluginManagerWindow object at 0x1643b4510>
+plugin_manager_window = <plugin_manager.ui.plugin_manager_window.PluginManagerWindow object at 0x167c765f0>
+
+    def test_error_handling(self, plugin_manager_window):
+        """测试错误处理"""
+        # 测试无效插件操作
+        with pytest.raises(PluginError):
+>           plugin_manager_window.enable_selected_plugin()
+E           AttributeError: 'PluginManagerWindow' object has no attribute 'enable_selected_plugin'
+
+tests/unit/plugin/test_plugin_manager.py:101: AttributeError
+_______________ TestPluginManagerWindow.test_plugin_info_display _______________
+
+self = <test_plugin_manager.TestPluginManagerWindow object at 0x1643b4b50>
+plugin_manager_window = <plugin_manager.ui.plugin_manager_window.PluginManagerWindow object at 0x167c753f0>
+mock_plugin = <test_plugin_manager.mock_plugin.<locals>.TestPlugin object at 0x175f495d0>
+
+    def test_plugin_info_display(self, plugin_manager_window, mock_plugin):
+        """测试插件信息显示"""
+>       plugin_manager_window.plugin_system.register_plugin("test", mock_plugin)
+E       AttributeError: 'PluginSystem' object has no attribute 'register_plugin'
+
+tests/unit/plugin/test_plugin_manager.py:108: AttributeError
+____________________________ test_main_window_init _____________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x164776c20>
+
+    def test_main_window_init(mock_main_window):
+        """测试主窗口初始化"""
+>       assert mock_main_window.windowTitle() == "PyExcel App"
+E       AssertionError: assert 'Excel 处理工具' == 'PyExcel App'
+E         
+E         - PyExcel App
+E         + Excel 处理工具
+
+tests/unit/test_main_window.py:17: AssertionError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+____________________________ test_file_menu_actions ____________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x164776e60>
+
+    def test_file_menu_actions(mock_main_window):
+        """测试文件菜单动作"""
+        file_menu = mock_main_window.menuBar().findChild(QMenu, "fileMenu")
+>       assert file_menu is not None
+E       assert None is not None
+
+tests/unit/test_main_window.py:23: AssertionError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+_______________________________ test_table_view ________________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x164777370>
+sample_excel_data =   Column1  Column2 Column3
+0      A1        1       X
+1      A2        2       Y
+2      A3        3       Z
+
+    def test_table_view(mock_main_window, sample_excel_data):
+        """测试表格视图"""
+>       mock_main_window.load_data(sample_excel_data)
+E       AttributeError: 'MainWindow' object has no attribute 'load_data'
+
+tests/unit/test_main_window.py:32: AttributeError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+________________________ test_keyboard_input[16777223-] ________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x167c752d0>
+key = <Key.Key_Delete: 16777223>, expected = ''
+
+    @pytest.mark.parametrize("key,expected", [
+        (Qt.Key.Key_Delete, ""),
+        (Qt.Key.Key_A, "A"),
+        (Qt.Key.Key_1, "1")
+    ])
+    def test_keyboard_input(mock_main_window, key, expected):
+        """测试键盘输入"""
+>       table_view = mock_main_window.table_view
+E       AttributeError: 'MainWindow' object has no attribute 'table_view'
+
+tests/unit/test_main_window.py:46: AttributeError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+__________________________ test_keyboard_input[65-A] ___________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x164777490>
+key = <Key.Key_A: 65>, expected = 'A'
+
+    @pytest.mark.parametrize("key,expected", [
+        (Qt.Key.Key_Delete, ""),
+        (Qt.Key.Key_A, "A"),
+        (Qt.Key.Key_1, "1")
+    ])
+    def test_keyboard_input(mock_main_window, key, expected):
+        """测试键盘输入"""
+>       table_view = mock_main_window.table_view
+E       AttributeError: 'MainWindow' object has no attribute 'table_view'
+
+tests/unit/test_main_window.py:46: AttributeError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+__________________________ test_keyboard_input[49-1] ___________________________
+
+mock_main_window = <ui.main_window.MainWindow object at 0x167c74ee0>
+key = <Key.Key_1: 49>, expected = '1'
+
+    @pytest.mark.parametrize("key,expected", [
+        (Qt.Key.Key_Delete, ""),
+        (Qt.Key.Key_A, "A"),
+        (Qt.Key.Key_1, "1")
+    ])
+    def test_keyboard_input(mock_main_window, key, expected):
+        """测试键盘输入"""
+>       table_view = mock_main_window.table_view
+E       AttributeError: 'MainWindow' object has no attribute 'table_view'
+
+tests/unit/test_main_window.py:46: AttributeError
+------------------------------ Captured log setup ------------------------------
+ERROR    root:error_handler.py:80 发生错误: 'NoneType' object has no attribute 'get_all_plugins'
+ERROR    root:error_handler.py:81 堆栈跟踪信息:
+Traceback (most recent call last):
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 35, in __init__
+    self.init_ui()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py", line 53, in init_ui
+    self.toolbar = ToolBar(self)
+                   ^^^^^^^^^^^^^
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 60, in __init__
+    self.update_plugin_buttons()
+  File "/Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py", line 93, in update_plugin_buttons
+    if len(self.plugin_system.get_all_plugins()) == 0:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get_all_plugins'
+_________________________ test_response_initialization _________________________
+
+sample_response = {'content': 'Test content', 'metadata': {'format': 'text'}, 'role': 'assistant'}
+
+    def test_response_initialization(sample_response):
+        """测试响应初始化"""
+>       assert isinstance(sample_response, Response)
+E       AssertionError: assert False
+E        +  where False = isinstance({'content': 'Test content', 'metadata': {'format': 'text'}, 'role': 'assistant'}, Response)
+
+tests/unit/test_response.py:14: AssertionError
+__________________________ test_response_to_markdown ___________________________
+
+sample_response = {'content': 'Test content', 'metadata': {'format': 'text'}, 'role': 'assistant'}
+
+    def test_response_to_markdown(sample_response):
+        """测试响应转换为markdown格式"""
+        response = Response(sample_response)
+>       markdown = response.to_markdown()
+E       AttributeError: 'Response' object has no attribute 'to_markdown'
+
+tests/unit/test_response.py:19: AttributeError
+____________________________ test_invalid_response _____________________________
+
+    def test_invalid_response():
+        """测试无效响应处理"""
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE <class 'ValueError'>
+
+tests/unit/test_response.py:25: Failed
+___________________________ test_response_formatting ___________________________
+
+    def test_response_formatting():
+        """测试响应格式化"""
+        response = Response({
+            "content": "```python\nprint('hello')\n```",
+            "role": "assistant",
+            "metadata": {"format": "code"}
+        })
+>       formatted = response.format_content()
+E       AttributeError: 'Response' object has no attribute 'format_content'
+
+tests/unit/test_response.py:35: AttributeError
+_______________________ test_response_with_empty_content _______________________
+
+    def test_response_with_empty_content():
+        """测试空内容响应"""
+        response = Response({
+            "content": "",
+            "role": "assistant",
+            "metadata": {"format": "text"}
+        })
+>       assert response.content == ""
+E       AssertionError: assert {'content': '', 'metadata': {'format': 'text'}, 'role': 'assistant'} == ''
+E        +  where {'content': '', 'metadata': {'format': 'text'}, 'role': 'assistant'} = <tests.src.response.response.Response object at 0x175ebc790>.content
+
+tests/unit/test_response.py:45: AssertionError
+____________________ test_response_with_special_characters _____________________
+
+    def test_response_with_special_characters():
+        """测试包含特殊字符的响应"""
+        special_content = "# Title with *special* chars\n> Quote with `code`"
+        response = Response({
+            "content": special_content,
+            "role": "assistant",
+            "metadata": {"format": "markdown"}
+        })
+>       result = response.to_markdown()
+E       AttributeError: 'Response' object has no attribute 'to_markdown'
+
+tests/unit/test_response.py:56: AttributeError
+__________________ test_response_different_formats[markdown] ___________________
+
+metadata_format = 'markdown'
+
+    @pytest.mark.parametrize("metadata_format", [
+        "markdown",
+        "code",
+        "text",
+        None
+    ])
+    def test_response_different_formats(metadata_format):
+        """测试不同格式的响应"""
+        response = Response({
+            "content": "test content",
+            "role": "assistant",
+            "metadata": {"format": metadata_format} if metadata_format else {}
+        })
+>       assert response.to_markdown() is not None
+E       AttributeError: 'Response' object has no attribute 'to_markdown'
+
+tests/unit/test_response.py:73: AttributeError
+____________________ test_response_different_formats[code] _____________________
+
+metadata_format = 'code'
+
+    @pytest.mark.parametrize("metadata_format", [
+        "markdown",
+        "code",
+        "text",
+        None
+    ])
+    def test_response_different_formats(metadata_format):
+        """测试不同格式的响应"""
+        response = Response({
+            "content": "test content",
+            "role": "assistant",
+            "metadata": {"format": metadata_format} if metadata_format else {}
+        })
+>       assert response.to_markdown() is not None
+E       AttributeError: 'Response' object has no attribute 'to_markdown'
+
+tests/unit/test_response.py:73: AttributeError
+____________________ test_response_different_formats[text] _____________________
+
+metadata_format = 'text'
+
+    @pytest.mark.parametrize("metadata_format", [
+        "markdown",
+        "code",
+        "text",
+        None
+    ])
+    def test_response_different_formats(metadata_format):
+        """测试不同格式的响应"""
+        response = Response({
+            "content": "test content",
+            "role": "assistant",
+            "metadata": {"format": metadata_format} if metadata_format else {}
+        })
+>       assert response.to_markdown() is not None
+E       AttributeError: 'Response' object has no attribute 'to_markdown'
+
+tests/unit/test_response.py:73: AttributeError
+____________________ test_response_different_formats[None] _____________________
+
+metadata_format = None
+
+    @pytest.mark.parametrize("metadata_format", [
+        "markdown",
+        "code",
+        "text",
+        None
+    ])
+    def test_response_different_formats(metadata_format):
+        """测试不同格式的响应"""
+        response = Response({
+            "content": "test content",
+            "role": "assistant",
+            "metadata": {"format": metadata_format} if metadata_format else {}
+        })
+>       assert response.to_markdown() is not None
+E       AttributeError: 'Response' object has no attribute 'to_markdown'
+
+tests/unit/test_response.py:73: AttributeError
+=============================== warnings summary ===============================
+tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_excel_processing_workflow
+  /Users/lpcw/Documents/PyQt/PyExcelApp/ui/main_window.py:20: DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
+    super().__init__()
+
+tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_excel_processing_workflow
+  /Users/lpcw/Documents/PyQt/PyExcelApp/utils/event_bus.py:12: DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
+    super().__init__()
+
+tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_excel_processing_workflow
+  /Users/lpcw/Documents/PyQt/PyExcelApp/ui/toolbar.py:28: DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
+    super().__init__(parent)
+
+tests/integration/test_plugin_integration.py::test_plugin_error_handling
+  /Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_integration.py:89: RuntimeWarning: coroutine 'PluginSystem.load_plugin' was never awaited
+    plugin_system.load_plugin('nonexistent_plugin')
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/performance/test_performance.py::test_data_processing_benchmark
+  tests/performance/test_performance.py:30: PytestBenchmarkWarning: Benchmark fixture was not used at all in this test!
+    @pytest.mark.benchmark
+
+tests/unit/excel/test_excel_operations.py::TestExcelOperations::test_data_processing
+  /Users/lpcw/Documents/PyQt/PyExcelApp/utils/excel_operations.py:161: DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
+    super().__init__()
+
+tests/unit/excel/test_excel_operations.py::TestExcelOperations::test_data_processing
+  /Users/lpcw/Documents/PyQt/PyExcelApp/utils/mouse_operations.py:9: DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
+    super().__init__(parent)
+
+tests/unit/excel/test_excel_operations.py::TestExcelOperations::test_data_processing
+  /Users/lpcw/Documents/PyQt/PyExcelApp/ui/column_settings_dialog.py:11: DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
+    super().__init__(parent)
+
+tests/unit/excel/test_excel_operations.py::TestExcelOperations::test_load_excel
+  /Users/lpcw/Documents/PyQt/PyExcelApp/utils/excel_operations.py:48: DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
+    super().__init__()
+
+tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemErrorHandling::test_invalid_plugin_operations
+  /Users/lpcw/Documents/PyQt/PyExcelApp/tests/unit/plugin/test_plugin_core_system.py:114: RuntimeWarning: coroutine 'PluginSystem.activate_plugin' was never awaited
+    plugin_system.activate_plugin('nonexistent_plugin')
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_window_initialization
+  /Users/lpcw/Documents/PyQt/PyExcelApp/plugin_manager/ui/plugin_manager_window.py:25: DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
+    super().__init__(parent)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_excel_processing_workflow
+FAILED tests/integration/test_plugin_integration.py::test_plugin_lifecycle - ...
+FAILED tests/integration/test_plugin_integration.py::test_plugin_permissions
+FAILED tests/integration/test_plugin_integration.py::test_plugin_configuration
+FAILED tests/integration/test_plugin_integration.py::test_plugin_error_handling
+FAILED tests/integration/test_plugin_integration.py::test_plugin_data_processing
+FAILED tests/integration/test_plugin_integration.py::test_plugin_dependencies
+FAILED tests/integration/test_plugin_integration.py::test_plugin_events - Imp...
+FAILED tests/integration/test_workflow.py::test_file_open_workflow - Attribut...
+FAILED tests/integration/test_workflow.py::test_data_processing_workflow - At...
+FAILED tests/integration/test_workflow.py::test_save_workflow - AttributeErro...
+FAILED tests/performance/test_monitoring_performance.py::TestMonitoringPerformance::test_health_check_performance
+FAILED tests/performance/test_performance.py::test_data_processing_benchmark
+FAILED tests/unit/excel/test_excel_operations.py::TestExcelOperations::test_data_processing
+FAILED tests/unit/plugin/test_dependency_downloader.py::TestDependencyDownloader::test_download_package
+FAILED tests/unit/plugin/test_dependency_downloader.py::TestDependencyDownloader::test_validate_package_spec
+FAILED tests/unit/plugin/test_dependency_downloader.py::TestDependencyDownloader::test_cleanup_downloaded
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemCore::test_plugin_loading
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemCore::test_plugin_activation
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemCore::test_plugin_deactivation
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemOperations::test_plugin_start_stop
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemOperations::test_plugin_reload
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemPermissions::test_permission_management
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemPermissions::test_permission_validation[PluginPermission.FILE_READ]
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemPermissions::test_permission_validation[PluginPermission.DATA_READ]
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemPermissions::test_permission_validation[PluginPermission.UI_MODIFY]
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemErrorHandling::test_invalid_plugin_operations
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemErrorHandling::test_plugin_error_recovery
+FAILED tests/unit/plugin/test_plugin_core_system.py::TestPluginSystemIntegration::test_plugin_lifecycle
+FAILED tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_preload_dependencies
+FAILED tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_dependency_verification
+FAILED tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_circular_dependency_detection
+FAILED tests/unit/plugin/test_plugin_dependency_manager.py::TestDependencyManagerAdvanced::test_optional_dependencies
+FAILED tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_window_initialization
+FAILED tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_plugin_list_display
+FAILED tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_plugin_operations
+FAILED tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_plugin_settings
+FAILED tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_error_handling
+FAILED tests/unit/plugin/test_plugin_manager.py::TestPluginManagerWindow::test_plugin_info_display
+FAILED tests/unit/test_main_window.py::test_main_window_init - AssertionError...
+FAILED tests/unit/test_main_window.py::test_file_menu_actions - assert None i...
+FAILED tests/unit/test_main_window.py::test_table_view - AttributeError: 'Mai...
+FAILED tests/unit/test_main_window.py::test_keyboard_input[16777223-] - Attri...
+FAILED tests/unit/test_main_window.py::test_keyboard_input[65-A] - AttributeE...
+FAILED tests/unit/test_main_window.py::test_keyboard_input[49-1] - AttributeE...
+FAILED tests/unit/test_response.py::test_response_initialization - AssertionE...
+FAILED tests/unit/test_response.py::test_response_to_markdown - AttributeErro...
+FAILED tests/unit/test_response.py::test_invalid_response - Failed: DID NOT R...
+FAILED tests/unit/test_response.py::test_response_formatting - AttributeError...
+FAILED tests/unit/test_response.py::test_response_with_empty_content - Assert...
+FAILED tests/unit/test_response.py::test_response_with_special_characters - A...
+FAILED tests/unit/test_response.py::test_response_different_formats[markdown]
+FAILED tests/unit/test_response.py::test_response_different_formats[code] - A...
+FAILED tests/unit/test_response.py::test_response_different_formats[text] - A...
+FAILED tests/unit/test_response.py::test_response_different_formats[None] - A...
+ERROR tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_plugin_integration
+ERROR tests/integration/test_functional_integration.py::TestFunctionalIntegration::test_monitoring_integration
+ERROR tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel1::test_basic_health_check
+ERROR tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel2::test_monitoring_with_notifications
+ERROR tests/integration/test_monitoring_integration.py::TestMonitoringIntegrationLevel3::test_full_monitoring_system
+ERROR tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::test_full_plugin_lifecycle
+ERROR tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::test_plugin_dependency_resolution
+ERROR tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::test_async_data_processing
+ERROR tests/integration/test_plugin_manager_integration.py::TestPluginManagerIntegration::test_plugin_error_recovery
+ERROR tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel1::test_basic_plugin_operations
+ERROR tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel2::test_plugin_with_permissions
+ERROR tests/integration/test_plugin_system_integration.py::TestPluginSystemIntegrationLevel3::test_plugin_with_dependencies
+ERROR tests/unit/monitoring/test_health_checker.py::TestHealthChecker::test_register_plugin
+ERROR tests/unit/monitoring/test_health_checker.py::TestHealthChecker::test_check_health
+ERROR tests/unit/monitoring/test_health_checker.py::TestHealthChecker::test_remove_plugin
+ERROR tests/unit/monitoring/test_notification_manager.py::TestNotificationManager::test_add_channel
+ERROR tests/unit/monitoring/test_notification_manager.py::TestNotificationManager::test_send_notification
+ERROR tests/unit/monitoring/test_notification_manager.py::TestNotificationManager::test_remove_channel
+============ 55 failed, 31 passed, 11 warnings, 18 errors in 17.96s ============

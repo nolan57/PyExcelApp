@@ -1,12 +1,17 @@
 import pytest
-from response.response import Response
+from tests.src.response.response import Response
+
+@pytest.fixture
+def sample_response():
+    return {
+        "content": "Test content",
+        "role": "assistant",
+        "metadata": {"format": "text"}
+    }
 
 def test_response_initialization(sample_response):
-    """测试Response类的初始化"""
-    response = Response(sample_response)
-    assert response.content == sample_response["content"]
-    assert response.role == sample_response["role"]
-    assert response.metadata == sample_response["metadata"]
+    """测试响应初始化"""
+    assert isinstance(sample_response, Response)
 
 def test_response_to_markdown(sample_response):
     """测试响应转换为markdown格式"""

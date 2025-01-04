@@ -3,6 +3,7 @@ from ..core.event_bus import EventBus
 import requests
 from typing import Dict
 from ..config import settings
+import aiohttp
 
 class VersionChecker(HealthCheckPlugin):
     def __init__(self, event_bus: EventBus):
@@ -37,3 +38,22 @@ class VersionChecker(HealthCheckPlugin):
             self.base_url = config['base_url']
         if 'timeout' in config:
             self.timeout = config['timeout']
+
+    async def check_async(self) -> Dict:
+        """异步检查版本"""
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with await session.get(
+                    f"{self.base_url}/versions",
+                    timeout=self.timeout
+                ) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        if isinstance(data, dict) and 'status' in data:
+                            return data
+                        return {'status': 'error', 'error': 'Invalid response format'}
+                    return {'status': 'error', 'error': f'HTTP {response.status}'}
+        except Exception as e:
+            if self.event_bus:
+                self.event_bus.emit('version_check_error', {'error': str(e)})
+            return {'status': 'error', 'error': str(e)}

@@ -2,12 +2,15 @@
 
 import pytest
 from unittest.mock import MagicMock, patch
-from src.core.event_bus import EventBus
-from src.services.version_checker import VersionChecker
-from src.services.security_scanner import SecurityScanner
+from dependency_monitoring_framework.src.core.event_bus import EventBus
+from dependency_monitoring_framework.src.services.version_checker import VersionChecker
+from dependency_monitoring_framework.src.services.security_scanner import SecurityScanner
 from dependency_monitoring_framework.src.services.compatibility_checker import CompatibilityChecker
 from dependency_monitoring_framework.src.channels.email_notifier import EmailNotifier
 from dependency_monitoring_framework.src.channels.slack_notifier import SlackNotifier
+
+# 添加标记
+pytestmark = pytest.mark.monitoring
 
 @pytest.fixture
 def event_bus():
@@ -48,10 +51,14 @@ class TestSecurityMonitoring:
     ])
     def test_security_scan(self, event_bus, mock_response, vulnerability_data):
         """测试安全扫描功能"""
-        mock_response.json.return_value = vulnerability_data
+        mock_response.json.return_value = [vulnerability_data]
+        mock_response.status_code = 200
         
-        with patch('requests.get', return_value=mock_response):
+        with patch('requests.post', return_value=mock_response):
             scanner = SecurityScanner(event_bus)
+            scanner._get_project_dependencies = lambda: [
+                {'name': 'test-package', 'version': '1.0.0'}
+            ]
             result = scanner.check()
             assert 'vulnerabilities' in result
 
@@ -111,14 +118,13 @@ class TestIntegratedMonitoring:
     
     def test_monitoring_workflow(self, event_bus):
         """测试完整监控工作流"""
-        # 设置模拟响应
         mock_responses = {
             'version': {"status": "up_to_date"},
-            'security': {"vulnerabilities": []},
+            'security': [{"vulnerabilities": []}],
             'compatibility': {"compatible": True}
         }
         
-        with patch('requests.get') as mock_get:
+        with patch('requests.post') as mock_post, patch('requests.get') as mock_get:
             def mock_response(*args, **kwargs):
                 url = args[0]
                 response = MagicMock()
@@ -130,8 +136,14 @@ class TestIntegratedMonitoring:
                 else:
                     response.json.return_value = mock_responses['compatibility']
                 return response
-                
+            
             mock_get.side_effect = mock_response
+            mock_post.side_effect = mock_response
+            
+            # 模拟依赖列表
+            SecurityScanner._get_project_dependencies = lambda self: [
+                {'name': 'test-package', 'version': '1.0.0'}
+            ]
             
             # 执行所有检查
             version_checker = VersionChecker(event_bus)
@@ -150,11 +162,31 @@ class TestIntegratedMonitoring:
     @pytest.mark.asyncio
     async def test_async_monitoring(self, event_bus):
         """测试异步监控功能"""
-        with patch('aiohttp.ClientSession.get') as mock_get:
-            mock_get.return_value.__aenter__.return_value.json = \
-                MagicMock(return_value={"status": "up_to_date"})
-            mock_get.return_value.__aenter__.return_value.status = 200
-            
+        # 创建一个真实的异步上下文管理器
+        class MockResponse:
+            def __init__(self):
+                self.status = 200
+                
+            async def json(self):
+                return {"status": "up_to_date"}
+                
+            async def __aenter__(self):
+                return self
+                
+            async def __aexit__(self, exc_type, exc_val, exc_tb):
+                pass
+        
+        class MockSession:
+            async def __aenter__(self):
+                return self
+                
+            async def __aexit__(self, exc_type, exc_val, exc_tb):
+                pass
+                
+            async def get(self, url, **kwargs):
+                return MockResponse()
+        
+        with patch('aiohttp.ClientSession', return_value=MockSession()):
             checker = VersionChecker(event_bus)
             result = await checker.check_async()
             assert result['status'] == 'up_to_date'

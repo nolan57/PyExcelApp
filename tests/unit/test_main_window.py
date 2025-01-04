@@ -1,6 +1,16 @@
 import pytest
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction
 from PyQt6.QtTest import QTest
+from PyQt6.QtWidgets import QMenu
+from ui.main_window import MainWindow
+
+
+@pytest.fixture
+def mock_main_window(qtbot):
+    window = MainWindow()
+    qtbot.addWidget(window)
+    return window
 
 def test_main_window_init(mock_main_window):
     """测试主窗口初始化"""

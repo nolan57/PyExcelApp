@@ -15,31 +15,12 @@ def plugin_system():
 @pytest.fixture
 def mock_plugin():
     """创建模拟插件的fixture"""
-    class TestPlugin(PluginInterface):
-        def __init__(self):
-            self.activated = False
-            self.running = False
-            
-        def activate(self):
-            self.activated = True
-            return True
-            
-        def deactivate(self):
-            self.activated = False
-            return True
-            
-        def start(self):
-            self.running = True
-            return True
-            
-        def stop(self):
-            self.running = False
-            return True
-            
-        def process_data(self, data):
-            return data
-    
-    return TestPlugin
+    plugin = MagicMock(spec=PluginInterface)
+    plugin.get_name.return_value = "test_plugin"
+    plugin.get_version.return_value = "1.0.0"
+    plugin.initialize.return_value = True
+    plugin.cleanup.return_value = True
+    return plugin
 
 class TestPluginSystemCore:
     """插件系统核心功能测试"""
@@ -103,16 +84,17 @@ class TestPluginSystemPermissions:
                   return_value=mock_plugin):
             plugin_system.load_plugin('test_plugin')
             
-            assert plugin_system.request_permission('test_plugin', PluginPermission.READ)
-            assert PluginPermission.READ in plugin_system.get_plugin_permissions('test_plugin')
+            # 使用正确的权限枚举值
+            assert plugin_system.request_permission('test_plugin', PluginPermission.FILE_READ)
+            assert PluginPermission.FILE_READ in plugin_system.get_plugin_permissions('test_plugin')
             
-            plugin_system.revoke_permission('test_plugin', PluginPermission.READ)
-            assert PluginPermission.READ not in plugin_system.get_plugin_permissions('test_plugin')
+            plugin_system.revoke_permission('test_plugin', PluginPermission.FILE_READ)
+            assert PluginPermission.FILE_READ not in plugin_system.get_plugin_permissions('test_plugin')
     
     @pytest.mark.parametrize("permission", [
-        PluginPermission.READ,
-        PluginPermission.WRITE,
-        PluginPermission.EXECUTE
+        PluginPermission.FILE_READ,
+        PluginPermission.DATA_READ,
+        PluginPermission.UI_MODIFY
     ])
     def test_permission_validation(self, plugin_system, mock_plugin, permission):
         """测试权限验证"""

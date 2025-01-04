@@ -1,5 +1,5 @@
 import pytest
-from plugin_manager.core.plugin_manager import PluginManager
+from plugin_manager import PluginManager
 from plugin_manager.core.plugin_interface import PluginInterface
 from plugin_manager.features.plugin_permissions import PluginPermission
 

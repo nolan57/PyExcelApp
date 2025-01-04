@@ -2138,3 +2138,19 @@
 2025-01-02 23:41:49,017 - plugin_manager.plugins.xzltxs - INFO - 插件配置: {'part_code_column': 2, 'part_name_column': 3, 'xs_column': 19, 'price_column': 4, 'start_row': 2}
 2025-01-02 23:41:49,017 - plugin_manager.plugins.xzltxs - INFO - 零件配置数量: 5
 2025-01-02 23:41:49,017 - plugin_manager.plugins.xzltxs - INFO - table_view 状态: False
+2025-01-04 11:41:27,141 - plugin_manager.plugins.xzltxs_test - INFO - 开始激活插件
+2025-01-04 11:41:27,141 - plugin_manager.plugins.xzltxs_test - INFO - 插件激活成功
+2025-01-04 11:41:27,141 - plugin_manager.plugins.xzltxs_test - INFO - 开始处理数据
+2025-01-04 11:41:27,141 - plugin_manager.plugins.xzltxs_test - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x13c4d9fc0>
+2025-01-04 11:41:27,151 - plugin_manager.plugins.xzltxs_test - INFO - 缺失权限: set()
+2025-01-04 11:41:27,151 - plugin_manager.plugins.xzltxs_test - INFO - 权限检查通过
+2025-01-04 11:41:27,151 - plugin_manager.plugins.xzltxs_test - INFO - 开始处理零件配置
+2025-01-04 11:41:32,914 - plugin_manager.plugins.xzltxs_test - INFO - 用户取消且不使用默认值
+2025-01-04 11:47:28,104 - plugin_manager.plugins.xzltxs_test - INFO - 开始激活插件
+2025-01-04 11:47:28,105 - plugin_manager.plugins.xzltxs_test - INFO - 插件激活成功
+2025-01-04 11:47:28,105 - plugin_manager.plugins.xzltxs_test - INFO - 开始处理数据
+2025-01-04 11:47:28,105 - plugin_manager.plugins.xzltxs_test - INFO - 设置表格视图: <PyQt6.QtWidgets.QTableView object at 0x16476dbd0>
+2025-01-04 11:47:28,109 - plugin_manager.plugins.xzltxs_test - INFO - 缺失权限: set()
+2025-01-04 11:47:28,109 - plugin_manager.plugins.xzltxs_test - INFO - 权限检查通过
+2025-01-04 11:47:28,109 - plugin_manager.plugins.xzltxs_test - INFO - 开始处理零件配置
+2025-01-04 11:47:31,326 - plugin_manager.plugins.xzltxs_test - INFO - 用户取消且不使用默认值

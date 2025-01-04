@@ -1,7 +1,7 @@
 import pytest
 import time
 import pandas as pd
-from excel_processor import ExcelProcessor
+from tests.src.excel_processor import ExcelProcessor
 
 def test_large_file_processing_performance(tmp_path):
     """测试大文件处理性能"""

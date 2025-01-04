@@ -1,0 +1,25 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0 -- /opt/miniconda3/envs/PyQt/bin/python
+cachedir: .pytest_cache
+PyQt6 6.4.2 -- Qt runtime 6.4.3 -- Qt compiled 6.4.2
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/lpcw/Documents/PyQt/PyExcelApp
+configfile: pytest.ini
+testpaths: tests
+plugins: qt-4.4.0, cov-6.0.0, benchmark-5.1.0, anyio-4.6.2, xdist-3.6.1, asyncio-0.25.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None
+collecting ... collected 92 items / 1 error / 79 deselected / 13 selected
+
+==================================== ERRORS ====================================
+________ ERROR collecting tests/unit/plugin/test_plugin_core_system.py _________
+tests/unit/plugin/test_plugin_core_system.py:97: in <module>
+    class TestPluginSystemPermissions:
+tests/unit/plugin/test_plugin_core_system.py:113: in TestPluginSystemPermissions
+    PluginPermission.READ,
+/opt/miniconda3/envs/PyQt/lib/python3.11/enum.py:786: in __getattr__
+    raise AttributeError(name) from None
+E   AttributeError: READ
+=========================== short test summary info ============================
+ERROR tests/unit/plugin/test_plugin_core_system.py - AttributeError: READ
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+======================= 79 deselected, 1 error in 0.48s ========================

@@ -1,0 +1,133 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0 -- /opt/miniconda3/envs/PyQt/bin/python
+cachedir: .pytest_cache
+PyQt6 6.4.2 -- Qt runtime 6.4.3 -- Qt compiled 6.4.2
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/lpcw/Documents/PyQt/PyExcelApp
+configfile: pytest.ini
+testpaths: tests
+plugins: qt-4.4.0, cov-6.0.0, benchmark-5.1.0, anyio-4.6.2, xdist-3.6.1, asyncio-0.25.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None
+collecting ... collected 68 items / 5 errors / 55 deselected / 13 selected
+
+==================================== ERRORS ====================================
+________ ERROR collecting tests/integration/test_plugin_integration.py _________
+ImportError while importing test module '/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/python.py:493: in importtestmodule
+    mod = import_path(
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/pathlib.py:587: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/PyQt/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1147: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:184: in exec_module
+    exec(co, module.__dict__)
+tests/integration/test_plugin_integration.py:2: in <module>
+    from plugin_manager.core.plugin_system import PluginSystem
+plugin_manager/__init__.py:8: in <module>
+    from .ui.plugin_manager_window import PluginManagerWindow
+plugin_manager/ui/plugin_manager_window.py:11: in <module>
+    from utils.error_handler import ErrorHandler
+E   ModuleNotFoundError: No module named 'utils.error_handler'
+____ ERROR collecting tests/integration/test_plugin_manager_integration.py _____
+ImportError while importing test module '/Users/lpcw/Documents/PyQt/PyExcelApp/tests/integration/test_plugin_manager_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/python.py:493: in importtestmodule
+    mod = import_path(
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/pathlib.py:587: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/PyQt/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1147: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:184: in exec_module
+    exec(co, module.__dict__)
+tests/integration/test_plugin_manager_integration.py:2: in <module>
+    from plugin_manager import PluginManager
+plugin_manager/__init__.py:8: in <module>
+    from .ui.plugin_manager_window import PluginManagerWindow
+plugin_manager/ui/plugin_manager_window.py:11: in <module>
+    from utils.error_handler import ErrorHandler
+E   ModuleNotFoundError: No module named 'utils.error_handler'
+__________ ERROR collecting tests/unit/excel/test_excel_operations.py __________
+ImportError while importing test module '/Users/lpcw/Documents/PyQt/PyExcelApp/tests/unit/excel/test_excel_operations.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/python.py:493: in importtestmodule
+    mod = import_path(
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/pathlib.py:587: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/PyQt/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1147: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:184: in exec_module
+    exec(co, module.__dict__)
+tests/unit/excel/test_excel_operations.py:5: in <module>
+    from utils.excel_operations import ExcelOperations, PandasModel
+E   ModuleNotFoundError: No module named 'utils.excel_operations'
+________ ERROR collecting tests/unit/plugin/test_plugin_core_system.py _________
+tests/unit/plugin/test_plugin_core_system.py:97: in <module>
+    class TestPluginSystemPermissions:
+tests/unit/plugin/test_plugin_core_system.py:113: in TestPluginSystemPermissions
+    PluginPermission.READ,
+/opt/miniconda3/envs/PyQt/lib/python3.11/enum.py:786: in __getattr__
+    raise AttributeError(name) from None
+E   AttributeError: READ
+__________ ERROR collecting tests/unit/plugin/test_plugin_manager.py ___________
+ImportError while importing test module '/Users/lpcw/Documents/PyQt/PyExcelApp/tests/unit/plugin/test_plugin_manager.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/python.py:493: in importtestmodule
+    mod = import_path(
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/pathlib.py:587: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/PyQt/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1147: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:184: in exec_module
+    exec(co, module.__dict__)
+tests/unit/plugin/test_plugin_manager.py:6: in <module>
+    from plugin_manager import (
+plugin_manager/__init__.py:8: in <module>
+    from .ui.plugin_manager_window import PluginManagerWindow
+plugin_manager/ui/plugin_manager_window.py:11: in <module>
+    from utils.error_handler import ErrorHandler
+E   ModuleNotFoundError: No module named 'utils.error_handler'
+=========================== short test summary info ============================
+ERROR tests/integration/test_plugin_integration.py
+ERROR tests/integration/test_plugin_manager_integration.py
+ERROR tests/unit/excel/test_excel_operations.py
+ERROR tests/unit/plugin/test_plugin_core_system.py - AttributeError: READ
+ERROR tests/unit/plugin/test_plugin_manager.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 5 errors during collection !!!!!!!!!!!!!!!!!!!!
+======================= 55 deselected, 5 errors in 0.47s =======================

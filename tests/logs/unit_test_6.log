@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0 -- /opt/miniconda3/envs/PyQt/bin/python
+cachedir: .pytest_cache
+PyQt6 6.4.2 -- Qt runtime 6.4.3 -- Qt compiled 6.4.2
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/lpcw/Documents/PyQt/PyExcelApp
+configfile: pytest.ini
+testpaths: tests
+plugins: qt-4.4.0, cov-6.0.0, benchmark-5.1.0, anyio-4.6.2, xdist-3.6.1, asyncio-0.25.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None
+collecting ... collected 104 items / 91 deselected / 13 selected
+
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data0-up_to_date] PASSED [  7%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data1-outdated] PASSED [ 15%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data2-error] PASSED [ 23%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data0] PASSED [ 30%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data1] PASSED [ 38%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data2] PASSED [ 46%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data0-True] PASSED [ 53%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data1-False] PASSED [ 61%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data2-None] PASSED [ 69%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_email_notification PASSED [ 76%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_slack_notification PASSED [ 84%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_monitoring_workflow PASSED [ 92%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_async_monitoring PASSED [100%]
+
+====================== 13 passed, 91 deselected in 1.06s =======================

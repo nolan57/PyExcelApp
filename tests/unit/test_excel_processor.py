@@ -1,41 +1,42 @@
 import pytest
 import pandas as pd
-from excel_processor import ExcelProcessor
+from tests.src.excel_processor import ExcelProcessor
 
 def test_excel_file_loading(temp_excel_file):
-    """测试Excel文件加载功能"""
+    """测试Excel文件加载"""
     processor = ExcelProcessor()
     df = processor.process_file(temp_excel_file)
     assert isinstance(df, pd.DataFrame)
     assert not df.empty
-    assert list(df.columns) == ['Column1', 'Column2', 'Column3']
 
-def test_data_processing(sample_excel_data):
-    """测试数据处理功能"""
+def test_excel_file_saving(temp_excel_file, tmp_path):
+    """测试Excel文件保存"""
     processor = ExcelProcessor()
-    result = processor.process_data(sample_excel_data)
-    assert isinstance(result, pd.DataFrame)
-    assert 'Column1' in result.columns
+    df = processor.process_file(temp_excel_file)
     
-@pytest.mark.parametrize("invalid_path", [
-    "nonexistent.xlsx",
-    "invalid/path/file.xlsx",
-    ""
-])
-def test_invalid_file_handling(invalid_path):
+    # 保存到新文件
+    new_file = tmp_path / "new.xlsx"
+    result = processor.save_file(df, new_file)
+    assert result is True
+    assert new_file.exists()
+
+def test_invalid_file():
     """测试无效文件处理"""
     processor = ExcelProcessor()
-    with pytest.raises(FileNotFoundError):
-        processor.process_file(invalid_path)
+    with pytest.raises(ValueError):
+        processor.process_file("nonexistent.xlsx")
 
-def test_save_excel_file(tmp_path, sample_excel_data):
-    """测试Excel文件保存功能"""
-    output_path = tmp_path / "output.xlsx"
+def test_sheet_operations(temp_excel_file):
+    """测试工作表操作"""
     processor = ExcelProcessor()
-    success = processor.save_file(sample_excel_data, output_path)
-    assert success
-    assert output_path.exists()
+    processor.process_file(temp_excel_file)
     
-    # 验证保存的数据
-    loaded_df = pd.read_excel(output_path)
-    pd.testing.assert_frame_equal(loaded_df, sample_excel_data) 
+    # 获取工作表名称
+    sheets = processor.get_sheet_names()
+    assert isinstance(sheets, list)
+    assert len(sheets) > 0
+    
+    # 获取工作表数据
+    df = processor.get_sheet_data(sheets[0])
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty 

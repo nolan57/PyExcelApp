@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import MagicMock
 from PyQt6.QtCore import QModelIndex, Qt
 from PyQt6.QtWidgets import QApplication, QTableView
-from test_src.utils.excel_operations import ExcelOperations, PandasModel
+from utils.excel_operations import ExcelOperations, PandasModel
 from plugin_manager.plugins.xzltxs_test import XzltxsPlugin
 from plugin_manager.features.plugin_permissions import PluginPermission
 import pandas as pd

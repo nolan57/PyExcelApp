@@ -15,13 +15,29 @@ import pandas as pd
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
+# 添加测试源码路径
+test_src_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src')
+if test_src_path not in sys.path:
+    sys.path.insert(0, test_src_path)
+
 # 添加依赖监控框架路径
 monitoring_path = os.path.join(project_root, 'dependency_monitoring_framework')
 sys.path.insert(0, monitoring_path)
 
-# 添加插件管理器路径
-plugin_path = os.path.join(project_root, 'plugin_manager')
-sys.path.insert(0, plugin_path)
+# 添加其他必要的路径
+sys.path.extend([
+    os.path.join(project_root, 'src'),
+    os.path.join(project_root, 'plugin_manager'),
+    os.path.join(project_root, 'dependency_monitoring_framework')
+])
+
+# 导入依赖监控框架组件
+from dependency_monitoring_framework.src.services.version_checker import VersionChecker
+from dependency_monitoring_framework.src.services.security_scanner import SecurityScanner, HealthCheckPlugin
+from dependency_monitoring_framework.src.services.compatibility_checker import CompatibilityChecker
+from dependency_monitoring_framework.src.channels.email_notifier import EmailNotifier
+from dependency_monitoring_framework.src.channels.slack_notifier import SlackNotifier
+from dependency_monitoring_framework.src.interfaces.notification_channel import NotificationChannel
 
 @pytest.fixture(scope="session")
 def qapp():
@@ -49,7 +65,7 @@ def temp_excel_file(tmp_path, sample_excel_data):
 @pytest.fixture
 def mock_main_window(qapp):
     """模拟主窗口的fixture"""
-    from main_window import MainWindow
+    from ui.main_window import MainWindow
     window = MainWindow()
     return window
 

@@ -1,0 +1,1 @@
+PluginDependency(name='test_package', version='1.0.0', optional=False, source='', signature='')

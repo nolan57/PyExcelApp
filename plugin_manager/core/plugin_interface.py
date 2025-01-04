@@ -4,6 +4,13 @@ from PyQt6.QtWidgets import QTableView
 from ..features.plugin_permissions import PluginPermission
 from ..features.plugin_events import PluginEventInterface
 from ..features.plugin_lifecycle import PluginLifecycle
+from enum import Enum
+
+class PluginPermission(Enum):
+    READ = "read"
+    WRITE = "write"
+    EXECUTE = "execute"
+    ADMIN = "admin"
 
 class PluginInterface(PluginEventInterface, PluginLifecycle):
     """插件接口，定义插件必须实现的方法"""

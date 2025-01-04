@@ -138,6 +138,9 @@ class SecurityScanner(HealthCheckPlugin):
             vulnerabilities = []
             for report in result.get('reports', []):
                 vulns = report.get('vulnerabilities', [])
+                # 处理 None 值的情况
+                if vulns is None:
+                    vulns = []
                 # 根据严重性阈值过滤漏洞
                 threshold = self.check_config['severity_threshold']
                 vulns = [v for v in vulns if self._is_severe_enough(v, threshold)]
@@ -156,7 +159,8 @@ class SecurityScanner(HealthCheckPlugin):
                 })
             return {
                 'status': 'error',
-                'error': str(e)
+                'error': str(e),
+                'vulnerabilities': []  # 确保总是返回 vulnerabilities 字段
             }
 
     def _get_project_dependencies(self) -> List[Dict[str, str]]:

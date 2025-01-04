@@ -1,0 +1,128 @@
+[0;34mRunning single test file...[0m
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0 -- /opt/miniconda3/envs/PyQt/bin/python
+cachedir: .pytest_cache
+PyQt6 6.4.2 -- Qt runtime 6.4.3 -- Qt compiled 6.4.2
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/lpcw/Documents/PyQt/PyExcelApp
+configfile: pytest.ini
+plugins: qt-4.4.0, cov-6.0.0, benchmark-5.1.0, anyio-4.6.2, xdist-3.6.1, asyncio-0.25.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None
+collecting ... collected 13 items
+
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data0-up_to_date] PASSED [  7%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data1-outdated] PASSED [ 15%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data2-error] PASSED [ 23%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data0] PASSED [ 30%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data1] PASSED [ 38%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data2] FAILED [ 46%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data0-True] PASSED [ 53%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data1-False] PASSED [ 61%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data2-None] PASSED [ 69%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_email_notification PASSED [ 76%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_slack_notification PASSED [ 84%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_monitoring_workflow FAILED [ 92%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_async_monitoring FAILED [100%]
+
+=================================== FAILURES ===================================
+________ TestSecurityMonitoring.test_security_scan[vulnerability_data2] ________
+
+self = <test_dependency_monitoring.TestSecurityMonitoring object at 0x13df5b610>
+event_bus = <src.core.event_bus.EventBus object at 0x13df98310>
+mock_response = <MagicMock id='4504808976'>
+vulnerability_data = {'vulnerabilities': None}
+
+    @pytest.mark.parametrize("vulnerability_data", [
+        {"vulnerabilities": []},
+        {"vulnerabilities": [{"id": "CVE-2023-001", "severity": "high"}]},
+        {"vulnerabilities": None}
+    ])
+    def test_security_scan(self, event_bus, mock_response, vulnerability_data):
+        """测试安全扫描功能"""
+        mock_response.json.return_value = [vulnerability_data]
+        mock_response.status_code = 200
+    
+        with patch('requests.post', return_value=mock_response):
+            scanner = SecurityScanner(event_bus)
+            scanner._get_project_dependencies = lambda: [
+                {'name': 'test-package', 'version': '1.0.0'}
+            ]
+            result = scanner.check()
+>           assert 'vulnerabilities' in result
+E           assert 'vulnerabilities' in {'error': "'NoneType' object is not iterable", 'status': 'error'}
+
+tests/unit/monitoring/test_dependency_monitoring.py:60: AssertionError
+______________ TestIntegratedMonitoring.test_monitoring_workflow _______________
+
+self = <test_dependency_monitoring.TestIntegratedMonitoring object at 0x13df66190>
+event_bus = <src.core.event_bus.EventBus object at 0x13df76510>
+
+    def test_monitoring_workflow(self, event_bus):
+        """测试完整监控工作流"""
+        mock_responses = {
+            'version': {"status": "up_to_date"},
+            'security': [{"vulnerabilities": []}],
+            'compatibility': {"compatible": True}
+        }
+    
+        with patch('requests.post') as mock_post, patch('requests.get') as mock_get:
+            def mock_response(*args, **kwargs):
+                url = args[0]
+                response = MagicMock()
+                response.status_code = 200
+                if 'version' in url:
+                    response.json.return_value = mock_responses['version']
+                elif 'security' in url:
+                    response.json.return_value = mock_responses['security']
+                else:
+                    response.json.return_value = mock_responses['compatibility']
+                return response
+    
+            mock_get.side_effect = mock_response
+            mock_post.side_effect = mock_response
+    
+            # 执行所有检查
+            version_checker = VersionChecker(event_bus)
+            security_scanner = SecurityScanner(event_bus)
+            compatibility_checker = CompatibilityChecker(event_bus)
+    
+            version_result = version_checker.check()
+            security_result = security_scanner.check()
+            compatibility_result = compatibility_checker.check()
+    
+            # 验证结果
+            assert version_result['status'] == 'up_to_date'
+>           assert security_result['vulnerabilities'] == []
+E           KeyError: 'vulnerabilities'
+
+tests/unit/monitoring/test_dependency_monitoring.py:151: KeyError
+________________ TestIntegratedMonitoring.test_async_monitoring ________________
+
+self = <test_dependency_monitoring.TestIntegratedMonitoring object at 0x13df66790>
+event_bus = <src.core.event_bus.EventBus object at 0x13dfed050>
+
+    @pytest.mark.asyncio
+    async def test_async_monitoring(self, event_bus):
+        """测试异步监控功能"""
+        with patch('aiohttp.ClientSession.get') as mock_get:
+            mock_get.return_value.__aenter__.return_value.json = \
+                MagicMock(return_value={"status": "up_to_date"})
+            mock_get.return_value.__aenter__.return_value.status = 200
+    
+            checker = VersionChecker(event_bus)
+            result = await checker.check_async()
+>           assert result['status'] == 'up_to_date'
+E           AssertionError: assert 'error' == 'up_to_date'
+E             
+E             - up_to_date
+E             + error
+
+tests/unit/monitoring/test_dependency_monitoring.py:164: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data2] - assert 'vulnerabilities' in {'error': "'NoneType' object is not iterable", 'status': 'error'}
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_monitoring_workflow - KeyError: 'vulnerabilities'
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_async_monitoring - AssertionError: assert 'error' == 'up_to_date'
+  
+  - up_to_date
+  + error
+========================= 3 failed, 10 passed in 0.23s =========================
