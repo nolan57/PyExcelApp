@@ -1,3 +1,5 @@
+"""插件管理系统"""
+
 # 向下兼容的导入
 from .core.plugin_interface import PluginInterface
 from .core.plugin_base import PluginBase

@@ -1,0 +1,701 @@
+[0;34mRunning single test file...[0m
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0 -- /opt/miniconda3/envs/PyQt/bin/python
+cachedir: .pytest_cache
+PyQt6 6.4.2 -- Qt runtime 6.4.3 -- Qt compiled 6.4.2
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/lpcw/Documents/PyQt/PyExcelApp
+configfile: pytest.ini
+plugins: qt-4.4.0, cov-6.0.0, benchmark-5.1.0, anyio-4.6.2, xdist-3.6.1, asyncio-0.25.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None
+collecting ... collected 13 items
+
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data0-up_to_date] PASSED [  7%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data1-outdated] PASSED [ 15%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data2-error] PASSED [ 23%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data0] FAILED [ 30%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data1] FAILED [ 38%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data2] FAILED [ 46%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data0-True] PASSED [ 53%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data1-False] PASSED [ 61%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data2-None] PASSED [ 69%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_email_notification PASSED [ 76%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_slack_notification PASSED [ 84%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_monitoring_workflow FAILED [ 92%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_async_monitoring FAILED [100%]
+
+=================================== FAILURES ===================================
+________ TestSecurityMonitoring.test_security_scan[vulnerability_data0] ________
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f735850>
+dependencies = []
+
+    def check_dependencies(self, dependencies: List[Dict[str, str]]) -> Dict:
+        """检查多个依赖的安全漏洞"""
+        coordinates = [
+            self._format_package(dep['name'], dep['version'])
+            for dep in dependencies
+        ]
+    
+        try:
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                auth=self.auth,
+                json={"coordinates": coordinates}
+            )
+>           response.raise_for_status()
+
+dependency_monitoring_framework/src/services/security_scanner.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Response [400]>
+
+    def raise_for_status(self):
+        """Raises :class:`HTTPError`, if one occurred."""
+    
+        http_error_msg = ""
+        if isinstance(self.reason, bytes):
+            # We attempt to decode utf-8 first because some servers
+            # choose to localize their reason strings. If the string
+            # isn't utf-8, we fall back to iso-8859-1 for all other
+            # encodings. (See PR #3538)
+            try:
+                reason = self.reason.decode("utf-8")
+            except UnicodeDecodeError:
+                reason = self.reason.decode("iso-8859-1")
+        else:
+            reason = self.reason
+    
+        if 400 <= self.status_code < 500:
+            http_error_msg = (
+                f"{self.status_code} Client Error: {reason} for url: {self.url}"
+            )
+    
+        elif 500 <= self.status_code < 600:
+            http_error_msg = (
+                f"{self.status_code} Server Error: {reason} for url: {self.url}"
+            )
+    
+        if http_error_msg:
+>           raise HTTPError(http_error_msg, response=self)
+E           requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://ossindex.sonatype.org/api/v3/component-report
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/requests/models.py:1024: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f735850>
+
+    def check(self) -> Dict:
+        """实现HealthCheckPlugin接口的健康检查方法"""
+        try:
+            # 从项目的requirements.txt读取依赖
+            dependencies = self._get_project_dependencies()
+>           result = self.check_dependencies(dependencies)
+
+dependency_monitoring_framework/src/services/security_scanner.py:135: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f735850>
+dependencies = []
+
+    def check_dependencies(self, dependencies: List[Dict[str, str]]) -> Dict:
+        """检查多个依赖的安全漏洞"""
+        coordinates = [
+            self._format_package(dep['name'], dep['version'])
+            for dep in dependencies
+        ]
+    
+        try:
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                auth=self.auth,
+                json={"coordinates": coordinates}
+            )
+            response.raise_for_status()
+            return {
+                'status': 'success',
+                'reports': response.json()
+            }
+        except Exception as e:
+            if self.event_bus:
+>               self.event_bus.emit('security_check_error', {
+                    'error': str(e)
+                })
+E               AttributeError: 'EventBus' object has no attribute 'emit'
+
+dependency_monitoring_framework/src/services/security_scanner.py:121: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_dependency_monitoring.TestSecurityMonitoring object at 0x11f710390>
+event_bus = <src.core.event_bus.EventBus object at 0x11f72e990>
+mock_response = <MagicMock id='4822630096'>
+vulnerability_data = {'vulnerabilities': []}
+
+    @pytest.mark.parametrize("vulnerability_data", [
+        {"vulnerabilities": []},
+        {"vulnerabilities": [{"id": "CVE-2023-001", "severity": "high"}]},
+        {"vulnerabilities": None}
+    ])
+    def test_security_scan(self, event_bus, mock_response, vulnerability_data):
+        """测试安全扫描功能"""
+        mock_response.json.return_value = vulnerability_data
+    
+        with patch('requests.get', return_value=mock_response):
+            scanner = SecurityScanner(event_bus)
+>           result = scanner.check()
+
+tests/unit/monitoring/test_dependency_monitoring.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f735850>
+
+    def check(self) -> Dict:
+        """实现HealthCheckPlugin接口的健康检查方法"""
+        try:
+            # 从项目的requirements.txt读取依赖
+            dependencies = self._get_project_dependencies()
+            result = self.check_dependencies(dependencies)
+    
+            # 分析结果
+            vulnerabilities = []
+            for report in result.get('reports', []):
+                vulns = report.get('vulnerabilities', [])
+                # 根据严重性阈值过滤漏洞
+                threshold = self.check_config['severity_threshold']
+                vulns = [v for v in vulns if self._is_severe_enough(v, threshold)]
+                vulnerabilities.extend(vulns)
+    
+            return {
+                'status': 'error' if vulnerabilities else 'healthy',
+                'vulnerabilities': vulnerabilities,
+                'total_packages': len(dependencies),
+                'vulnerable_packages': len(set(v.get('package') for v in vulnerabilities))
+            }
+        except Exception as e:
+            if self.event_bus:
+>               self.event_bus.emit('security_check_error', {
+                    'error': str(e)
+                })
+E               AttributeError: 'EventBus' object has no attribute 'emit'
+
+dependency_monitoring_framework/src/services/security_scanner.py:154: AttributeError
+________ TestSecurityMonitoring.test_security_scan[vulnerability_data1] ________
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f7e0890>
+dependencies = []
+
+    def check_dependencies(self, dependencies: List[Dict[str, str]]) -> Dict:
+        """检查多个依赖的安全漏洞"""
+        coordinates = [
+            self._format_package(dep['name'], dep['version'])
+            for dep in dependencies
+        ]
+    
+        try:
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                auth=self.auth,
+                json={"coordinates": coordinates}
+            )
+>           response.raise_for_status()
+
+dependency_monitoring_framework/src/services/security_scanner.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Response [400]>
+
+    def raise_for_status(self):
+        """Raises :class:`HTTPError`, if one occurred."""
+    
+        http_error_msg = ""
+        if isinstance(self.reason, bytes):
+            # We attempt to decode utf-8 first because some servers
+            # choose to localize their reason strings. If the string
+            # isn't utf-8, we fall back to iso-8859-1 for all other
+            # encodings. (See PR #3538)
+            try:
+                reason = self.reason.decode("utf-8")
+            except UnicodeDecodeError:
+                reason = self.reason.decode("iso-8859-1")
+        else:
+            reason = self.reason
+    
+        if 400 <= self.status_code < 500:
+            http_error_msg = (
+                f"{self.status_code} Client Error: {reason} for url: {self.url}"
+            )
+    
+        elif 500 <= self.status_code < 600:
+            http_error_msg = (
+                f"{self.status_code} Server Error: {reason} for url: {self.url}"
+            )
+    
+        if http_error_msg:
+>           raise HTTPError(http_error_msg, response=self)
+E           requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://ossindex.sonatype.org/api/v3/component-report
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/requests/models.py:1024: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f7e0890>
+
+    def check(self) -> Dict:
+        """实现HealthCheckPlugin接口的健康检查方法"""
+        try:
+            # 从项目的requirements.txt读取依赖
+            dependencies = self._get_project_dependencies()
+>           result = self.check_dependencies(dependencies)
+
+dependency_monitoring_framework/src/services/security_scanner.py:135: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f7e0890>
+dependencies = []
+
+    def check_dependencies(self, dependencies: List[Dict[str, str]]) -> Dict:
+        """检查多个依赖的安全漏洞"""
+        coordinates = [
+            self._format_package(dep['name'], dep['version'])
+            for dep in dependencies
+        ]
+    
+        try:
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                auth=self.auth,
+                json={"coordinates": coordinates}
+            )
+            response.raise_for_status()
+            return {
+                'status': 'success',
+                'reports': response.json()
+            }
+        except Exception as e:
+            if self.event_bus:
+>               self.event_bus.emit('security_check_error', {
+                    'error': str(e)
+                })
+E               AttributeError: 'EventBus' object has no attribute 'emit'
+
+dependency_monitoring_framework/src/services/security_scanner.py:121: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_dependency_monitoring.TestSecurityMonitoring object at 0x11f710610>
+event_bus = <src.core.event_bus.EventBus object at 0x11f7e1850>
+mock_response = <MagicMock id='4823321040'>
+vulnerability_data = {'vulnerabilities': [{'id': 'CVE-2023-001', 'severity': 'high'}]}
+
+    @pytest.mark.parametrize("vulnerability_data", [
+        {"vulnerabilities": []},
+        {"vulnerabilities": [{"id": "CVE-2023-001", "severity": "high"}]},
+        {"vulnerabilities": None}
+    ])
+    def test_security_scan(self, event_bus, mock_response, vulnerability_data):
+        """测试安全扫描功能"""
+        mock_response.json.return_value = vulnerability_data
+    
+        with patch('requests.get', return_value=mock_response):
+            scanner = SecurityScanner(event_bus)
+>           result = scanner.check()
+
+tests/unit/monitoring/test_dependency_monitoring.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f7e0890>
+
+    def check(self) -> Dict:
+        """实现HealthCheckPlugin接口的健康检查方法"""
+        try:
+            # 从项目的requirements.txt读取依赖
+            dependencies = self._get_project_dependencies()
+            result = self.check_dependencies(dependencies)
+    
+            # 分析结果
+            vulnerabilities = []
+            for report in result.get('reports', []):
+                vulns = report.get('vulnerabilities', [])
+                # 根据严重性阈值过滤漏洞
+                threshold = self.check_config['severity_threshold']
+                vulns = [v for v in vulns if self._is_severe_enough(v, threshold)]
+                vulnerabilities.extend(vulns)
+    
+            return {
+                'status': 'error' if vulnerabilities else 'healthy',
+                'vulnerabilities': vulnerabilities,
+                'total_packages': len(dependencies),
+                'vulnerable_packages': len(set(v.get('package') for v in vulnerabilities))
+            }
+        except Exception as e:
+            if self.event_bus:
+>               self.event_bus.emit('security_check_error', {
+                    'error': str(e)
+                })
+E               AttributeError: 'EventBus' object has no attribute 'emit'
+
+dependency_monitoring_framework/src/services/security_scanner.py:154: AttributeError
+________ TestSecurityMonitoring.test_security_scan[vulnerability_data2] ________
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f719990>
+dependencies = []
+
+    def check_dependencies(self, dependencies: List[Dict[str, str]]) -> Dict:
+        """检查多个依赖的安全漏洞"""
+        coordinates = [
+            self._format_package(dep['name'], dep['version'])
+            for dep in dependencies
+        ]
+    
+        try:
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                auth=self.auth,
+                json={"coordinates": coordinates}
+            )
+>           response.raise_for_status()
+
+dependency_monitoring_framework/src/services/security_scanner.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Response [400]>
+
+    def raise_for_status(self):
+        """Raises :class:`HTTPError`, if one occurred."""
+    
+        http_error_msg = ""
+        if isinstance(self.reason, bytes):
+            # We attempt to decode utf-8 first because some servers
+            # choose to localize their reason strings. If the string
+            # isn't utf-8, we fall back to iso-8859-1 for all other
+            # encodings. (See PR #3538)
+            try:
+                reason = self.reason.decode("utf-8")
+            except UnicodeDecodeError:
+                reason = self.reason.decode("iso-8859-1")
+        else:
+            reason = self.reason
+    
+        if 400 <= self.status_code < 500:
+            http_error_msg = (
+                f"{self.status_code} Client Error: {reason} for url: {self.url}"
+            )
+    
+        elif 500 <= self.status_code < 600:
+            http_error_msg = (
+                f"{self.status_code} Server Error: {reason} for url: {self.url}"
+            )
+    
+        if http_error_msg:
+>           raise HTTPError(http_error_msg, response=self)
+E           requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://ossindex.sonatype.org/api/v3/component-report
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/requests/models.py:1024: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f719990>
+
+    def check(self) -> Dict:
+        """实现HealthCheckPlugin接口的健康检查方法"""
+        try:
+            # 从项目的requirements.txt读取依赖
+            dependencies = self._get_project_dependencies()
+>           result = self.check_dependencies(dependencies)
+
+dependency_monitoring_framework/src/services/security_scanner.py:135: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f719990>
+dependencies = []
+
+    def check_dependencies(self, dependencies: List[Dict[str, str]]) -> Dict:
+        """检查多个依赖的安全漏洞"""
+        coordinates = [
+            self._format_package(dep['name'], dep['version'])
+            for dep in dependencies
+        ]
+    
+        try:
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                auth=self.auth,
+                json={"coordinates": coordinates}
+            )
+            response.raise_for_status()
+            return {
+                'status': 'success',
+                'reports': response.json()
+            }
+        except Exception as e:
+            if self.event_bus:
+>               self.event_bus.emit('security_check_error', {
+                    'error': str(e)
+                })
+E               AttributeError: 'EventBus' object has no attribute 'emit'
+
+dependency_monitoring_framework/src/services/security_scanner.py:121: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_dependency_monitoring.TestSecurityMonitoring object at 0x11f710890>
+event_bus = <src.core.event_bus.EventBus object at 0x11e7821d0>
+mock_response = <MagicMock id='4540814160'>
+vulnerability_data = {'vulnerabilities': None}
+
+    @pytest.mark.parametrize("vulnerability_data", [
+        {"vulnerabilities": []},
+        {"vulnerabilities": [{"id": "CVE-2023-001", "severity": "high"}]},
+        {"vulnerabilities": None}
+    ])
+    def test_security_scan(self, event_bus, mock_response, vulnerability_data):
+        """测试安全扫描功能"""
+        mock_response.json.return_value = vulnerability_data
+    
+        with patch('requests.get', return_value=mock_response):
+            scanner = SecurityScanner(event_bus)
+>           result = scanner.check()
+
+tests/unit/monitoring/test_dependency_monitoring.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f719990>
+
+    def check(self) -> Dict:
+        """实现HealthCheckPlugin接口的健康检查方法"""
+        try:
+            # 从项目的requirements.txt读取依赖
+            dependencies = self._get_project_dependencies()
+            result = self.check_dependencies(dependencies)
+    
+            # 分析结果
+            vulnerabilities = []
+            for report in result.get('reports', []):
+                vulns = report.get('vulnerabilities', [])
+                # 根据严重性阈值过滤漏洞
+                threshold = self.check_config['severity_threshold']
+                vulns = [v for v in vulns if self._is_severe_enough(v, threshold)]
+                vulnerabilities.extend(vulns)
+    
+            return {
+                'status': 'error' if vulnerabilities else 'healthy',
+                'vulnerabilities': vulnerabilities,
+                'total_packages': len(dependencies),
+                'vulnerable_packages': len(set(v.get('package') for v in vulnerabilities))
+            }
+        except Exception as e:
+            if self.event_bus:
+>               self.event_bus.emit('security_check_error', {
+                    'error': str(e)
+                })
+E               AttributeError: 'EventBus' object has no attribute 'emit'
+
+dependency_monitoring_framework/src/services/security_scanner.py:154: AttributeError
+______________ TestIntegratedMonitoring.test_monitoring_workflow _______________
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f7ac2d0>
+dependencies = []
+
+    def check_dependencies(self, dependencies: List[Dict[str, str]]) -> Dict:
+        """检查多个依赖的安全漏洞"""
+        coordinates = [
+            self._format_package(dep['name'], dep['version'])
+            for dep in dependencies
+        ]
+    
+        try:
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                auth=self.auth,
+                json={"coordinates": coordinates}
+            )
+>           response.raise_for_status()
+
+dependency_monitoring_framework/src/services/security_scanner.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Response [400]>
+
+    def raise_for_status(self):
+        """Raises :class:`HTTPError`, if one occurred."""
+    
+        http_error_msg = ""
+        if isinstance(self.reason, bytes):
+            # We attempt to decode utf-8 first because some servers
+            # choose to localize their reason strings. If the string
+            # isn't utf-8, we fall back to iso-8859-1 for all other
+            # encodings. (See PR #3538)
+            try:
+                reason = self.reason.decode("utf-8")
+            except UnicodeDecodeError:
+                reason = self.reason.decode("iso-8859-1")
+        else:
+            reason = self.reason
+    
+        if 400 <= self.status_code < 500:
+            http_error_msg = (
+                f"{self.status_code} Client Error: {reason} for url: {self.url}"
+            )
+    
+        elif 500 <= self.status_code < 600:
+            http_error_msg = (
+                f"{self.status_code} Server Error: {reason} for url: {self.url}"
+            )
+    
+        if http_error_msg:
+>           raise HTTPError(http_error_msg, response=self)
+E           requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://ossindex.sonatype.org/api/v3/component-report
+
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/requests/models.py:1024: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f7ac2d0>
+
+    def check(self) -> Dict:
+        """实现HealthCheckPlugin接口的健康检查方法"""
+        try:
+            # 从项目的requirements.txt读取依赖
+            dependencies = self._get_project_dependencies()
+>           result = self.check_dependencies(dependencies)
+
+dependency_monitoring_framework/src/services/security_scanner.py:135: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f7ac2d0>
+dependencies = []
+
+    def check_dependencies(self, dependencies: List[Dict[str, str]]) -> Dict:
+        """检查多个依赖的安全漏洞"""
+        coordinates = [
+            self._format_package(dep['name'], dep['version'])
+            for dep in dependencies
+        ]
+    
+        try:
+            response = requests.post(
+                self.base_url,
+                headers=self.headers,
+                auth=self.auth,
+                json={"coordinates": coordinates}
+            )
+            response.raise_for_status()
+            return {
+                'status': 'success',
+                'reports': response.json()
+            }
+        except Exception as e:
+            if self.event_bus:
+>               self.event_bus.emit('security_check_error', {
+                    'error': str(e)
+                })
+E               AttributeError: 'EventBus' object has no attribute 'emit'
+
+dependency_monitoring_framework/src/services/security_scanner.py:121: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+self = <test_dependency_monitoring.TestIntegratedMonitoring object at 0x11f713890>
+event_bus = <src.core.event_bus.EventBus object at 0x11f8530d0>
+
+    def test_monitoring_workflow(self, event_bus):
+        """测试完整监控工作流"""
+        # 设置模拟响应
+        mock_responses = {
+            'version': {"status": "up_to_date"},
+            'security': {"vulnerabilities": []},
+            'compatibility': {"compatible": True}
+        }
+    
+        with patch('requests.get') as mock_get:
+            def mock_response(*args, **kwargs):
+                url = args[0]
+                response = MagicMock()
+                response.status_code = 200
+                if 'version' in url:
+                    response.json.return_value = mock_responses['version']
+                elif 'security' in url:
+                    response.json.return_value = mock_responses['security']
+                else:
+                    response.json.return_value = mock_responses['compatibility']
+                return response
+    
+            mock_get.side_effect = mock_response
+    
+            # 执行所有检查
+            version_checker = VersionChecker(event_bus)
+            security_scanner = SecurityScanner(event_bus)
+            compatibility_checker = CompatibilityChecker(event_bus)
+    
+            version_result = version_checker.check()
+>           security_result = security_scanner.check()
+
+tests/unit/monitoring/test_dependency_monitoring.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <src.services.security_scanner.SecurityScanner object at 0x11f7ac2d0>
+
+    def check(self) -> Dict:
+        """实现HealthCheckPlugin接口的健康检查方法"""
+        try:
+            # 从项目的requirements.txt读取依赖
+            dependencies = self._get_project_dependencies()
+            result = self.check_dependencies(dependencies)
+    
+            # 分析结果
+            vulnerabilities = []
+            for report in result.get('reports', []):
+                vulns = report.get('vulnerabilities', [])
+                # 根据严重性阈值过滤漏洞
+                threshold = self.check_config['severity_threshold']
+                vulns = [v for v in vulns if self._is_severe_enough(v, threshold)]
+                vulnerabilities.extend(vulns)
+    
+            return {
+                'status': 'error' if vulnerabilities else 'healthy',
+                'vulnerabilities': vulnerabilities,
+                'total_packages': len(dependencies),
+                'vulnerable_packages': len(set(v.get('package') for v in vulnerabilities))
+            }
+        except Exception as e:
+            if self.event_bus:
+>               self.event_bus.emit('security_check_error', {
+                    'error': str(e)
+                })
+E               AttributeError: 'EventBus' object has no attribute 'emit'
+
+dependency_monitoring_framework/src/services/security_scanner.py:154: AttributeError
+________________ TestIntegratedMonitoring.test_async_monitoring ________________
+
+self = <test_dependency_monitoring.TestIntegratedMonitoring object at 0x11f713f90>
+event_bus = <src.core.event_bus.EventBus object at 0x11f72c150>
+
+    @pytest.mark.asyncio
+    async def test_async_monitoring(self, event_bus):
+        """测试异步监控功能"""
+        with patch('aiohttp.ClientSession.get') as mock_get:
+            mock_get.return_value.__aenter__.return_value.json = \
+                MagicMock(return_value={"status": "up_to_date"})
+            mock_get.return_value.__aenter__.return_value.status = 200
+    
+            checker = VersionChecker(event_bus)
+>           result = await checker.check_async()
+E           AttributeError: 'VersionChecker' object has no attribute 'check_async'
+
+tests/unit/monitoring/test_dependency_monitoring.py:159: AttributeError
+=========================== short test summary info ============================
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data0] - AttributeError: 'EventBus' object has no attribute 'emit'
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data1] - AttributeError: 'EventBus' object has no attribute 'emit'
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data2] - AttributeError: 'EventBus' object has no attribute 'emit'
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_monitoring_workflow - AttributeError: 'EventBus' object has no attribute 'emit'
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_async_monitoring - AttributeError: 'VersionChecker' object has no attribute 'check_async'
+========================= 5 failed, 8 passed in 18.65s =========================

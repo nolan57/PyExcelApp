@@ -1,0 +1,166 @@
+[0;34mRunning single test file...[0m
+/opt/miniconda3/envs/PyQt/lib/python3.11/site-packages/pytest_asyncio/plugin.py:207: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the fixture caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to function scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0 -- /opt/miniconda3/envs/PyQt/bin/python
+cachedir: .pytest_cache
+PyQt6 6.4.2 -- Qt runtime 6.4.3 -- Qt compiled 6.4.2
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/lpcw/Documents/PyQt/PyExcelApp
+configfile: pytest.ini
+plugins: qt-4.4.0, cov-6.0.0, benchmark-5.1.0, anyio-4.6.2, xdist-3.6.1, asyncio-0.25.1
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None
+collecting ... collected 13 items
+
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data0-up_to_date] PASSED [  7%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data1-outdated] PASSED [ 15%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestVersionMonitoring::test_version_check[version_data2-error] PASSED [ 23%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data0] FAILED [ 30%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data1] FAILED [ 38%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data2] FAILED [ 46%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data0-True] PASSED [ 53%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data1-False] PASSED [ 61%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestCompatibilityChecking::test_compatibility_check[compatibility_data2-None] PASSED [ 69%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_email_notification PASSED [ 76%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestNotificationChannels::test_slack_notification PASSED [ 84%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_monitoring_workflow FAILED [ 92%]
+tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_async_monitoring FAILED [100%]
+
+=================================== FAILURES ===================================
+________ TestSecurityMonitoring.test_security_scan[vulnerability_data0] ________
+
+self = <test_dependency_monitoring.TestSecurityMonitoring object at 0x15827f850>
+event_bus = <src.core.event_bus.EventBus object at 0x15852dd90>
+mock_response = <MagicMock id='5776831824'>
+vulnerability_data = {'vulnerabilities': []}
+
+    @pytest.mark.parametrize("vulnerability_data", [
+        {"vulnerabilities": []},
+        {"vulnerabilities": [{"id": "CVE-2023-001", "severity": "high"}]},
+        {"vulnerabilities": None}
+    ])
+    def test_security_scan(self, event_bus, mock_response, vulnerability_data):
+        """测试安全扫描功能"""
+        mock_response.json.return_value = vulnerability_data
+    
+        with patch('requests.get', return_value=mock_response):
+>           scanner = SecurityScanner(event_bus)
+E           TypeError: Can't instantiate abstract class SecurityScanner with abstract methods configure, get_status
+
+tests/unit/monitoring/test_dependency_monitoring.py:54: TypeError
+________ TestSecurityMonitoring.test_security_scan[vulnerability_data1] ________
+
+self = <test_dependency_monitoring.TestSecurityMonitoring object at 0x15827fad0>
+event_bus = <src.core.event_bus.EventBus object at 0x15852ce10>
+mock_response = <MagicMock id='5776789328'>
+vulnerability_data = {'vulnerabilities': [{'id': 'CVE-2023-001', 'severity': 'high'}]}
+
+    @pytest.mark.parametrize("vulnerability_data", [
+        {"vulnerabilities": []},
+        {"vulnerabilities": [{"id": "CVE-2023-001", "severity": "high"}]},
+        {"vulnerabilities": None}
+    ])
+    def test_security_scan(self, event_bus, mock_response, vulnerability_data):
+        """测试安全扫描功能"""
+        mock_response.json.return_value = vulnerability_data
+    
+        with patch('requests.get', return_value=mock_response):
+>           scanner = SecurityScanner(event_bus)
+E           TypeError: Can't instantiate abstract class SecurityScanner with abstract methods configure, get_status
+
+tests/unit/monitoring/test_dependency_monitoring.py:54: TypeError
+________ TestSecurityMonitoring.test_security_scan[vulnerability_data2] ________
+
+self = <test_dependency_monitoring.TestSecurityMonitoring object at 0x15827fd50>
+event_bus = <src.core.event_bus.EventBus object at 0x15827c650>
+mock_response = <MagicMock id='5773979088'>
+vulnerability_data = {'vulnerabilities': None}
+
+    @pytest.mark.parametrize("vulnerability_data", [
+        {"vulnerabilities": []},
+        {"vulnerabilities": [{"id": "CVE-2023-001", "severity": "high"}]},
+        {"vulnerabilities": None}
+    ])
+    def test_security_scan(self, event_bus, mock_response, vulnerability_data):
+        """测试安全扫描功能"""
+        mock_response.json.return_value = vulnerability_data
+    
+        with patch('requests.get', return_value=mock_response):
+>           scanner = SecurityScanner(event_bus)
+E           TypeError: Can't instantiate abstract class SecurityScanner with abstract methods configure, get_status
+
+tests/unit/monitoring/test_dependency_monitoring.py:54: TypeError
+______________ TestIntegratedMonitoring.test_monitoring_workflow _______________
+
+self = <test_dependency_monitoring.TestIntegratedMonitoring object at 0x158512e50>
+event_bus = <src.core.event_bus.EventBus object at 0x1585a0e90>
+
+    def test_monitoring_workflow(self, event_bus):
+        """测试完整监控工作流"""
+        # 设置模拟响应
+        mock_responses = {
+            'version': {"status": "up_to_date"},
+            'security': {"vulnerabilities": []},
+            'compatibility': {"compatible": True}
+        }
+    
+        with patch('requests.get') as mock_get:
+            def mock_response(*args, **kwargs):
+                url = args[0]
+                response = MagicMock()
+                response.status_code = 200
+                if 'version' in url:
+                    response.json.return_value = mock_responses['version']
+                elif 'security' in url:
+                    response.json.return_value = mock_responses['security']
+                else:
+                    response.json.return_value = mock_responses['compatibility']
+                return response
+    
+            mock_get.side_effect = mock_response
+    
+            # 执行所有检查
+            version_checker = VersionChecker(event_bus)
+>           security_scanner = SecurityScanner(event_bus)
+E           TypeError: Can't instantiate abstract class SecurityScanner with abstract methods configure, get_status
+
+tests/unit/monitoring/test_dependency_monitoring.py:138: TypeError
+________________ TestIntegratedMonitoring.test_async_monitoring ________________
+
+self = <test_dependency_monitoring.TestIntegratedMonitoring object at 0x158513550>
+event_bus = <src.core.event_bus.EventBus object at 0x1585b9790>
+
+    @pytest.mark.asyncio
+    async def test_async_monitoring(self, event_bus):
+        """测试异步监控功能"""
+>       with patch('aiohttp.ClientSession.get') as mock_get:
+
+tests/unit/monitoring/test_dependency_monitoring.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/opt/miniconda3/envs/PyQt/lib/python3.11/unittest/mock.py:1430: in __enter__
+    self.target = self.getter()
+/opt/miniconda3/envs/PyQt/lib/python3.11/pkgutil.py:700: in resolve_name
+    mod = importlib.import_module(modname)
+/opt/miniconda3/envs/PyQt/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'aiohttp', import_ = <function _gcd_import at 0x1047e7d80>
+
+>   ???
+E   ModuleNotFoundError: No module named 'aiohttp'
+
+<frozen importlib._bootstrap>:1140: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data0] - TypeError: Can't instantiate abstract class SecurityScanner with abstract methods configure, get_status
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data1] - TypeError: Can't instantiate abstract class SecurityScanner with abstract methods configure, get_status
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestSecurityMonitoring::test_security_scan[vulnerability_data2] - TypeError: Can't instantiate abstract class SecurityScanner with abstract methods configure, get_status
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_monitoring_workflow - TypeError: Can't instantiate abstract class SecurityScanner with abstract methods configure, get_status
+FAILED tests/unit/monitoring/test_dependency_monitoring.py::TestIntegratedMonitoring::test_async_monitoring - ModuleNotFoundError: No module named 'aiohttp'
+========================= 5 failed, 8 passed in 0.17s ==========================

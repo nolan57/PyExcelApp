@@ -1,0 +1,32 @@
+[run]
+source = src
+omit = 
+    tests/*
+    setup.py
+    docs/*
+    scripts/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    pass
+    raise ImportError
+
+# 添加覆盖率目标
+fail_under = 80
+
+[html]
+directory = coverage_html
+title = Test Coverage Report
+
+# 添加分支覆盖
+branch = True
+
+# 添加上下文行数
+show_contexts = True
+
+# 忽略特定文件
+ignore_errors = True 

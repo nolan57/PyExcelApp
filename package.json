@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "test": "bash scripts/run_tests.sh",
+    "test:unit": "bash scripts/run_tests.sh unit",
+    "test:integration": "bash scripts/run_tests.sh integration",
+    "test:performance": "bash scripts/run_tests.sh performance",
+    "test:coverage": "bash scripts/run_tests.sh coverage"
+  }
+} 

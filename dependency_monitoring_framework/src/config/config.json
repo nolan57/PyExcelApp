@@ -1,0 +1,20 @@
+{
+    "security": {
+        "oss_index": {
+            "base_url": "https://ossindex.sonatype.org/api/v3/component-report",
+            "headers": {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            "auth": {
+                "username": "545266262@qq.com",
+                "api_key": "118aca2c06bec5d84878b43bceff2f5c0698d323"
+            }
+        },
+        "check": {
+            "severity_threshold": "medium",
+            "check_outdated": true,
+            "auto_update": false
+        }
+    }
+} 
